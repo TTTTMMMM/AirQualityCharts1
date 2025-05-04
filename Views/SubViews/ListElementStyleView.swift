@@ -22,5 +22,5 @@ struct ListelementStyleView: View {
 
 #Preview {
    
-   ListelementStyleView(nameOfImage: "Line-Graph", textToDisplayOnListElement: "Daily Trend")
+   ListelementStyleView(nameOfImage: "Line-Graph", textToDisplayOnListElement: "Daily Trend") 
 }
