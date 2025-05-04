@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct AirQualityChartsApp: App {
+   let clvmArrayInitial: [ChartListViewModel] = clvmArray
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(clvmArray: clvmArrayInitial)
+              .environmentObject(AQViewModel())
         }
     }
 }
