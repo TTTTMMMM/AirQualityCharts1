@@ -6,25 +6,6 @@ struct DailyView: View {
    @State var selectedDate = Date()
    @State var charted = false
    
-   var bounds: ClosedRange<Date> {
-      let start = Calendar.current.date(from: DateComponents(
-         timeZone: .current, year: 2025, month: 4, day: 17))!
-      let end = Date()
-      return start...end
-   }
-   
-   var dateFormatter: DateFormatter {
-      let formatter = DateFormatter()
-      formatter.dateFormat = "MMM dd, yyyy"
-      return formatter
-   }
-
-   var dateFormatter2: DateFormatter {
-      let formatter = DateFormatter()
-      formatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
-      return formatter
-   }
-   
    var body: some View {
       VStack (alignment: .center) {
          datePickerSection
@@ -48,6 +29,26 @@ struct DailyView: View {
 }
 
 extension DailyView {
+   
+   var bounds: ClosedRange<Date> {
+      let start = Calendar.current.date(from: DateComponents(
+         timeZone: .current, year: 2025, month: 4, day: 17))!
+      let end = Date()
+      return start...end
+   }
+   
+   var dateFormatter: DateFormatter {
+      let formatter = DateFormatter()
+      formatter.dateFormat = "MMM dd, yyyy"
+      return formatter
+   }
+   
+   var dateFormatter2: DateFormatter {
+      let formatter = DateFormatter()
+      formatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
+      return formatter
+   }
+   
    private var datePickerSection: some View {
       HStack(alignment: .center, spacing: 20) {
          DatePicker("",
