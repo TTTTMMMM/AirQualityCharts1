@@ -42,10 +42,12 @@ struct DailyView: View {
    }
 }
 
+
+#Preview {
+   DailyView()
+}
+
 extension DailyView {
-   
-   
-   
    private var datePickerSection: some View {
       HStack(alignment: .center, spacing: 20) {
          DatePicker("",
@@ -113,20 +115,4 @@ extension DailyView {
       }
       .background(Color.green)
    }
-   
-   
-}
-
-#Preview {
-   var dateFormatter: DateFormatter {
-      let formatter = DateFormatter()
-      formatter.dateFormat = "MMM dd, yyyy"
-      return formatter
-   }
-   var dateFormatter2: DateFormatter {
-      let formatter = DateFormatter()
-      formatter.dateFormat = "yy-MM-dd HH:mm:ss"
-      return formatter
-   }
-   DailyView()
 }
