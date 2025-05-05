@@ -1,4 +1,5 @@
 import SwiftUI
+import Charts
 
 struct DailyView: View {
 
@@ -95,25 +96,33 @@ extension DailyView {
             .multilineTextAlignment(.leading)
             .frame(maxWidth: .infinity)
             .background(Color.yellow)
-
-         Grid(alignment: .trailing, horizontalSpacing: 35, verticalSpacing: 10) {
-            ForEach(vm.aqMeasurements) {measurement in
-               GridRow {
-                  Text(verbatim: "\(measurement.id)")
-                     .bold()
-                     .font(.title2)
-                  Text("\(dateFormatter2.string(from: Date(timeIntervalSince1970: measurement.dt)))")
-                  Text("\(measurement.temperature, specifier: "%.1f")")
-                  Text("\(measurement.humidity, specifier: "%.1f")%")
-                  Text(verbatim: "\(measurement.eCO2)")
-                  Text("\(measurement.tVOC)")
-               }
-               .padding(.horizontal)
+         Chart {
+            ForEach (vm.aqMeasurements, id: \.id)  { measurement in
+               
+               LineMark(
+                  x: .value("Datetime", measurement.dt),
+                  y: .value("Temp", measurement.temperature)
+               )
             }
          }
+//         Grid(alignment: .trailing, horizontalSpacing: 35, verticalSpacing: 10) {
+//            ForEach(vm.aqMeasurements) {measurement in
+//               GridRow {
+//                  Text(verbatim: "\(measurement.id)")
+//                     .bold()
+//                     .font(.title2)
+//                  Text("\(dateFormatter2.string(from: Date(timeIntervalSince1970: measurement.dt)))")
+//                  Text("\(measurement.temperature, specifier: "%.1f")")
+//                  Text("\(measurement.humidity, specifier: "%.1f")%")
+//                  Text(verbatim: "\(measurement.eCO2)")
+//                  Text("\(measurement.tVOC)")
+//               }
+//               .padding(.horizontal)
+//            }
+//         }
          .padding(20)
          Spacer()
       }
-      .background(Color.green)
+      .background(Color.white)
    }
 }

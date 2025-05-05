@@ -1,4 +1,5 @@
 import Foundation
+import Charts
 
 struct AQMeasurement: Identifiable, Equatable {
    let id: Int
