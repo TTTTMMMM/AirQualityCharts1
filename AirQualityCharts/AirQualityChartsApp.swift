@@ -13,7 +13,7 @@ struct AirQualityChartsApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView(clvmArray: clvmArrayInitial)
-              .environmentObject(AQViewModel())
+//              .environmentObject(AQViewModel())
         }
     }
 }

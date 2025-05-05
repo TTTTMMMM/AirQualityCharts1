@@ -2,9 +2,8 @@ import SwiftUI
 
 struct DailyView: View {
 
-   @EnvironmentObject private var vm: AQViewModel
+   @StateObject var vm = AQViewModel()
    @State var selectedDate = Date()
-   @State var bgColor = Color.white
    @State var charted = false
    
    var bounds: ClosedRange<Date> {
@@ -28,58 +27,57 @@ struct DailyView: View {
    
    var body: some View {
       VStack (alignment: .center) {
-         HStack(alignment: .center, spacing: 20) {
-            DatePicker("",
-                       selection: $selectedDate,
-                       in: bounds,
-                       displayedComponents: [.date])
-            .datePickerStyle(
-               GraphicalDatePickerStyle()
-            )
-            Button(action: {
-               charted.toggle()
-               vm.getAQMeasurements(dt: 1746135360)
-            },
-                   label: {
-               Text("Graph Data for\n \(self.dateFormatter.string(from: self.selectedDate))")
-                  .font(.headline)
-                  .foregroundStyle(.white)
-            })
-            .padding(10)
-            .font(.title)
-            .background(Color.black)
-            .clipShape(RoundedRectangle(cornerRadius: 20))
-         }
-         .padding(10)
-         Spacer()
-            .frame(maxWidth: .infinity)
-            .fullScreenCover(isPresented: $charted) {
-               ChartScreen(
-                  selectedDate: selectedDate,
-                  dateFormatter: dateFormatter,
-                  dateFormatter2: dateFormatter2
-               )
-            }
+         datePickerSection
       }
-      .padding()
-      .background(bgColor)
+      Spacer()
+         .fullScreenCover(isPresented: $charted) {
+            ChartScreen(
+               selectedDate: selectedDate,
+               dateFormatter: dateFormatter,
+               dateFormatter2: dateFormatter2
+            )
+         }
+         .padding()
+         .background(Color.white)
    }
 }
 
-struct ChartScreen: View {
+extension DailyView {
    
-   @Environment(\.dismiss) private var dismiss
-   @EnvironmentObject private var vm: AQViewModel
-   @State var bg: Color = .green
    
-   let selectedDate: Date
-   let dateFormatter: DateFormatter
-   let dateFormatter2: DateFormatter
    
-   var body: some View {
+   private var datePickerSection: some View {
+      HStack(alignment: .center, spacing: 20) {
+         DatePicker("",
+                    selection: $selectedDate,
+                    in: bounds,
+                    displayedComponents: [.date])
+         .datePickerStyle(
+            GraphicalDatePickerStyle()
+         )
+         Button(action: {
+            charted.toggle()
+            vm.getAQMeasurements(dt: 1746135360)
+         },
+                label: {
+            Text("Graph Data for\n \(self.dateFormatter.string(from: self.selectedDate))")
+               .font(.headline)
+               .foregroundStyle(.white)
+         })
+         .padding(10)
+         .font(.title)
+         .background(Color.accentColor)
+         .clipShape(RoundedRectangle(cornerRadius: 10))
+         .shadow(color: Color.black.opacity(0.9), radius: 10, x: 0, y: 5)
+      }
+      .padding(40)
+   }
+   
+   func ChartScreen(selectedDate: Date, dateFormatter: DateFormatter, dateFormatter2: DateFormatter) -> some View {
+
       VStack () {
          Button(action: {
-            self.dismiss()
+            charted.toggle()
          }, label: {
             Image(systemName: "clear")
                .foregroundStyle(.white)
@@ -113,11 +111,11 @@ struct ChartScreen: View {
          .padding(20)
          Spacer()
       }
-      .background(bg)
+      .background(Color.green)
    }
+   
+   
 }
-
-
 
 #Preview {
    var dateFormatter: DateFormatter {
@@ -130,7 +128,5 @@ struct ChartScreen: View {
       formatter.dateFormat = "yy-MM-dd HH:mm:ss"
       return formatter
    }
-//   ChartScreen(selectedDate: .now, dateFormatter: dateFormatter, dateFormatter2: dateFormatter2)
    DailyView()
-      .environmentObject(AQViewModel())
 }
