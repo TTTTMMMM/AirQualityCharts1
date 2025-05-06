@@ -98,9 +98,8 @@ extension DailyView {
             .background(Color.yellow)
          Chart {
             ForEach (vm.aqMeasurements, id: \.id)  { measurement in
-               
                LineMark(
-                  x: .value("Datetime", measurement.dt),
+                  x: .value("Datetime", measurement.timeString),
                   y: .value("Temp", measurement.temperature)
                )
             }
