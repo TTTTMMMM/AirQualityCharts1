@@ -133,6 +133,8 @@ extension DailyView {
                .foregroundStyle(Color.red)
             }
          }
+         .chartScrollableAxes(.horizontal)
+         .chartXVisibleDomain(length: 10)
          .chartLegend(position: .top, alignment: .leading, spacing: 8)
          .chartForegroundStyleScale(
             ["Temperature": Color.accentColor,
@@ -141,7 +143,7 @@ extension DailyView {
              "tVOC": Color.red
             ]
          )
-         //         .chartForegroundStyleScale(["eCO2": Color.blue])
+//         .chartForegroundStyleScale(["eCO2": Color.blue])
          .chartYAxis {
             AxisMarks(position: .leading)
          }
@@ -149,25 +151,29 @@ extension DailyView {
       .padding(1)
    }
    
-   private var backButton:some View {
+   private var backButton: some View {
       Button(action: {
          charted.toggle()
       }, label: {
          Image(systemName: "clear")
-            .foregroundStyle(.white)
-            .font(.title3)
-            .padding(1)
+            .font(.title2)
+            .padding(6)
+            .foregroundStyle(.primary)
+            .background(.thickMaterial)
+            .cornerRadius(10)
+            .shadow(radius: 4)
+            .frame(maxWidth: .infinity, alignment: .leading)
       })
-      .frame(maxWidth: .infinity, alignment: .leading)
-      .background(Color.blue)
+      .padding(.leading, 45)
    }
    
    func dailyChartSheet() -> some View {
-      VStack () {
-         backButton
-         theDailyChart()
-         Spacer()
-      }
-      .background(Color.white)
+         VStack () {
+            theDailyChart()
+         }
+         .padding(6)
+         .ignoresSafeArea()
+         .background(.ultraThinMaterial)
+         .overlay(backButton, alignment: .topLeading)
    }
  }
