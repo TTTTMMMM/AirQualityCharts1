@@ -9,7 +9,7 @@ struct DailyView: View {
    private var bounds: ClosedRange<Date>!
    private var dateFormatter: DateFormatter!
    private var dateFormatter2: DateFormatter!
-   
+   private var lineGraphsToDisplay: [graphType]
 
    init() {
       let start = Calendar.current.date(from: DateComponents(
@@ -25,7 +25,7 @@ struct DailyView: View {
       formatter2.dateFormat = "YYYY-MM-dd HH:mm:ss"
       self.dateFormatter2 = formatter2
       
-      
+      self.lineGraphsToDisplay = [.temperature, .humidity, .eCO2, .tVOC]
       }
    
    var body: some View {
@@ -80,7 +80,7 @@ extension DailyView {
          Text("Daily Environment Chart for \(self.dateFormatter.string(from: self.selectedDate))")
             .font(.title2)
          Chart {
-            ForEach (vm.aqMeasurements, id: \.id)  { measurement in
+            ForEach (vm.aqMeasurements)  { measurement in
                // temperature
                PointMark(
                   x: .value("timestamp", measurement.timeString),
