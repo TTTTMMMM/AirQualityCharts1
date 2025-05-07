@@ -78,95 +78,99 @@ extension DailyView {
    }
    
    func backButton () -> some View {
-      Text("hi")
+      Button(action: {
+         charted.toggle()
+      }, label: {
+         Image(systemName: "clear")
+            .foregroundStyle(.white)
+            .font(.title3)
+            .padding(1)
+      })
+      .frame(maxWidth: .infinity, alignment: .leading)
+      .background(Color.blue)
+   }
+   
+   func theDailyChart() -> some View {
+      GroupBox {
+         Text("Daily Environment Chart for \(self.dateFormatter.string(from: self.selectedDate))")
+            .font(.title2)
+         Chart {
+            ForEach (vm.aqMeasurements, id: \.id)  { measurement in
+               // temperature
+               PointMark(
+                  x: .value("timestamp", measurement.timeString),
+                  y: .value("temperature", measurement.temperature)
+               )
+               .symbol(.triangle)
+               .foregroundStyle(.green)
+               LineMark(
+                  x: .value("timestamp", measurement.timeString),
+                  y: .value("temperature", measurement.temperature),
+                  series: .value("temperature", "A")
+               )
+               .foregroundStyle(Color.green)
+               // humidity
+               PointMark(
+                  x: .value("timestamp", measurement.timeString),
+                  y: .value("humidity", measurement.humidity)
+               )
+               .symbol(.square)
+               .foregroundStyle(.black)
+               LineMark(
+                  x: .value("timestamp", measurement.timeString),
+                  y: .value("humidity", measurement.humidity),
+                  series: .value("humidity", "B")
+               )
+               .foregroundStyle(Color.black)
+               // eCO2
+               PointMark(
+                  x: .value("timestamp", measurement.timeString),
+                  y: .value("ECO2", measurement.unBiasedECO2)
+               )
+               .symbol(.circle)
+               .foregroundStyle(.blue)
+               LineMark(
+                  x: .value("timestamp", measurement.timeString),
+                  y: .value("ECO2", measurement.unBiasedECO2),
+                  series: .value("unBiasedECO2", "C")
+               )
+               .foregroundStyle(Color.blue)
+               // tVOC
+               PointMark(
+                  x: .value("timestamp", measurement.timeString),
+                  y: .value("tVOC", measurement.tVOC)
+               )
+               .symbol(.diamond)
+               .foregroundStyle(.red)
+               LineMark(
+                  x: .value("timestamp", measurement.timeString),
+                  y: .value("tVOC", measurement.tVOC),
+                  series: .value("tVOC", "D")
+               )
+               .foregroundStyle(Color.red)
+            }
+         }
+         .chartLegend(position: .top, alignment: .leading, spacing: 8)
+         //         .chartForegroundStyleScale(
+         //            ["Temperature": Color.accentColor,
+         //             "Humidity": Color.black,
+         //             "eCO2": Color.blue,
+         //             "tVOC": Color.red
+         //            ]
+         //         )
+         .chartForegroundStyleScale(["eCO2": Color.blue])
+         .chartYAxis {
+            AxisMarks(position: .leading)
+         }
+      }
+      .padding(1)
    }
    
    func dailyChartSheet(selectedDate: Date, dateFormatter: DateFormatter, dateFormatter2: DateFormatter) -> some View {
       
       VStack () {
-         Button(action: {
-            charted.toggle()
-         }, label: {
-            Image(systemName: "clear")
-               .foregroundStyle(.white)
-               .font(.largeTitle)
-               .padding(1)
-         })
-         .frame(maxWidth: .infinity, alignment: .leading)
-         .background(Color.blue)
-         GroupBox {
-            Text("Daily Environment Chart for \(self.dateFormatter.string(from: self.selectedDate))")
-               .font(.title2)
-            Chart {
-               ForEach (vm.aqMeasurements, id: \.id)  { measurement in
-                  // temperature
-                  PointMark(
-                     x: .value("timestamp", measurement.timeString),
-                     y: .value("temperature", measurement.temperature)
-                  )
-                  .symbol(.triangle)
-                  .foregroundStyle(.green)
-                  LineMark(
-                     x: .value("timestamp", measurement.timeString),
-                     y: .value("temperature", measurement.temperature),
-                     series: .value("temperature", "A")
-                  )
-                  .foregroundStyle(Color.green)
-                  // humidity
-                  PointMark(
-                     x: .value("timestamp", measurement.timeString),
-                     y: .value("humidity", measurement.humidity)
-                  )
-                  .symbol(.square)
-                  .foregroundStyle(.black)
-                  LineMark(
-                     x: .value("timestamp", measurement.timeString),
-                     y: .value("humidity", measurement.humidity),
-                     series: .value("humidity", "B")
-                  )
-                  .foregroundStyle(Color.black)
-                  // eCO2
-                  PointMark(
-                     x: .value("timestamp", measurement.timeString),
-                     y: .value("ECO2", measurement.unBiasedECO2)
-                  )
-                  .symbol(.circle)
-                  .foregroundStyle(.blue)
-                  LineMark(
-                     x: .value("timestamp", measurement.timeString),
-                     y: .value("ECO2", measurement.unBiasedECO2),
-                     series: .value("unBiasedECO2", "C")
-                  )
-                  .foregroundStyle(Color.blue)
-                  // tVOC
-                  PointMark(
-                     x: .value("timestamp", measurement.timeString),
-                     y: .value("tVOC", measurement.tVOC)
-                  )
-                  .symbol(.diamond)
-                  .foregroundStyle(.red)
-                  LineMark(
-                     x: .value("timestamp", measurement.timeString),
-                     y: .value("tVOC", measurement.tVOC),
-                     series: .value("tVOC", "D")
-                  )
-                  .foregroundStyle(Color.red)
-               }
-            }
-            .chartLegend(position: .top, alignment: .leading, spacing: 8)
-            //            .chartForegroundStyleScale(
-            //               ["Temperature": Color.accentColor,
-            //                "Humidity": Color.black,
-            //                "eCO2": Color.blue,
-            //                "tVOC": Color.red
-            //               ]
-            //            )
-            .chartForegroundStyleScale(["eCO2": Color.blue])
-            .chartYAxis {
-               AxisMarks(position: .leading)
-            }
-         }
-         .padding(1)
+         backButton()
+         theDailyChart()
          Spacer()
       }
       .background(Color.white)
