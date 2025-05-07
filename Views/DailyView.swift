@@ -6,6 +6,27 @@ struct DailyView: View {
    @StateObject var vm = AQViewModel()
    @State var selectedDate = Date()
    @State var charted = false
+   private var bounds: ClosedRange<Date>!
+   private var dateFormatter: DateFormatter!
+   private var dateFormatter2: DateFormatter!
+   
+
+   init() {
+      let start = Calendar.current.date(from: DateComponents(
+         timeZone: .current, year: 2025, month: 4, day: 17))!
+      let end = Date()
+      self.bounds = start...end
+
+      let formatter = DateFormatter()
+      formatter.dateFormat = "MMM dd, yyyy"
+      self.dateFormatter = formatter
+      
+      let formatter2 = DateFormatter()
+      formatter2.dateFormat = "YYYY-MM-dd HH:mm:ss"
+      self.dateFormatter2 = formatter2
+      
+      
+      }
    
    var body: some View {
       VStack (alignment: .center) {
@@ -26,25 +47,6 @@ struct DailyView: View {
 }
 
 extension DailyView {
-   
-   var bounds: ClosedRange<Date> {
-      let start = Calendar.current.date(from: DateComponents(
-         timeZone: .current, year: 2025, month: 4, day: 17))!
-      let end = Date()
-      return start...end
-   }
-   
-   var dateFormatter: DateFormatter {
-      let formatter = DateFormatter()
-      formatter.dateFormat = "MMM dd, yyyy"
-      return formatter
-   }
-   
-   var dateFormatter2: DateFormatter {
-      let formatter = DateFormatter()
-      formatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
-      return formatter
-   }
    
    private var datePickerSection: some View {
       HStack(alignment: .center, spacing: 20) {
@@ -136,14 +138,14 @@ extension DailyView {
          .chartScrollableAxes(.horizontal)
          .chartXVisibleDomain(length: 10)
          .chartLegend(position: .top, alignment: .leading, spacing: 8)
-         .chartForegroundStyleScale(
-            ["Temperature": Color.accentColor,
-             "Humidity": Color.black,
-             "eCO2": Color.blue,
-             "tVOC": Color.red
-            ]
-         )
-//         .chartForegroundStyleScale(["eCO2": Color.blue])
+//         .chartForegroundStyleScale(
+//            ["Temperature": Color.accentColor,
+//             "Humidity": Color.black,
+//             "eCO2": Color.blue,
+//             "tVOC": Color.red
+//            ]
+//         )
+         .chartForegroundStyleScale(["eCO2": Color.blue])
          .chartYAxis {
             AxisMarks(position: .leading)
          }
