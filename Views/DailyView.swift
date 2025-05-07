@@ -6,10 +6,11 @@ struct DailyView: View {
    @StateObject var vm = AQViewModel()
    @State var selectedDate = Date()
    @State var charted = false
+   @State var lineGraphsToDisplay: [graphType]
+
    private var bounds: ClosedRange<Date>!
    private var dateFormatter: DateFormatter!
    private var dateFormatter2: DateFormatter!
-   private var lineGraphsToDisplay: [graphType]
 
    init() {
       let start = Calendar.current.date(from: DateComponents(
@@ -75,7 +76,7 @@ extension DailyView {
       .padding(40)
    }
    
-   func theDailyChart() -> some View {
+   func showLineGraphs() -> some View {
       GroupBox {
          Text("Daily Environment Chart for \(self.dateFormatter.string(from: self.selectedDate))")
             .font(.title2)
@@ -170,7 +171,7 @@ extension DailyView {
    
    func dailyChartSheet() -> some View {
          VStack () {
-            theDailyChart()
+            showLineGraphs()
          }
          .ignoresSafeArea()
          .background(.ultraThinMaterial)
