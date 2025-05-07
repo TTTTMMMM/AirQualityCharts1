@@ -148,7 +148,7 @@ extension DailyView {
             AxisMarks(position: .leading)
          }
       }
-      .padding(1)
+      .padding(12)
    }
    
    private var backButton: some View {
@@ -162,7 +162,6 @@ extension DailyView {
             .background(.thickMaterial)
             .cornerRadius(10)
             .shadow(radius: 4)
-            .frame(maxWidth: .infinity, alignment: .leading)
       })
       .padding(.leading, 45)
    }
@@ -171,7 +170,6 @@ extension DailyView {
          VStack () {
             theDailyChart()
          }
-         .padding(6)
          .ignoresSafeArea()
          .background(.ultraThinMaterial)
          .overlay(backButton, alignment: .topLeading)
