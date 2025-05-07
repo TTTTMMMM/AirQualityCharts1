@@ -73,19 +73,6 @@ extension DailyView {
       .padding(40)
    }
    
-   func backButton () -> some View {
-      Button(action: {
-         charted.toggle()
-      }, label: {
-         Image(systemName: "clear")
-            .foregroundStyle(.white)
-            .font(.title3)
-            .padding(1)
-      })
-      .frame(maxWidth: .infinity, alignment: .leading)
-      .background(Color.blue)
-   }
-   
    func theDailyChart() -> some View {
       GroupBox {
          Text("Daily Environment Chart for \(self.dateFormatter.string(from: self.selectedDate))")
@@ -147,19 +134,32 @@ extension DailyView {
             }
          }
          .chartLegend(position: .top, alignment: .leading, spacing: 8)
-                  .chartForegroundStyleScale(
-                     ["Temperature": Color.accentColor,
-                      "Humidity": Color.black,
-                      "eCO2": Color.blue,
-                      "tVOC": Color.red
-                     ]
-                  )
-//         .chartForegroundStyleScale(["eCO2": Color.blue])
+//                  .chartForegroundStyleScale(
+//                     ["Temperature": Color.accentColor,
+//                      "Humidity": Color.black,
+//                      "eCO2": Color.blue,
+//                      "tVOC": Color.red
+//                     ]
+//                  )
+         .chartForegroundStyleScale(["eCO2": Color.blue])
          .chartYAxis {
             AxisMarks(position: .leading)
          }
       }
       .padding(1)
+   }
+   
+   func backButton () -> some View {
+      Button(action: {
+         charted.toggle()
+      }, label: {
+         Image(systemName: "clear")
+            .foregroundStyle(.white)
+            .font(.title3)
+            .padding(1)
+      })
+      .frame(maxWidth: .infinity, alignment: .leading)
+      .background(Color.blue)
    }
    
    func dailyChartSheet() -> some View {
