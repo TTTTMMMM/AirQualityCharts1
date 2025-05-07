@@ -16,7 +16,10 @@ struct AQMeasurement: Identifiable, Equatable {
    }
    var timeString: String {
       let dateFormatter = DateFormatter()
-      dateFormatter.dateFormat = "HH:mm:ss"
+      dateFormatter.dateFormat = "HH:mm"
       return dateFormatter.string(from: Date(timeIntervalSince1970: dt))
+   }
+   var unBiasedECO2: Int {
+      return eCO2-400
    }
 }

@@ -13,7 +13,7 @@ struct DailyView: View {
       }
       Spacer()
          .fullScreenCover(isPresented: $charted) {
-            ChartScreen(
+            DailyChartSheet(
                selectedDate: selectedDate,
                dateFormatter: dateFormatter,
                dateFormatter2: dateFormatter2
@@ -77,8 +77,8 @@ extension DailyView {
       .padding(40)
    }
    
-   func ChartScreen(selectedDate: Date, dateFormatter: DateFormatter, dateFormatter2: DateFormatter) -> some View {
-
+   func DailyChartSheet(selectedDate: Date, dateFormatter: DateFormatter, dateFormatter2: DateFormatter) -> some View {
+      
       VStack () {
          Button(action: {
             charted.toggle()
@@ -90,38 +90,81 @@ extension DailyView {
          })
          .frame(maxWidth: .infinity, alignment: .leading)
          .background(Color.blue)
-         Text("\(self.dateFormatter.string(from: self.selectedDate))")
-            .font(.title)
-            .foregroundStyle(.black)
-            .multilineTextAlignment(.leading)
-            .frame(maxWidth: .infinity)
-            .background(Color.yellow)
-         Chart {
-            ForEach (vm.aqMeasurements, id: \.id)  { measurement in
-               LineMark(
-                  x: .value("Datetime", measurement.timeString),
-                  y: .value("Temp", measurement.temperature)
-               )
+         GroupBox {
+            Text("Daily Environment Chart for \(self.dateFormatter.string(from: self.selectedDate))")
+               .font(.title2)
+            Chart {
+               ForEach (vm.aqMeasurements, id: \.id)  { measurement in
+                  // temperature
+                  PointMark(
+                     x: .value("timestamp", measurement.timeString),
+                     y: .value("temperature", measurement.temperature)
+                  )
+                  .symbol(.triangle)
+                  .foregroundStyle(.green)
+                  LineMark(
+                     x: .value("timestamp", measurement.timeString),
+                     y: .value("temperature", measurement.temperature),
+                     series: .value("temperature", "A")
+                  )
+                  .foregroundStyle(Color.green)
+                  // humidity
+                  PointMark(
+                     x: .value("timestamp", measurement.timeString),
+                     y: .value("humidity", measurement.humidity)
+                  )
+                  .symbol(.square)
+                  .foregroundStyle(.black)
+                  LineMark(
+                     x: .value("timestamp", measurement.timeString),
+                     y: .value("humidity", measurement.humidity),
+                     series: .value("humidity", "B")
+                  )
+                  .foregroundStyle(Color.black)
+                  // eCO2
+                  PointMark(
+                     x: .value("timestamp", measurement.timeString),
+                     y: .value("ECO2", measurement.unBiasedECO2)
+                  )
+                  .symbol(.circle)
+                  .foregroundStyle(.blue)
+                  LineMark(
+                     x: .value("timestamp", measurement.timeString),
+                     y: .value("ECO2", measurement.unBiasedECO2),
+                     series: .value("unBiasedECO2", "C")
+                  )
+                  .foregroundStyle(Color.blue)
+                  // tVOC
+                  PointMark(
+                     x: .value("timestamp", measurement.timeString),
+                     y: .value("tVOC", measurement.tVOC)
+                  )
+                  .symbol(.diamond)
+                  .foregroundStyle(.red)
+                  LineMark(
+                     x: .value("timestamp", measurement.timeString),
+                     y: .value("tVOC", measurement.tVOC),
+                     series: .value("tVOC", "D")
+                  )
+                  .foregroundStyle(Color.red)
+               }
+            }
+            .chartLegend(position: .top, alignment: .leading, spacing: 8)
+            //            .chartForegroundStyleScale(
+            //               ["Temperature": Color.accentColor,
+            //                "Humidity": Color.black,
+            //                "eCO2": Color.blue,
+            //                "tVOC": Color.red
+            //               ]
+            //            )
+            .chartForegroundStyleScale(["eCO2": Color.blue])
+            .chartYAxis {
+               AxisMarks(position: .leading)
             }
          }
-//         Grid(alignment: .trailing, horizontalSpacing: 35, verticalSpacing: 10) {
-//            ForEach(vm.aqMeasurements) {measurement in
-//               GridRow {
-//                  Text(verbatim: "\(measurement.id)")
-//                     .bold()
-//                     .font(.title2)
-//                  Text("\(dateFormatter2.string(from: Date(timeIntervalSince1970: measurement.dt)))")
-//                  Text("\(measurement.temperature, specifier: "%.1f")")
-//                  Text("\(measurement.humidity, specifier: "%.1f")%")
-//                  Text(verbatim: "\(measurement.eCO2)")
-//                  Text("\(measurement.tVOC)")
-//               }
-//               .padding(.horizontal)
-//            }
-//         }
-         .padding(20)
+         .padding(1)
          Spacer()
       }
       .background(Color.white)
    }
-}
+ }

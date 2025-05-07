@@ -13,7 +13,7 @@ class AQViewModel: ObservableObject {
    
    func getAQMeasurements(dt: Int) -> Void {
       print("AQViewModel.getAQMeasurements()")
-      self.aqMeasurements.removeFirst()
+//      self.aqMeasurements.removeFirst()
    }
       
    
