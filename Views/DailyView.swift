@@ -13,7 +13,7 @@ struct DailyView: View {
       }
       Spacer()
          .fullScreenCover(isPresented: $charted) {
-            DailyChartSheet(
+            dailyChartSheet(
                selectedDate: selectedDate,
                dateFormatter: dateFormatter,
                dateFormatter2: dateFormatter2
@@ -77,7 +77,11 @@ extension DailyView {
       .padding(40)
    }
    
-   func DailyChartSheet(selectedDate: Date, dateFormatter: DateFormatter, dateFormatter2: DateFormatter) -> some View {
+   func backButton () -> some View {
+      Text("hi")
+   }
+   
+   func dailyChartSheet(selectedDate: Date, dateFormatter: DateFormatter, dateFormatter2: DateFormatter) -> some View {
       
       VStack () {
          Button(action: {
