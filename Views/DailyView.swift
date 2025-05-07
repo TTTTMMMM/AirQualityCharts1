@@ -134,14 +134,14 @@ extension DailyView {
             }
          }
          .chartLegend(position: .top, alignment: .leading, spacing: 8)
-//                  .chartForegroundStyleScale(
-//                     ["Temperature": Color.accentColor,
-//                      "Humidity": Color.black,
-//                      "eCO2": Color.blue,
-//                      "tVOC": Color.red
-//                     ]
-//                  )
-         .chartForegroundStyleScale(["eCO2": Color.blue])
+         .chartForegroundStyleScale(
+            ["Temperature": Color.accentColor,
+             "Humidity": Color.black,
+             "eCO2": Color.blue,
+             "tVOC": Color.red
+            ]
+         )
+         //         .chartForegroundStyleScale(["eCO2": Color.blue])
          .chartYAxis {
             AxisMarks(position: .leading)
          }
@@ -149,7 +149,7 @@ extension DailyView {
       .padding(1)
    }
    
-   func backButton () -> some View {
+   private var backButton:some View {
       Button(action: {
          charted.toggle()
       }, label: {
@@ -164,7 +164,7 @@ extension DailyView {
    
    func dailyChartSheet() -> some View {
       VStack () {
-         backButton()
+         backButton
          theDailyChart()
          Spacer()
       }
