@@ -6,12 +6,10 @@ struct DailyView: View {
    @StateObject var vm = AQViewModel()
    @State var selectedDate = Date()
    @State var charted = false
-   @State var lineGraphsToDisplay: [graphType]
    @State var displayTemperature = true
    @State var displayHumidity = true
    @State var displayECO2 = true
    @State var displayTVOC = true
-
 
    private var bounds: ClosedRange<Date>!
    private var dateFormatter: DateFormatter!
@@ -30,9 +28,6 @@ struct DailyView: View {
       let formatter2 = DateFormatter()
       formatter2.dateFormat = "YYYY-MM-dd HH:mm:ss"
       self.dateFormatter2 = formatter2
-      
-//      self.lineGraphsToDisplay = [.temperature, .humidity, .eCO2, .tVOC]
-      self.lineGraphsToDisplay = [.temperature]
       }
    
    var body: some View {
@@ -161,7 +156,7 @@ extension DailyView {
 //             "tVOC": Color.red
 //            ]
 //         )
-         .chartForegroundStyleScale(["eCO2": Color.blue])
+         .chartForegroundStyleScale(["eCO2": Color.blue, "Temperature": Color.accentColor, "Humidity": Color.black])
          .chartYAxis {
             AxisMarks(position: .leading)
          }
