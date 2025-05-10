@@ -15,7 +15,7 @@
 		04CCA3AC2DC27F7000710E41 /* ChartListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA3AB2DC27F7000710E41 /* ChartListViewModel.swift */; };
 		04CCA3B02DC419CD00710E41 /* AQMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA3AF2DC419CD00710E41 /* AQMeasurement.swift */; };
 		04CCA3B82DC67B6B00710E41 /* AQViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA3B72DC67B6B00710E41 /* AQViewModel.swift */; };
-		04CCA3C72DC6C98200710E41 /* AQDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA3B62DC4212000710E41 /* AQDataService.swift */; };
+		04CCA3C72DC6C98200710E41 /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA3B62DC4212000710E41 /* DataLoader.swift */; };
 		04CCA3D82DCBB9F400710E41 /* aqEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA3D72DCBB9F400710E41 /* aqEnums.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,7 +47,7 @@
 		04CCA3A52DC27F7000710E41 /* WeeklyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyView.swift; sourceTree = "<group>"; };
 		04CCA3AB2DC27F7000710E41 /* ChartListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartListViewModel.swift; sourceTree = "<group>"; };
 		04CCA3AF2DC419CD00710E41 /* AQMeasurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AQMeasurement.swift; sourceTree = "<group>"; };
-		04CCA3B62DC4212000710E41 /* AQDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AQDataService.swift; sourceTree = "<group>"; };
+		04CCA3B62DC4212000710E41 /* DataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoader.swift; sourceTree = "<group>"; };
 		04CCA3B72DC67B6B00710E41 /* AQViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AQViewModel.swift; sourceTree = "<group>"; };
 		04CCA3D72DCBB9F400710E41 /* aqEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aqEnums.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -148,7 +148,7 @@
 		04CCA3B52DC420CB00710E41 /* DataServices */ = {
 			isa = PBXGroup;
 			children = (
-				04CCA3B62DC4212000710E41 /* AQDataService.swift */,
+				04CCA3B62DC4212000710E41 /* DataLoader.swift */,
 			);
 			path = DataServices;
 			sourceTree = "<group>";
@@ -305,7 +305,7 @@
 				04CCA3A92DC27F7000710E41 /* DailyView.swift in Sources */,
 				04CCA3AA2DC27F7000710E41 /* WeeklyView.swift in Sources */,
 				04CCA3D82DCBB9F400710E41 /* aqEnums.swift in Sources */,
-				04CCA3C72DC6C98200710E41 /* AQDataService.swift in Sources */,
+				04CCA3C72DC6C98200710E41 /* DataLoader.swift in Sources */,
 				04CCA3B02DC419CD00710E41 /* AQMeasurement.swift in Sources */,
 				04CCA3B82DC67B6B00710E41 /* AQViewModel.swift in Sources */,
 				04CCA3AC2DC27F7000710E41 /* ChartListViewModel.swift in Sources */,

@@ -37,6 +37,14 @@ struct DailyView: View {
       Spacer()
          .fullScreenCover(isPresented: $charted) {
             dailyChartSheet()
+               .task {
+                  do {
+                     try await vm.getAQMeasurements(dt: 1746135360)
+                  }
+                  catch {
+                     print(error.localizedDescription)
+                  }
+               }
          }
          .padding()
          .background(Color.white)
@@ -61,7 +69,7 @@ extension DailyView {
          )
          Button(action: {
             charted.toggle()
-            vm.getAQMeasurements(dt: 1746135360)
+//            vm.getAQMeasurements(dt: 1746135360)
          },
                 label: {
             Text("Graph Data for\n \(self.dateFormatter.string(from: self.selectedDate))")
@@ -146,6 +154,7 @@ extension DailyView {
          .animation(.linear(duration: 0.6), value: displayHumidity)
          .animation(.linear(duration: 0.6), value: displayECO2)
          .animation(.linear(duration: 0.6), value: displayTVOC)
+         .animation(.linear(duration: 2.6), value: vm.aqMeasurements)
          .chartScrollableAxes(.horizontal)
          .chartXVisibleDomain(length: 10)
          .chartLegend(position: .top, alignment: .leading, spacing: 8)
@@ -167,6 +176,14 @@ extension DailyView {
    private var backButton: some View {
       Button(action: {
          charted.toggle()
+         Task {
+               do {
+                  try await vm.clearAQMeasurements()
+               }
+               catch {
+                  print(error.localizedDescription)
+               }
+         }
       }, label: {
          Image(systemName: "clear")
             .font(.title2)
