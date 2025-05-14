@@ -69,7 +69,6 @@ extension DailyView {
          )
          Button(action: {
             charted.toggle()
-//            vm.getAQMeasurements(dt: 1746135360)
          },
                 label: {
             Text("Graph Data for\n \(self.dateFormatter.string(from: self.selectedDate))")
