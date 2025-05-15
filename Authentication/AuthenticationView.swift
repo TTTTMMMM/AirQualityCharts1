@@ -1,29 +1,14 @@
 import SwiftUI
-import GoogleSignIn
-import GoogleSignInSwift
-
-struct GoogleSignInResultModel {
-   let idToken: String
-   let accesToken: String
-}
+import GoogleSignIn        // used to create Google Signin Button in the view
+import GoogleSignInSwift   // used to create Google Signin Button in the view
 
 @MainActor
 final class AuthenticationViewModel: ObservableObject {
    
    func signInGoogle() async throws {
-      guard let topVC = Utilities.shared.topViewController() else {
-         throw URLError(.cannotFindHost)
-      }
-      let gidSignInResult = try await GIDSignIn.sharedInstance.signIn(withPresenting: topVC)
-      
-      guard let idToken = gidSignInResult.user.idToken?.tokenString else {
-         throw URLError(.badServerResponse)
-      }
-      let accessToken = gidSignInResult.user.accessToken.tokenString
-      
-      let tokens = GoogleSignInResultModel(idToken: idToken, accesToken: accessToken)
-      let user = try await AuthenticationManager.shared.signInWithGoogle(tokens: tokens)
-      print(user)
+      let helper = SignInGoogleHelper()
+      let tokens = try await helper.signIn()
+      try await AuthenticationManager.shared.signInWithGoogle(tokens: tokens)
    }
 }
 
@@ -34,17 +19,17 @@ struct AuthenticationView: View {
    
     var body: some View {
        VStack {
-          NavigationLink {
-             SignInView(showSignInView: $showSignInView)
-          } label: {
-             Text("Sign In With Email")
-                .font(.headline)
-                .foregroundColor(.white)
-                .frame(height: 55)
-                .frame(maxWidth: .infinity)
-                .background(Color.blue)
-                .cornerRadius(10)
-          }
+//          NavigationLink {
+//             SignInView(showSignInView: $showSignInView)
+//          } label: {
+//             Text("Sign In With Email")
+//                .font(.headline)
+//                .foregroundColor(.white)
+//                .frame(height: 55)
+//                .frame(maxWidth: .infinity)
+//                .background(Color.blue)
+//                .cornerRadius(10)
+//          }
           
           GoogleSignInButton(
             viewModel:GoogleSignInButtonViewModel(

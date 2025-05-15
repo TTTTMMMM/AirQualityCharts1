@@ -28,7 +28,7 @@ struct SettingsView: View {
              }
           }
           
-          emailSection
+//          emailSection
 
        }
        .navigationBarTitle("Settings")
@@ -41,13 +41,13 @@ struct SettingsView: View {
    }
 }
 
-extension SettingsView {
-   
-   private var emailSection: some View {
-      Section {
-         Text("Other email buttons that I did not implement here")
-      } header: {
-         Text("Email functions")
-      }
-   }
-}
+//extension SettingsView {
+//   
+//   private var emailSection: some View {
+//      Section {
+//         Text("Other email buttons that I did not implement here")
+//      } header: {
+//         Text("Email functions")
+//      }
+//   }
+//}

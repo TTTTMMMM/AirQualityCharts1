@@ -32,6 +32,7 @@
 		04CCA4092DD51EF100710E41 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA4082DD51EF100710E41 /* RootView.swift */; };
 		04CCA40B2DD5264B00710E41 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA40A2DD5264B00710E41 /* SettingsView.swift */; };
 		04CCA41E2DD547E500710E41 /* utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA41D2DD547E500710E41 /* utilities.swift */; };
+		04CCA4202DD55E6E00710E41 /* SignInGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA41F2DD55E6E00710E41 /* SignInGoogleHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		04CCA4082DD51EF100710E41 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		04CCA40A2DD5264B00710E41 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		04CCA41D2DD547E500710E41 /* utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utilities.swift; sourceTree = "<group>"; };
+		04CCA41F2DD55E6E00710E41 /* SignInGoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -213,6 +215,7 @@
 				04CCA4042DD50E1400710E41 /* SignInView.swift */,
 				04CCA40A2DD5264B00710E41 /* SettingsView.swift */,
 				04CCA4062DD5122200710E41 /* AuthenticationManager.swift */,
+				04CCA41F2DD55E6E00710E41 /* SignInGoogleHelper.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -380,6 +383,7 @@
 				04CCA4052DD50E1400710E41 /* SignInView.swift in Sources */,
 				04CCA3A72DC27F7000710E41 /* ContentView.swift in Sources */,
 				04CCA4032DD5014700710E41 /* AuthenticationView.swift in Sources */,
+				04CCA4202DD55E6E00710E41 /* SignInGoogleHelper.swift in Sources */,
 				04CCA3A82DC27F7000710E41 /* DailyComparisonView.swift in Sources */,
 				04CCA3A92DC27F7000710E41 /* DailyView.swift in Sources */,
 				04CCA3AA2DC27F7000710E41 /* WeeklyView.swift in Sources */,

@@ -33,26 +33,26 @@ final class AuthenticationManager {
 
 
 // MARK: Sign in with Email
-extension AuthenticationManager {
-   
-   @discardableResult
-   func createUser(email: String, password: String) async throws -> AuthDataResultModel {
-      let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)
-      return(AuthDataResultModel(user: authDataResult.user))
-   }
-   
-   @discardableResult
-   func signInUser(email: String, password: String) async throws -> AuthDataResultModel {
-      let authDataResult = try await Auth.auth().signIn(withEmail: email, password: password)
-      return(AuthDataResultModel(user: authDataResult.user))
-   }
-}
+//extension AuthenticationManager {
+//   
+//   @discardableResult
+//   func createUser(email: String, password: String) async throws -> AuthDataResultModel {
+//      let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)
+//      return(AuthDataResultModel(user: authDataResult.user))
+//   }
+//   
+//   @discardableResult
+//   func signInUser(email: String, password: String) async throws -> AuthDataResultModel {
+//      let authDataResult = try await Auth.auth().signIn(withEmail: email, password: password)
+//      return(AuthDataResultModel(user: authDataResult.user))
+//   }
+//}
 
 // MARK: Sign in with Google
 extension AuthenticationManager {
    
    @discardableResult
-   func signInWithGoogle(tokens: GoogleSignInResultModel) async throws -> AuthDataResultModel {
+   func signInWithGoogle(tokens: GoogleSignInResult) async throws -> AuthDataResultModel {
       let credential = GoogleAuthProvider.credential(withIDToken: tokens.idToken, accessToken: tokens.accesToken)
       return try await signIn(credential: credential)
    }
