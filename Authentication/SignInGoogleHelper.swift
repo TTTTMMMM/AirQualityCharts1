@@ -5,6 +5,9 @@ import GoogleSignInSwift
 struct GoogleSignInResult {
    let idToken: String
    let accesToken: String
+   let name: String?
+   let email: String?
+   let photoURL: String?
 }
 
 final class SignInGoogleHelper {
@@ -21,8 +24,15 @@ final class SignInGoogleHelper {
       }
       
       let accessToken = gidSignInResult.user.accessToken.tokenString
+      let name = gidSignInResult.user.profile?.name
+      let email = gidSignInResult.user.profile?.email
+      let photoURL = gidSignInResult.user.profile?.imageURL(withDimension: 32)?.absoluteString
       
-      return GoogleSignInResult(idToken: idToken, accesToken: accessToken)
+      print("name: \(name ?? "nil")")
+      print("email: \(email ?? "nil")")
+      print("photoURL: \(photoURL ?? "nil")")
+
+      return GoogleSignInResult(idToken: idToken, accesToken: accessToken, name: name, email: email, photoURL: photoURL)
    }
 
 @MainActor
