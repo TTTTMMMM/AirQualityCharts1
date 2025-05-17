@@ -27,9 +27,6 @@ struct SettingsView: View {
                 }
              }
           }
-          
-//          emailSection
-
        }
        .navigationBarTitle("Settings")
     }
@@ -40,14 +37,3 @@ struct SettingsView: View {
       SettingsView(showSignInView: .constant(false))
    }
 }
-
-//extension SettingsView {
-//   
-//   private var emailSection: some View {
-//      Section {
-//         Text("Other email buttons that I did not implement here")
-//      } header: {
-//         Text("Email functions")
-//      }
-//   }
-//}

@@ -27,10 +27,6 @@ final class SignInGoogleHelper {
       let name = gidSignInResult.user.profile?.name
       let email = gidSignInResult.user.profile?.email
       let photoURL = gidSignInResult.user.profile?.imageURL(withDimension: 32)?.absoluteString
-      
-      print("name: \(name ?? "nil")")
-      print("email: \(email ?? "nil")")
-      print("photoURL: \(photoURL ?? "nil")")
 
       return GoogleSignInResult(idToken: idToken, accesToken: accessToken, name: name, email: email, photoURL: photoURL)
    }
