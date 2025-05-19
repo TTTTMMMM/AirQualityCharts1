@@ -17,6 +17,8 @@ final class SignInGoogleHelper {
       guard let topViewController = topViewController() else {
          throw URLError(.notConnectedToInternet)
       }
+      // The next line is where the Google Sign-in modal is created in our app and we just sit here until
+      // the signin to Google occurs, at which point we get the google tokens and user profile.
       let gidSignInResult = try await GIDSignIn.sharedInstance.signIn(withPresenting: topViewController)
       
       guard let idToken = gidSignInResult.user.idToken?.tokenString else {

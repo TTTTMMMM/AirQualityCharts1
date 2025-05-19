@@ -1,15 +1,5 @@
 import SwiftUI
 
-@MainActor
-final class SettingViewModel: ObservableObject {
-   
-   
-   func signOut() throws {
-      
-      try AuthenticationManager.shared.signOut()
-   }
-}
-
 struct SettingsView: View {
    
    @StateObject private var viewModel = SettingViewModel()

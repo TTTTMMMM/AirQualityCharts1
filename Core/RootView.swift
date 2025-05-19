@@ -8,10 +8,9 @@ struct RootView: View {
        ZStack {
           if !showSignInView {
              NavigationStack {
-                SettingsView(showSignInView: $showSignInView)
+                ProfileView(showSignInView: $showSignInView)
              }
           }
-
        }
        .onAppear {
           let authuser = try? AuthenticationManager.shared.getAuthenticatedUser()

@@ -8,7 +8,6 @@ struct DailyComparisonView: View {
             .font(.system(size: 80, weight: .bold, design: .default))
             .foregroundStyle(.white)
       }
-      
    }
 }
 
