@@ -2,6 +2,8 @@ import SwiftUI
 
 struct ContentView: View {
    let clvmArray: [ChartListViewModel]
+   @StateObject private var viewModel = ProfileViewModel()
+   @Binding var showSignInView: Bool
 
    var body: some View {
       ZStack {
@@ -14,7 +16,32 @@ struct ContentView: View {
                }
                .styleListElement()
             }
+            .onAppear() {
+               try? viewModel.loadCurrentUser()
+            }
             .styleList()
+            .toolbar {
+               ToolbarItem(placement: .navigationBarTrailing) {
+                  NavigationLink {
+                     SettingsView(showSignInView: $showSignInView)
+                  } label: {
+                     if let user = viewModel.user {
+                        if let photoURL = user.photoURL {
+                           AsyncImage(url: URL(string: photoURL)){ image in
+                              image.resizable()
+                           } placeholder: {
+                              Color.accentColor
+                           }
+                           .frame(width: 30, height: 30)
+                           .clipShape(.rect(cornerRadius: 25))
+                        }
+                     } else {
+                        Image(systemName: "gear")
+                           .font(.headline  )
+                     }
+                  }
+               }
+            }
          }
          .styleNavStack()
       }
@@ -24,7 +51,7 @@ struct ContentView: View {
 
 #Preview {
    let clvmArray: [ChartListViewModel] = clvmArray
-   ContentView(clvmArray: clvmArray)
+   ContentView(clvmArray: clvmArray, showSignInView: .constant(false))
 }
 
 
@@ -37,29 +64,6 @@ extension View
          .navigationTitle("Pick a Chart Type")
          .font(.system(size: 20, weight: .semibold, design: .rounded))
          .padding(10)
-//         .toolbar {
-//            ToolbarItem(placement: .navigationBarTrailing) {
-//               NavigationLink {
-//                  SettingsView(showSignInView: $showSignInView)
-//               } label: {
-//                  if let user = viewModel.user {
-//                     if let photoURL = user.photoURL {
-//                        AsyncImage(url: URL(string: photoURL)){ image in
-//                           image.resizable()
-//                        } placeholder: {
-//                           Color.accentColor
-//                        }
-//                        .frame(width: 30, height: 30)
-//                        .clipShape(.rect(cornerRadius: 25))
-//                     }
-//                  } else {
-//                     Image(systemName: "gear")
-//                        .font(.headline  )
-//                  }
-//               }
-//            }
-//         }
-
    }
 }
 

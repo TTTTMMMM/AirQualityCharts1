@@ -10,7 +10,7 @@ struct RootView: View {
           if !showSignInView {
              NavigationStack {
 //                ProfileView(showSignInView: $showSignInView)
-                ContentView(clvmArray: clvmArrayInitial)
+                ContentView(clvmArray: clvmArrayInitial, showSignInView: $showSignInView)
              }
           }
        }
