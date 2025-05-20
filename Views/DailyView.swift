@@ -3,7 +3,7 @@ import Charts
 
 struct DailyView: View {
 
-   @StateObject var vm = AQViewModel()
+   @StateObject var viewModel = DailyViewModel()
    @State var selectedDate = Date()
    @State var charted = false
    @State var displayTemperature = true
@@ -39,7 +39,8 @@ struct DailyView: View {
             dailyChartSheet()
                .task {
                   do {
-                     try await vm.getAQMeasurements(dt: 1746135360)
+                     try await viewModel.getSample()
+                     try await viewModel.getAQMeasurements(dt: 1746135360)
                   }
                   catch {
                      print(error.localizedDescription)
@@ -89,7 +90,7 @@ extension DailyView {
          Text("Daily Environment Chart for \(self.dateFormatter.string(from: self.selectedDate))")
             .font(.title2)
          Chart {
-            ForEach (vm.aqMeasurements)  { measurement in
+            ForEach (viewModel.aqMeasurements)  { measurement in
                if displayTemperature {
                   PointMark(
                      x: .value("timestamp", measurement.timeString),
@@ -153,7 +154,7 @@ extension DailyView {
          .animation(.linear(duration: 0.6), value: displayHumidity)
          .animation(.linear(duration: 0.6), value: displayECO2)
          .animation(.linear(duration: 0.6), value: displayTVOC)
-         .animation(.linear(duration: 2.6), value: vm.aqMeasurements)
+         .animation(.linear(duration: 2.6), value: viewModel.aqMeasurements)
          .chartScrollableAxes(.horizontal)
          .chartXVisibleDomain(length: 10)
          .chartLegend(position: .top, alignment: .leading, spacing: 8)
@@ -177,7 +178,7 @@ extension DailyView {
          charted.toggle()
          Task {
                do {
-                  try await vm.clearAQMeasurements()
+                  try await viewModel.clearAQMeasurements()
                }
                catch {
                   print(error.localizedDescription)

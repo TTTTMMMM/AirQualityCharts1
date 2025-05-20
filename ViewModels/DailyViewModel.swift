@@ -1,8 +1,9 @@
 import Foundation
 
-class AQViewModel: ObservableObject {
+class DailyViewModel: ObservableObject {
    
-   @Published var aqMeasurements: [AQMeasurement] = []
+   @Published var aqMeasurements: [AQSample] = []
+   @Published private(set) var aqSample: AQSample? = nil
    private var whichDataSet: Int = 1
    private var todayTimestamp: Int = Int(Date().timeIntervalSince1970)
    
@@ -10,15 +11,21 @@ class AQViewModel: ObservableObject {
       print("AQViewModel.init()")
    }
    
+   func getSample() async throws {
+      let firebaseID = "0046sa5vLc00OjjKPIGD"
+      self.aqSample = try await AirQualityDataManager.shared.getAQSample(firebaseID: firebaseID)
+      print(self.aqSample ?? "Something wrong happened in AirQualityDataManager.shared.getAQSample()")
+   }
+   
    func getAQMeasurements(dt: Int) async throws -> () {  // returns Void
       print("getAQMeasurements(\(dt))")
       try? await Task.sleep(for: .seconds(3))
-      let data: [AQMeasurement]
+      let data: [AQSample]
       if (self.whichDataSet == 1) {
-         data = DataLoader.mockDataDay2
+         data = AirQualityDataManager.mockDataDay2
          self.whichDataSet = 2
       } else {
-         data = DataLoader.mockDataDay1
+         data = AirQualityDataManager.mockDataDay1
          self.whichDataSet = 1
       }
       await MainActor.run {

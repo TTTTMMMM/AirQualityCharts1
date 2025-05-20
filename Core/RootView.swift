@@ -3,12 +3,14 @@ import SwiftUI
 struct RootView: View {
    
    @State private var showSignInView: Bool = false
+   let clvmArrayInitial: [ChartListViewModel] = clvmArray
    
     var body: some View {
        ZStack {
           if !showSignInView {
              NavigationStack {
-                ProfileView(showSignInView: $showSignInView)
+//                ProfileView(showSignInView: $showSignInView)
+                ContentView(clvmArray: clvmArrayInitial)
              }
           }
        }

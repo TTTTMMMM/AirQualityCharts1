@@ -1,8 +1,41 @@
 import Foundation
+import FirebaseFirestore
+import FirebaseSharedSwift
 
-class DataLoader {
-   static let mockDataDay1: [AQMeasurement] = [
-      AQMeasurement(
+final class AirQualityDataManager {
+   
+   static let shared = AirQualityDataManager()
+   private init() {}
+   
+   func getAQSample(firebaseID: String) async throws -> AQSample {
+      let snapshot = try await Firestore.firestore().collection("air_quality").document(firebaseID).getDocument()
+      
+      guard let data = snapshot.data(), let id = data["id"] as? Int else {
+         throw URLError(.badServerResponse)
+      }
+      
+      
+      let tVOC = data["TVOC"] as? Int
+      let dt = data["dt"] as? Double
+      let eCO2 = data["eCO2"] as? Int
+      let forwarder = data["forwarder"] as? String
+      let humidity = data["humidity"] as? Double
+      let temperature = data["temperature"] as? Double
+      
+      return AQSample(
+         id: id,
+         tVOC: tVOC ?? 0,
+         dt: dt ?? 0.0,
+         eCO2: eCO2 ?? 0,
+         forwarder: forwarder ?? "",
+         humidity: humidity ?? 0.0,
+         temperature: temperature ?? 0.0
+      )
+      
+   }
+   
+   static let mockDataDay1: [AQSample] = [
+      AQSample(
          id: 23904,
          tVOC: 50,
          dt: 1746135300,
@@ -11,7 +44,7 @@ class DataLoader {
          humidity: 28.9,
          temperature: 78.9
       ),
-      AQMeasurement(
+      AQSample(
          id: 23905,
          tVOC: 100,
          dt: 1746135360,
@@ -20,7 +53,7 @@ class DataLoader {
          humidity: 42.0,
          temperature: 78.8
       ),
-      AQMeasurement(
+      AQSample(
          id: 23908,
          tVOC: 0,
          dt: 1746135540,
@@ -29,7 +62,7 @@ class DataLoader {
          humidity: 42.6,
          temperature: 78.7
       ),
-      AQMeasurement(
+      AQSample(
          id: 23909,
          tVOC: 30,
          dt: 1746135627,
@@ -38,7 +71,7 @@ class DataLoader {
          humidity: 53.7,
          temperature: 79.8
       ),
-      AQMeasurement(
+      AQSample(
          id: 23910,
          tVOC: 35,
          dt: 1746135687,
@@ -47,7 +80,7 @@ class DataLoader {
          humidity: 54.1,
          temperature: 79.9
       ),
-      AQMeasurement(
+      AQSample(
          id: 23911,
          tVOC: 40,
          dt: 1746135721,
@@ -56,7 +89,7 @@ class DataLoader {
          humidity: 54.5,
          temperature: 80.0
       ),
-      AQMeasurement(
+      AQSample(
          id: 23912,
          tVOC: 45,
          dt: 1746135780,
@@ -65,7 +98,7 @@ class DataLoader {
          humidity: 54.9,
          temperature: 80.1
       ),
-      AQMeasurement(
+      AQSample(
          id: 23913,
          tVOC: 55,
          dt: 1746135841,
@@ -76,8 +109,8 @@ class DataLoader {
       )
    ]
    
-   static let mockDataDay2: [AQMeasurement] = [
-      AQMeasurement(
+   static let mockDataDay2: [AQSample] = [
+      AQSample(
          id: 34230,
          tVOC: 208,
          dt: 1746832260,
@@ -86,7 +119,7 @@ class DataLoader {
          humidity: 46.4,
          temperature: 74.4
       ),
-      AQMeasurement(
+      AQSample(
          id: 34231,
          tVOC: 216,
          dt: 1746832320,
@@ -95,7 +128,7 @@ class DataLoader {
          humidity: 46.3,
          temperature: 74.5
       ),
-      AQMeasurement(
+      AQSample(
          id: 34232,
          tVOC: 201,
          dt: 1746832381,
@@ -104,7 +137,7 @@ class DataLoader {
          humidity: 46.2,
          temperature: 74.5
       ),
-      AQMeasurement(
+      AQSample(
          id: 34233,
          tVOC: 145,
          dt: 1746832440,
@@ -113,7 +146,7 @@ class DataLoader {
          humidity: 45.7,
          temperature: 74.4
       ),
-      AQMeasurement(
+      AQSample(
          id: 34234,
          tVOC: 180,
          dt: 1746832502,
@@ -122,7 +155,7 @@ class DataLoader {
          humidity: 46.2,
          temperature: 74.5
       ),
-      AQMeasurement(
+      AQSample(
          id: 34235,
          tVOC: 207,
          dt: 1746832560,
@@ -131,7 +164,7 @@ class DataLoader {
          humidity: 46.1,
          temperature: 74.5
       ),
-      AQMeasurement(
+      AQSample(
          id: 34236,
          tVOC: 323,
          dt: 1746832621,
@@ -140,7 +173,7 @@ class DataLoader {
          humidity: 46.6,
          temperature: 74.6
       ),
-      AQMeasurement(
+      AQSample(
          id: 34237,
          tVOC: 375,
          dt: 1746832682,
@@ -149,7 +182,7 @@ class DataLoader {
          humidity: 45.9,
          temperature: 74.7
       ),
-      AQMeasurement(
+      AQSample(
          id: 34238,
          tVOC: 627,
          dt: 1746832740,
@@ -158,7 +191,7 @@ class DataLoader {
          humidity: 46.3,
          temperature: 74.6
       ),
-      AQMeasurement(
+      AQSample(
          id: 34239,
          tVOC: 114,
          dt: 1746832802,
@@ -167,7 +200,7 @@ class DataLoader {
          humidity: 45.3,
          temperature: 74.6
       ),
-      AQMeasurement(
+      AQSample(
          id: 342340,
          tVOC: 216,
          dt: 1746832860,
@@ -176,7 +209,7 @@ class DataLoader {
          humidity: 46.4,
          temperature: 74.5
       ),
-      AQMeasurement(
+      AQSample(
          id: 34241,
          tVOC: 122,
          dt: 1746832920,
@@ -185,7 +218,7 @@ class DataLoader {
          humidity: 44.9,
          temperature: 74.6
       ),
-      AQMeasurement(
+      AQSample(
          id: 34242,
          tVOC: 187,
          dt: 1746832980,

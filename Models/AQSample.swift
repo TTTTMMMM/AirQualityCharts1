@@ -1,6 +1,6 @@
 import Foundation
 
-struct AQMeasurement: Identifiable, Equatable {
+struct AQSample: Identifiable, Equatable {
    let id: Int
    let tVOC: Int
    let dt: Double
