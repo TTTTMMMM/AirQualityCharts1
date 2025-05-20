@@ -39,7 +39,8 @@ struct DailyView: View {
             dailyChartSheet()
                .task {
                   do {
-                     try await viewModel.getSample()
+                     try await viewModel.createSample()
+//                     try await viewModel.getSample()
                      try await viewModel.getAQMeasurements(dt: 1746135360)
                   }
                   catch {

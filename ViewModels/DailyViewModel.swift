@@ -11,6 +11,26 @@ class DailyViewModel: ObservableObject {
       print("AQViewModel.init()")
    }
    
+   func createSample() async throws {
+      let firebaseID = "00Acz98Ndoq0x5tr2uWO"
+      let aqs = AQSample(
+         id: 3698,
+         tVOC: 1,
+         dt: Date(),
+         eCO2: 401,
+         forwarder: "forwarder_NAS-220P",
+         humidity: 34.1,
+         temperature: 71.4
+      )
+      do {
+         try await AirQualityDataManager.shared.createSample(firebaseID: firebaseID, aqSample: aqs)
+         print("Returned from  AirQualityDataManager.shared.createSample(\(firebaseID), aqs)")
+      } catch {
+         print(error)
+      }
+      
+   }
+   
    func getSample() async throws {
       let firebaseID = "0046sa5vLc00OjjKPIGD"
       self.aqSample = try await AirQualityDataManager.shared.getAQSample(firebaseID: firebaseID)
