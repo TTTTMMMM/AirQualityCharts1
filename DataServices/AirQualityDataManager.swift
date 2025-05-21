@@ -26,7 +26,7 @@ final class AirQualityDataManager {
       
       print ("------ data is \(data) ------")
       let tVOC = data["TVOC"] as? Int
-      var dt = data["dt"] as! Timestamp                                     // data pushed into Firebase as a Timestamp()
+      var dt = data["dt"] as! Timestamp                                  // data pushed into Firebase as a Timestamp()
 //      let dt = data["dt"] as! Date                                     // Could not cast value of type 'FIRTimestamp' (0x1099d6578) to 'NSDate' (0x1ec791560).
       let eCO2 = data["eCO2"] as? Int
       let forwarder = data["forwarder"] as? String
@@ -37,8 +37,6 @@ final class AirQualityDataManager {
          id: id,
          TVOC: tVOC ?? 0,
          dt : Date(timeIntervalSince1970: (Double(dt.seconds)  - 14400)),  // The offset (difference to Greenwich Time/GMT) is -04:00 or in seconds -14400
-//         dt: dt.dateValue(),     // but I lose the timezone information
-//         dt: dt,
          eCO2: eCO2 ?? 0,
          forwarder: forwarder ?? "",
          humidity: humidity ?? 0.0,
