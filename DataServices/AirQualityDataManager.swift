@@ -18,9 +18,9 @@ final class AirQualityDataManager {
    }
    
    func getAQSample(firebaseID: String) async throws -> AQSample {
-      let snapshot = try await airQualitySampleDocument(firebaseID: firebaseID).getDocument(as: AQSample.self)
-      print("snapshot is \(snapshot)")
-      return snapshot
+      // next line directly decodes from firebase document to an airquality sample type and returns it
+      // but I still need to take care of the Date timezone for the dt field
+      try await airQualitySampleDocument(firebaseID: firebaseID).getDocument(as: AQSample.self)
    }
    
    static let mockDataDay1: [AQSample] = [
