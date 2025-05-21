@@ -1,3 +1,6 @@
+//
+// https://www.youtube.com/playlist?list=PLwvDm4Vfkdphl8ly0oi0aHx0v2B7UvDK0
+//
 import SwiftUI
 import Charts
 
@@ -137,13 +140,13 @@ extension DailyView {
                if displayTVOC {
                   PointMark(
                      x: .value("timestamp", measurement.timeString),
-                     y: .value("TVOC", measurement.TVOC)
+                     y: .value("TVOC", measurement.tVOC)
                   )
                   .symbol(.diamond)
                   .foregroundStyle(.red)
                   LineMark(
                      x: .value("timestamp", measurement.timeString),
-                     y: .value("TVOC", measurement.TVOC),
+                     y: .value("TVOC", measurement.tVOC),
                      series: .value("tVOC", "D")
                   )
                   .foregroundStyle(Color.red)

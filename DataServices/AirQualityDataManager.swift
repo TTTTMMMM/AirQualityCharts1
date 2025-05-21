@@ -1,3 +1,6 @@
+//
+// https://www.youtube.com/playlist?list=PLwvDm4Vfkdphl8ly0oi0aHx0v2B7UvDK0
+//
 import Foundation
 import FirebaseFirestore
 import FirebaseSharedSwift
@@ -35,7 +38,7 @@ final class AirQualityDataManager {
    static let mockDataDay1: [AQSample] = [
       AQSample(
          id: 23904,
-         TVOC: 50,
+         tVOC: 50,
          dt: Date(),
          eCO2: 721,
          forwarder: "forwarder_NAS-220P",
@@ -44,7 +47,7 @@ final class AirQualityDataManager {
       ),
       AQSample(
          id: 23905,
-         TVOC: 100,
+         tVOC: 100,
          dt: Date(),
          eCO2: 761,
          forwarder: "forwarder_NAS-220P",
@@ -56,7 +59,7 @@ final class AirQualityDataManager {
    static let mockDataDay2: [AQSample] = [
       AQSample(
          id: 34230,
-         TVOC: 208,
+         tVOC: 208,
          dt: Date(),
          eCO2: 641,
          forwarder: "forwarder_NAS-220P",
@@ -65,7 +68,7 @@ final class AirQualityDataManager {
       ),
       AQSample(
          id: 34231,
-         TVOC: 216,
+         tVOC: 216,
          dt: Date(),
          eCO2: 642,
          forwarder: "forwarder_NAS-220P",

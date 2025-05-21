@@ -1,3 +1,6 @@
+//
+// https://www.youtube.com/playlist?list=PLwvDm4Vfkdphl8ly0oi0aHx0v2B7UvDK0
+//
 import Foundation
 import FirebaseFirestore
 
@@ -14,7 +17,7 @@ class DailyViewModel: ObservableObject {
    
    func createSample() async throws {
       let firebaseID = "00Acz98Ndoq0x5tr2uWO"
-      let aqSample = AQSample(id: 3698, TVOC: 3, dt: Date(), eCO2: 401, forwarder: "forwarder_NAS-220P", humidity: 34.1, temperature: 71.4)
+      let aqSample = AQSample(id: 3698, tVOC: 3, dt: Date(), eCO2: 401, forwarder: "forwarder_NAS-220P", humidity: 34.1, temperature: 71.4)
       
       try? await AirQualityDataManager.shared.createSample(firebaseID: firebaseID, aqSample: aqSample)
    }
@@ -23,7 +26,7 @@ class DailyViewModel: ObservableObject {
       let firebaseID = "0046sa5vLc00OjjKPIGD"
       //      let firebaseID = "00Acz98Ndoq0x5tr2uWO"
       self.aqSample = try await AirQualityDataManager.shared.getAQSample(firebaseID: firebaseID)
-      print("\(firebaseID) -> \(self.aqSample)")
+      print("\(firebaseID) -> \(self.aqSample.debugDescription)")
 //      let ds = self.aqSample?.dateString ?? "nil"
 //      let ts = self.aqSample?.timeString ?? "nil"
 //      print("\(ds)")
