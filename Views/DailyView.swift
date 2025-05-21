@@ -149,7 +149,7 @@ extension DailyView {
       }
       .ignoresSafeArea()
       .background(.ultraThinMaterial)
-      .overlay(backButtonView(charted: $charted), alignment: .topLeading)
+      .overlay(BackButtonView(charted: $charted), alignment: .topLeading)
       .overlay(CauseAndGraphPickerView(displayTemperature: $displayTemperature, displayHumidity: $displayHumidity, displayECO2: $displayECO2, displayTVOC: $displayTVOC), alignment: .topTrailing)
    }
 }

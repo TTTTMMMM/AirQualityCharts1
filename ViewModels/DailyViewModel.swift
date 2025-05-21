@@ -7,7 +7,8 @@ import FirebaseFirestore
 class DailyViewModel: ObservableObject {
    
    @Published var aqMeasurements: [AQSample] = []
-   @Published private(set) var aqSample: AQSample? = nil
+//   @Published private(set) var aqSample: AQSample? = nil
+   @Published private var aqSample: AQSample? = nil
    private var whichDataSet: Int = 1
    private var todayTimestamp: Int = Int(Date().timeIntervalSince1970)
    
@@ -25,12 +26,15 @@ class DailyViewModel: ObservableObject {
    func getSample() async throws {
       let firebaseID = "0046sa5vLc00OjjKPIGD"
       //      let firebaseID = "00Acz98Ndoq0x5tr2uWO"
-      self.aqSample = try await AirQualityDataManager.shared.getAQSample(firebaseID: firebaseID)
-      print("\(firebaseID) -> \(self.aqSample.debugDescription)")
-      let ds = self.aqSample?.dateString ?? "nil"
-      let ts = self.aqSample?.timeString ?? "nil"
-      print("\(ds)")
-      print("\(ts)")
+      let aqs = try await AirQualityDataManager.shared.getAQSample(firebaseID: firebaseID)
+      await MainActor.run {
+         self.aqSample = aqs
+         print("\(firebaseID) -> \(self.aqSample.debugDescription)")
+         let ds = self.aqSample?.dateString ?? "nil"
+         let ts = self.aqSample?.timeString ?? "nil"
+         print("\(ds)")
+         print("\(ts)")
+      }
    }
    
    func getAQMeasurements(dt: Int) async throws -> () {  // returns Void

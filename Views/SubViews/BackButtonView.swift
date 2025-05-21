@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct backButtonView: View {
+struct BackButtonView: View {
    
    @Binding var charted: Bool
    @StateObject var viewModel = DailyViewModel()
@@ -30,5 +30,5 @@ struct backButtonView: View {
 }
 
 #Preview {
-   backButtonView(charted: .constant(true))
+   BackButtonView(charted: .constant(true))
 }
