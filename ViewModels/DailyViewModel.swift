@@ -1,4 +1,5 @@
 import Foundation
+import FirebaseFirestore
 
 class DailyViewModel: ObservableObject {
    
@@ -13,17 +14,17 @@ class DailyViewModel: ObservableObject {
    
    func createSample() async throws {
       let firebaseID = "00Acz98Ndoq0x5tr2uWO"
-      let aqs = AQSample(
-         id: 3698,
-         tVOC: 1,
-         dt: Date(),
-         eCO2: 401,
-         forwarder: "forwarder_NAS-220P",
-         humidity: 34.1,
-         temperature: 71.4
-      )
+      var aqs: [String:Any] = [
+         "id": 3698,
+         "TVOC": 1,
+         "dt": Timestamp(),
+         "eCO2": 401,
+         "forwarder": "forwarder_NAS-220P",
+         "humidity": 34.1,
+         "temperature": 71.4
+      ]
       do {
-         try await AirQualityDataManager.shared.createSample(firebaseID: firebaseID, aqSample: aqs)
+         try await AirQualityDataManager.shared.createSample(firebaseID: firebaseID, aqs: aqs )
          print("Returned from  AirQualityDataManager.shared.createSample(\(firebaseID), aqs)")
       } catch {
          print(error)
@@ -33,6 +34,7 @@ class DailyViewModel: ObservableObject {
    
    func getSample() async throws {
       let firebaseID = "0046sa5vLc00OjjKPIGD"
+//      let firebaseID = "00Acz98Ndoq0x5tr2uWO"
       self.aqSample = try await AirQualityDataManager.shared.getAQSample(firebaseID: firebaseID)
       print(self.aqSample ?? "Something wrong happened in AirQualityDataManager.shared.getAQSample()")
    }

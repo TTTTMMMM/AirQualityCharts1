@@ -40,7 +40,7 @@ struct DailyView: View {
                .task {
                   do {
                      try await viewModel.createSample()
-//                     try await viewModel.getSample()
+                     try await viewModel.getSample()
                      try await viewModel.getAQMeasurements(dt: 1746135360)
                   }
                   catch {
@@ -137,13 +137,13 @@ extension DailyView {
                if displayTVOC {
                   PointMark(
                      x: .value("timestamp", measurement.timeString),
-                     y: .value("tVOC", measurement.tVOC)
+                     y: .value("TVOC", measurement.TVOC)
                   )
                   .symbol(.diamond)
                   .foregroundStyle(.red)
                   LineMark(
                      x: .value("timestamp", measurement.timeString),
-                     y: .value("tVOC", measurement.tVOC),
+                     y: .value("TVOC", measurement.TVOC),
                      series: .value("tVOC", "D")
                   )
                   .foregroundStyle(Color.red)
@@ -166,7 +166,7 @@ extension DailyView {
 //             "tVOC": Color.red
 //            ]
 //         )
-         .chartForegroundStyleScale(["eCO2": Color.blue, "Temperature": Color.accentColor, "Humidity": Color.black])
+         .chartForegroundStyleScale(["Temperature": Color.accentColor, "eCO2": Color.blue, "TVOC": Color.red])
          .chartYAxis {
             AxisMarks(position: .leading)
          }

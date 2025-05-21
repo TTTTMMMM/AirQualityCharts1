@@ -13,8 +13,8 @@ final class AirQualityDataManager {
       return airQualityCollection.document(firebaseID)
    }
    
-   func createSample(firebaseID: String, aqSample: AQSample) async throws {
-      try airQualitySampleDocument(firebaseID: firebaseID).setData(from: aqSample, merge: false)
+   func createSample(firebaseID: String, aqs: [String:Any]) async throws {
+      try await airQualitySampleDocument(firebaseID: firebaseID).setData(aqs, merge: false)
    }
    
    func getAQSample(firebaseID: String) async throws -> AQSample {
@@ -26,13 +26,8 @@ final class AirQualityDataManager {
       
       print ("------ data is \(data) ------")
       let tVOC = data["TVOC"] as? Int
-//      let dt = data["dt"] as? Double
-//      let temp = data["dt"] as? FIRTimestamp
-//      let dt = Date(timeIntervalSince1970: data["dt"] as! TimeInterval)  // Could not cast value of type 'FIRTimestamp' (0x103a22dc0) to 'NSNumber' (0x1ec7917a0).
-//      let dt = data["dt"] as! Date                                       // Could not cast value of type 'FIRTimestamp' (0x1081b5ce0) to 'NSDate' (0x1ec791560).
-//      let dt = data["dt"].dateValue()                                    // Value of type 'Any?' has no member 'dateValue'
-//      let dt = data["dt"].seconds                                        // Value of type 'Any?' has no member 'seconds'
-      let dt = Date(timeIntervalSince1970: data["dt"] as! Double)        // Could not cast value of type 'FIRTimestamp' (0x10426c758) to 'NSNumber' (0x1ec7917a0).
+      var dt = data["dt"] as! Timestamp                                     // data pushed into Firebase as a Timestamp()
+//      let dt = data["dt"] as! Date                                     // Could not cast value of type 'FIRTimestamp' (0x1099d6578) to 'NSDate' (0x1ec791560).
       let eCO2 = data["eCO2"] as? Int
       let forwarder = data["forwarder"] as? String
       let humidity = data["humidity"] as? Double
@@ -40,9 +35,10 @@ final class AirQualityDataManager {
       
       return AQSample(
          id: id,
-         tVOC: tVOC ?? 0,
-         dt: dt,
-//         dt: dt ?? 0.0,
+         TVOC: tVOC ?? 0,
+         dt : Date(timeIntervalSince1970: (Double(dt.seconds)  - 14400)),  // The offset (difference to Greenwich Time/GMT) is -04:00 or in seconds -14400
+//         dt: dt.dateValue(),     // but I lose the timezone information
+//         dt: dt,
          eCO2: eCO2 ?? 0,
          forwarder: forwarder ?? "",
          humidity: humidity ?? 0.0,
@@ -53,7 +49,7 @@ final class AirQualityDataManager {
       static let mockDataDay1: [AQSample] = [
          AQSample(
             id: 23904,
-            tVOC: 50,
+            TVOC: 50,
             dt: Date(),
             eCO2: 721,
             forwarder: "forwarder_NAS-220P",
@@ -62,7 +58,7 @@ final class AirQualityDataManager {
          ),
          AQSample(
             id: 23905,
-            tVOC: 100,
+            TVOC: 100,
             dt: Date(),
             eCO2: 761,
             forwarder: "forwarder_NAS-220P",
@@ -74,7 +70,7 @@ final class AirQualityDataManager {
       static let mockDataDay2: [AQSample] = [
          AQSample(
             id: 34230,
-            tVOC: 208,
+            TVOC: 208,
             dt: Date(),
             eCO2: 641,
             forwarder: "forwarder_NAS-220P",
@@ -83,7 +79,7 @@ final class AirQualityDataManager {
          ),
          AQSample(
             id: 34231,
-            tVOC: 216,
+            TVOC: 216,
             dt: Date(),
             eCO2: 642,
             forwarder: "forwarder_NAS-220P",

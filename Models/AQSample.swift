@@ -1,8 +1,9 @@
 import Foundation
+//import FirebaseFirestore   needed for Timestamp data type
 
 struct AQSample: Identifiable, Equatable, Codable {
    let id: Int
-   let tVOC: Int
+   let TVOC: Int
 //   let dt: Double
    let dt: Date
    let eCO2: Int
