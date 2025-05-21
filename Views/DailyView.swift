@@ -150,7 +150,6 @@ extension DailyView {
       .ignoresSafeArea()
       .background(.ultraThinMaterial)
       .overlay(backButtonView(charted: $charted), alignment: .topLeading)
-      /*         .overlay(GraphPickerView(displayTemperature: $displayTemperature, displayHumidity: $displayHumidity, displayECO2: $displayECO2, displayTVOC: $displayTVOC), alignment: .topTrailing)  */
       .overlay(CauseAndGraphPickerView(displayTemperature: $displayTemperature, displayHumidity: $displayHumidity, displayECO2: $displayECO2, displayTVOC: $displayTVOC), alignment: .topTrailing)
    }
 }
