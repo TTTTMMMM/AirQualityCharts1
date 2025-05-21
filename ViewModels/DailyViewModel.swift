@@ -38,7 +38,7 @@ class DailyViewModel: ObservableObject {
    
    func getAQMeasurements(dt: Int) async throws -> () {  // returns Void
       print("getAQMeasurements(\(dt))")
-      try? await Task.sleep(for: .seconds(3))
+      try? await Task.sleep(for: .seconds(1))
       let data: [AQSample]
       if (self.whichDataSet == 1) {
          data = AirQualityDataManager.mockDataDay2

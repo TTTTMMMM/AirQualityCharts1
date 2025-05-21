@@ -5,11 +5,14 @@ struct ShowDailyLineGraphsView: View {
    
    @StateObject var viewModel = DailyViewModel()
 
+   
    @Binding var selectedDate: Date
    @Binding var displayTemperature: Bool
    @Binding var displayHumidity: Bool
    @Binding var displayECO2: Bool
    @Binding var displayTVOC: Bool
+   
+   @State var isLoading: Bool = true
    
    private var dateFormatter: DateFormatter {
       let dateFormatter = DateFormatter()
@@ -21,6 +24,10 @@ struct ShowDailyLineGraphsView: View {
           GroupBox {
              Text("Daily Environment Chart for \(self.dateFormatter.string(from: self.selectedDate))")
                 .font(.title2)
+             if(isLoading) {
+                ProgressView()
+                   .scaleEffect(2)
+             }
              Chart {
                 ForEach (viewModel.aqMeasurements)  { measurement in
                    if displayTemperature {
@@ -104,9 +111,11 @@ struct ShowDailyLineGraphsView: View {
           }
           .task {
              do {
+                isLoading = true
                 try await viewModel.createSample()
                 try await viewModel.getSample()
                 try await viewModel.getAQMeasurements(dt: 1746135360)
+                isLoading = false
              }
              catch {
                 print(error.localizedDescription)
