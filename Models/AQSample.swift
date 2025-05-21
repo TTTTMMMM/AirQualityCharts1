@@ -12,6 +12,7 @@ struct AQSample: Identifiable, Equatable, Codable {
    var forwarder: String?
    var humidity: Double
    var temperature: Double
+   var cause: String?
    
    var dateString: String {
       let dateFormatter = DateFormatter()
@@ -39,6 +40,7 @@ struct AQSample: Identifiable, Equatable, Codable {
       case forwarder    = "forwarder"
       case humidity     = "humidity"
       case temperature  = "temperature"
+      case cause        = "cause"
    }
    
    // when we download from firebase, we're going to decode the firebase document into whatever sits on the left hand side of the = sign
@@ -51,6 +53,7 @@ struct AQSample: Identifiable, Equatable, Codable {
       self.forwarder = try container.decodeIfPresent(String.self, forKey: .forwarder)
       self.humidity = try container.decode(Double.self, forKey: .humidity)
       self.temperature = try container.decode(Double.self, forKey: .temperature)
+      self.cause = try container.decodeIfPresent(String.self, forKey: .cause)
    }
    
    func encode(to encoder: Encoder) throws {
@@ -62,5 +65,6 @@ struct AQSample: Identifiable, Equatable, Codable {
       try container.encode(forwarder, forKey: .forwarder)
       try container.encode(humidity, forKey: .humidity)
       try container.encode(temperature, forKey: .temperature)
+      try container.encode(cause, forKey: .cause)
    }
 }
