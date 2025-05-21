@@ -18,73 +18,52 @@ final class AirQualityDataManager {
    }
    
    func getAQSample(firebaseID: String) async throws -> AQSample {
-      let snapshot = try await airQualitySampleDocument(firebaseID: firebaseID).getDocument()
-      
-      guard let data = snapshot.data(), let id = data["id"] as? Int else {
-         throw URLError(.badServerResponse)
-      }
-      
-      print ("------ data is \(data) ------")
-      let tVOC = data["TVOC"] as? Int
-      let dt = data["dt"] as! Timestamp                                  // data pushed into Firebase as a Timestamp()
-//      let dt = data["dt"] as! Date                                     // Could not cast value of type 'FIRTimestamp' (0x1099d6578) to 'NSDate' (0x1ec791560).
-      let eCO2 = data["eCO2"] as? Int
-      let forwarder = data["forwarder"] as? String
-      let humidity = data["humidity"] as? Double
-      let temperature = data["temperature"] as? Double
-      
-      return AQSample(
-         id: id,
-         TVOC: tVOC ?? 0,
-         dt : Date(timeIntervalSince1970: (Double(dt.seconds)  - 14400)),  // The offset (difference to Greenwich Time/GMT) is -04:00 or in seconds -14400
-         eCO2: eCO2 ?? 0,
-         forwarder: forwarder ?? "",
-         humidity: humidity ?? 0.0,
-         temperature: temperature ?? 0.0
-      )
-      
+      let snapshot = try await airQualitySampleDocument(firebaseID: firebaseID).getDocument(as: AQSample.self)
+      print("snapshot is \(snapshot)")
+      return snapshot
    }
-      static let mockDataDay1: [AQSample] = [
-         AQSample(
-            id: 23904,
-            TVOC: 50,
-            dt: Date(),
-            eCO2: 721,
-            forwarder: "forwarder_NAS-220P",
-            humidity: 28.9,
-            temperature: 78.9
-         ),
-         AQSample(
-            id: 23905,
-            TVOC: 100,
-            dt: Date(),
-            eCO2: 761,
-            forwarder: "forwarder_NAS-220P",
-            humidity: 42.0,
-            temperature: 78.8
-         )
-         ]
    
-      static let mockDataDay2: [AQSample] = [
-         AQSample(
-            id: 34230,
-            TVOC: 208,
-            dt: Date(),
-            eCO2: 641,
-            forwarder: "forwarder_NAS-220P",
-            humidity: 46.4,
-            temperature: 74.4
-         ),
-         AQSample(
-            id: 34231,
-            TVOC: 216,
-            dt: Date(),
-            eCO2: 642,
-            forwarder: "forwarder_NAS-220P",
-            humidity: 46.3,
-            temperature: 74.5
-         )
-         ]
+   static let mockDataDay1: [AQSample] = [
+      AQSample(
+         id: 23904,
+         TVOC: 50,
+         dt: Date(),
+         eCO2: 721,
+         forwarder: "forwarder_NAS-220P",
+         humidity: 28.9,
+         temperature: 78.9
+      ),
+      AQSample(
+         id: 23905,
+         TVOC: 100,
+         dt: Date(),
+         eCO2: 761,
+         forwarder: "forwarder_NAS-220P",
+         humidity: 42.0,
+         temperature: 78.8
+      )
+   ]
+   
+   static let mockDataDay2: [AQSample] = [
+      AQSample(
+         id: 34230,
+         TVOC: 208,
+         dt: Date(),
+         eCO2: 641,
+         forwarder: "forwarder_NAS-220P",
+         humidity: 46.4,
+         temperature: 74.4
+      ),
+      AQSample(
+         id: 34231,
+         TVOC: 216,
+         dt: Date(),
+         eCO2: 642,
+         forwarder: "forwarder_NAS-220P",
+         humidity: 46.3,
+         temperature: 74.5
+      )
+   ]
 //   static let mockDataDay1: [AQSample] = [
 //      AQSample(
 //         id: 23904,

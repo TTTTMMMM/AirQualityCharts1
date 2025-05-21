@@ -1,5 +1,9 @@
 import Foundation
 
+
+// To convert the timestamp coming from Firebase to local time
+// dt : Date(timeIntervalSince1970: (Double(dt.seconds)  - 14400)),  // The offset (difference to Greenwich Time/GMT) is -04:00 or in seconds -14400
+
 struct AQSample: Identifiable, Equatable, Codable {
    let id: Int
    let TVOC: Int

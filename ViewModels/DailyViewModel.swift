@@ -20,8 +20,8 @@ class DailyViewModel: ObservableObject {
    }
    
    func getSample() async throws {
-//      let firebaseID = "0046sa5vLc00OjjKPIGD"
-      let firebaseID = "00Acz98Ndoq0x5tr2uWO"
+      let firebaseID = "0046sa5vLc00OjjKPIGD"
+//      let firebaseID = "00Acz98Ndoq0x5tr2uWO"
       self.aqSample = try await AirQualityDataManager.shared.getAQSample(firebaseID: firebaseID)
       print("\(firebaseID) -> \(String(describing: self.aqSample))")
    }
