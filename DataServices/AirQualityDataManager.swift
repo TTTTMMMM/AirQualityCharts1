@@ -18,8 +18,19 @@ final class AirQualityDataManager {
    }
    
    func getAQSample(firebaseID: String) async throws -> AQSample {
+      //      0046sa5vLc00OjjKPIGD ->
+      //      AirQualityCharts.AQSample(
+      //      id: 46015,
+      //      TVOC: 11,
+      //      dt: 2025-05-18 22:27:00 +0000,   <--- no bueno
+      //      eCO2: 400,
+      //      forwarder: Optional("forwarder_NAS-220P"),
+      //      humidity: 40.6,
+      //      temperature: 78.5)
       // next line directly decodes from firebase document to an airquality sample type and returns it
-      // but I still need to take care of the Date timezone for the dt field
+      // but I still need to take care of the Date timezone for the dt field as can be seen above
+      // and comparing it to what you can see in the Firebase console for that FirebaseID document
+
       try await airQualitySampleDocument(firebaseID: firebaseID).getDocument(as: AQSample.self)
    }
    
