@@ -174,8 +174,8 @@
 		04CCA3B12DC41F5F00710E41 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				04CCA4372DDE7F0C00710E41 /* GraphViews */,
-				04CCA3B22DC41F7000710E41 /* SubViews */,
+				04CCA43A2DDE959500710E41 /* ContentViewSubViews */,
+				04CCA3B22DC41F7000710E41 /* DailyViewSubViews */,
 				04CCA3A22DC27F7000710E41 /* ContentView.swift */,
 				04CCA3A32DC27F7000710E41 /* DailyComparisonView.swift */,
 				04CCA3A42DC27F7000710E41 /* DailyView.swift */,
@@ -184,17 +184,17 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		04CCA3B22DC41F7000710E41 /* SubViews */ = {
+		04CCA3B22DC41F7000710E41 /* DailyViewSubViews */ = {
 			isa = PBXGroup;
 			children = (
-				04CCA3A02DC27F7000710E41 /* ListElementStyleView.swift */,
 				04CCA42B2DDE3EAE00710E41 /* CausePicker.swift */,
 				04CCA42F2DDE54E800710E41 /* GraphPicker.swift */,
 				04CCA4312DDE5F8A00710E41 /* BackButtonView.swift */,
 				04CCA4332DDE622700710E41 /* DatePickerSectionView.swift */,
 				04CCA4352DDE6CBD00710E41 /* CauseAndGraphPickerView.swift */,
+				04CCA4382DDE7F5000710E41 /* ShowDailyLineGraphsView.swift */,
 			);
-			path = SubViews;
+			path = DailyViewSubViews;
 			sourceTree = "<group>";
 		};
 		04CCA3B32DC41FB200710E41 /* ViewModels */ = {
@@ -284,12 +284,12 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
-		04CCA4372DDE7F0C00710E41 /* GraphViews */ = {
+		04CCA43A2DDE959500710E41 /* ContentViewSubViews */ = {
 			isa = PBXGroup;
 			children = (
-				04CCA4382DDE7F5000710E41 /* ShowDailyLineGraphsView.swift */,
+				04CCA3A02DC27F7000710E41 /* ListElementStyleView.swift */,
 			);
-			path = GraphViews;
+			path = ContentViewSubViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
