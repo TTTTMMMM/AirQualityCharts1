@@ -40,6 +40,7 @@
 		04CCA4322DDE5F8A00710E41 /* BackButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA4312DDE5F8A00710E41 /* BackButtonView.swift */; };
 		04CCA4342DDE622700710E41 /* DatePickerSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA4332DDE622700710E41 /* DatePickerSectionView.swift */; };
 		04CCA4362DDE6CBD00710E41 /* CauseAndGraphPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA4352DDE6CBD00710E41 /* CauseAndGraphPickerView.swift */; };
+		04CCA4392DDE7F5000710E41 /* ShowDailyLineGraphsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA4382DDE7F5000710E41 /* ShowDailyLineGraphsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,7 @@
 		04CCA4312DDE5F8A00710E41 /* BackButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButtonView.swift; sourceTree = "<group>"; };
 		04CCA4332DDE622700710E41 /* DatePickerSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerSectionView.swift; sourceTree = "<group>"; };
 		04CCA4352DDE6CBD00710E41 /* CauseAndGraphPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CauseAndGraphPickerView.swift; sourceTree = "<group>"; };
+		04CCA4382DDE7F5000710E41 /* ShowDailyLineGraphsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDailyLineGraphsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -172,6 +174,7 @@
 		04CCA3B12DC41F5F00710E41 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				04CCA4372DDE7F0C00710E41 /* GraphViews */,
 				04CCA3B22DC41F7000710E41 /* SubViews */,
 				04CCA3A22DC27F7000710E41 /* ContentView.swift */,
 				04CCA3A32DC27F7000710E41 /* DailyComparisonView.swift */,
@@ -279,6 +282,14 @@
 				04CCA4292DDA3B8A00710E41 /* ProfileView.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		04CCA4372DDE7F0C00710E41 /* GraphViews */ = {
+			isa = PBXGroup;
+			children = (
+				04CCA4382DDE7F5000710E41 /* ShowDailyLineGraphsView.swift */,
+			);
+			path = GraphViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -446,6 +457,7 @@
 				04CCA41E2DD547E500710E41 /* utilities.swift in Sources */,
 				04CCA40B2DD5264B00710E41 /* SettingsView.swift in Sources */,
 				04CCA4072DD5122200710E41 /* AuthenticationManager.swift in Sources */,
+				04CCA4392DDE7F5000710E41 /* ShowDailyLineGraphsView.swift in Sources */,
 				04CCA42A2DDA3B8A00710E41 /* ProfileView.swift in Sources */,
 				04CCA3C72DC6C98200710E41 /* AirQualityDataManager.swift in Sources */,
 				04CCA3B02DC419CD00710E41 /* AQSample.swift in Sources */,

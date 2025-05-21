@@ -4,16 +4,15 @@
 import Foundation
 import FirebaseFirestore
 
+@MainActor
 class DailyViewModel: ObservableObject {
    
    @Published var aqMeasurements: [AQSample] = []
-//   @Published private(set) var aqSample: AQSample? = nil
-   @Published private var aqSample: AQSample? = nil
+   @Published private(set) var aqSample: AQSample? = nil
    private var whichDataSet: Int = 1
-   private var todayTimestamp: Int = Int(Date().timeIntervalSince1970)
    
    init() {
-      print("AQViewModel.init()")
+      print("DailyViewModel.init()")
    }
    
    func createSample() async throws {
