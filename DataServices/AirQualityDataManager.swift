@@ -13,8 +13,8 @@ final class AirQualityDataManager {
       return airQualityCollection.document(firebaseID)
    }
    
-   func createSample(firebaseID: String, aqs: [String:Any]) async throws {
-      try await airQualitySampleDocument(firebaseID: firebaseID).setData(aqs, merge: false)
+   func createSample(firebaseID: String, aqSample: AQSample) async throws {
+      try airQualitySampleDocument(firebaseID: firebaseID).setData(from: aqSample, merge: false)
    }
    
    func getAQSample(firebaseID: String) async throws -> AQSample {
@@ -26,7 +26,7 @@ final class AirQualityDataManager {
       
       print ("------ data is \(data) ------")
       let tVOC = data["TVOC"] as? Int
-      var dt = data["dt"] as! Timestamp                                  // data pushed into Firebase as a Timestamp()
+      let dt = data["dt"] as! Timestamp                                  // data pushed into Firebase as a Timestamp()
 //      let dt = data["dt"] as! Date                                     // Could not cast value of type 'FIRTimestamp' (0x1099d6578) to 'NSDate' (0x1ec791560).
       let eCO2 = data["eCO2"] as? Int
       let forwarder = data["forwarder"] as? String

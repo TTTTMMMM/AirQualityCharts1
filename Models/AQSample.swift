@@ -1,10 +1,8 @@
 import Foundation
-//import FirebaseFirestore   needed for Timestamp data type
 
 struct AQSample: Identifiable, Equatable, Codable {
    let id: Int
    let TVOC: Int
-//   let dt: Double
    let dt: Date
    let eCO2: Int
    let forwarder: String?
@@ -14,13 +12,13 @@ struct AQSample: Identifiable, Equatable, Codable {
       let dateFormatter = DateFormatter()
       dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
 //      return dateFormatter.string(from: Date(timeIntervalSince1970: dt))
-      return dateFormatter.string(from: Date())
+      return dateFormatter.string(from: dt)
    }
    var timeString: String {
       let dateFormatter = DateFormatter()
       dateFormatter.dateFormat = "HH:mm"
 //      return dateFormatter.string(from: Date(timeIntervalSince1970: dt))
-      return dateFormatter.string(from: Date())
+      return dateFormatter.string(from: dt)
    }
    var unBiasedECO2: Int {
       return eCO2-400
