@@ -28,8 +28,6 @@ final class AirQualityDataManager {
       //      humidity: 40.6,
       //      temperature: 78.5)
       // next line directly decodes from firebase document to an airquality sample type and returns it
-      // but I still need to take care of the Date timezone for the dt field as can be seen above
-      // and comparing it to what you can see in the Firebase console for that FirebaseID document
 
       try await airQualitySampleDocument(firebaseID: firebaseID).getDocument(as: AQSample.self)
    }
