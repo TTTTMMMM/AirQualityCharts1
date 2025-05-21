@@ -13,29 +13,21 @@ struct DailyView: View {
    @State var displayHumidity = true
    @State var displayECO2 = true
    @State var displayTVOC = true
-
-   private var bounds: ClosedRange<Date>!
-   private var dateFormatter: DateFormatter!
-   private var dateFormatter2: DateFormatter!
-
-   init() {
-      let start = Calendar.current.date(from: DateComponents(
-         timeZone: .current, year: 2025, month: 4, day: 17))!
-      let end = Date()
-      self.bounds = start...end
-
-      let formatter = DateFormatter()
-      formatter.dateFormat = "MMM dd, yyyy"
-      self.dateFormatter = formatter
-      
-      let formatter2 = DateFormatter()
-      formatter2.dateFormat = "YYYY-MM-dd HH:mm:ss"
-      self.dateFormatter2 = formatter2
-      }
+   
+   private var dateFormatter: DateFormatter {
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateFormat = "MMM dd, yyyy"
+      return dateFormatter
+   }
+   private var dateFormatter2: DateFormatter {
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
+      return dateFormatter
+   }
    
    var body: some View {
       VStack (alignment: .center) {
-         datePickerSection
+         DatePickerSectionView(selectedDate: $selectedDate, charted: $charted)
       }
       Spacer()
          .fullScreenCover(isPresented: $charted) {
@@ -62,32 +54,6 @@ struct DailyView: View {
 }
 
 extension DailyView {
-   
-   private var datePickerSection: some View {
-      HStack(alignment: .center, spacing: 20) {
-         DatePicker("",
-                    selection: $selectedDate,
-                    in: bounds,
-                    displayedComponents: [.date])
-         .datePickerStyle(
-            GraphicalDatePickerStyle()
-         )
-         Button(action: {
-            charted.toggle()
-         },
-                label: {
-            Text("Graph Data for\n \(self.dateFormatter.string(from: self.selectedDate))")
-               .font(.headline)
-               .foregroundStyle(.white)
-         })
-         .padding(10)
-         .font(.title)
-         .background(Color.accentColor)
-         .clipShape(RoundedRectangle(cornerRadius: 10))
-         .shadow(color: Color.black.opacity(0.9), radius: 10, x: 0, y: 5)
-      }
-      .padding(40)
-   }
    
    func showLineGraphs() -> some View {
       GroupBox {
@@ -177,63 +143,14 @@ extension DailyView {
       .padding(12)
    }
    
-   private var backButton: some View {
-      Button(action: {
-         charted.toggle()
-         Task {
-               do {
-                  try await viewModel.clearAQMeasurements()
-               }
-               catch {
-                  print(error.localizedDescription)
-               }
-         }
-      }, label: {
-         Image(systemName: "clear")
-            .font(.title2)
-            .padding(6)
-            .foregroundStyle(.primary)
-            .background(.thickMaterial)
-            .cornerRadius(10)
-            .shadow(radius: 4)
-      })
-      .padding(.leading, 45)
-   }
-   
-   private var graphPicker: some View {
-         VStack (alignment: .leading) {
-            Toggle(isOn: $displayTemperature){
-               Text("Temperature")
-            }
-            .scaleEffect(0.8)
-            Toggle(isOn: $displayHumidity){
-               Text("Humidity")
-            }
-            .scaleEffect(0.8)
-            Toggle(isOn: $displayECO2){
-               Text("ECO2")
-            }
-            .scaleEffect(0.8)
-            Toggle(isOn: $displayTVOC){
-               Text("TVOC")
-            }
-            .scaleEffect(0.8)
-         }
-         .background(Color.gray.opacity(0.1))
-         .clipShape(RoundedRectangle(cornerRadius: 10))
-         .frame(width: 160)
-         .padding(.trailing, 45)
-         .padding(.top, 65)
-   }
-   
    func dailyChartSheet() -> some View {
-         VStack () {
-            showLineGraphs()
-         }
-         .ignoresSafeArea()
-         .background(.ultraThinMaterial)
-         .overlay(backButton, alignment: .topLeading)
-         .overlay(graphPicker, alignment: .topTrailing)
+      VStack () {
+         showLineGraphs()
+      }
+      .ignoresSafeArea()
+      .background(.ultraThinMaterial)
+      .overlay(backButtonView(charted: $charted), alignment: .topLeading)
+      /*         .overlay(GraphPickerView(displayTemperature: $displayTemperature, displayHumidity: $displayHumidity, displayECO2: $displayECO2, displayTVOC: $displayTVOC), alignment: .topTrailing)  */
+      .overlay(CauseAndGraphPickerView(displayTemperature: $displayTemperature, displayHumidity: $displayHumidity, displayECO2: $displayECO2, displayTVOC: $displayTVOC), alignment: .topTrailing)
    }
-   
- }
+}
