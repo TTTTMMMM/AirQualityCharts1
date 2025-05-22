@@ -1,5 +1,6 @@
 //
 // https://www.youtube.com/playlist?list=PLwvDm4Vfkdphl8ly0oi0aHx0v2B7UvDK0
+// Specifically, Fetching Firebase Firestore data with Codable in Swift | Firebase Bootcamp #10
 //
 import Foundation
 import FirebaseFirestore
@@ -33,6 +34,10 @@ final class AirQualityDataManager {
       // next line directly decodes from firebase document to an airquality sample type and returns it
 
       try await airQualitySampleDocument(firebaseID: firebaseID).getDocument(as: AQSample.self)
+   }
+   
+   func setCause(firebaseID: String, aqSample: AQSample) async throws {
+      try airQualitySampleDocument(firebaseID: firebaseID).setData(from: aqSample, merge: false)
    }
    
    static let mockDataDay1: [AQSample] = [
