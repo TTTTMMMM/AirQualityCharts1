@@ -9,12 +9,18 @@ struct CauseAndGraphPickerView: View {
    
    var body: some View {
       VStack(alignment: .leading, spacing: 10) {
-//         CausePicker()
          CauseMenu()
          GraphPickerView(displayTemperature: $displayTemperature, displayHumidity: $displayHumidity, displayECO2: $displayECO2, displayTVOC: $displayTVOC)
       }
-      .padding(.top, 60)
-      
+      .padding(3)
+      .background(Color.gray.opacity(0.1))
+      .clipShape(RoundedRectangle(cornerRadius: 10))
+      .overlay(
+          RoundedRectangle(cornerRadius: 6)
+              .stroke(.black, lineWidth: 1)
+      )
+      .padding(.top, 44)
+      .padding(.trailing, 45)
    }
 }
 

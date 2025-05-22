@@ -29,8 +29,6 @@ struct GraphPickerView: View {
       .background(Color.gray.opacity(0.1))
       .clipShape(RoundedRectangle(cornerRadius: 10))
       .frame(width: 160)
-      .padding(.trailing, 45)
-//      .padding(.top, 65)
    }
 }
 

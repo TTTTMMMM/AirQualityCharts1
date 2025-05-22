@@ -113,7 +113,7 @@ struct ShowDailyLineGraphsView: View {
           .task {
              do {
                 isLoading = true
-                try await viewModel.createSample()
+//                try await viewModel.createSample()
                 try await viewModel.getSample()
                 try await viewModel.getAQMeasurements(dt: 1746135360)
                 isLoading = false

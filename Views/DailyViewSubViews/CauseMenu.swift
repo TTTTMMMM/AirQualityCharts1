@@ -53,6 +53,10 @@ struct CauseMenu: View {
             }
          }
       }
+      .font(.subheadline)
+      .foregroundStyle(Color.black)
+      .padding(5)
+      .clipShape(RoundedRectangle(cornerRadius: 1))
    }
 }
 
