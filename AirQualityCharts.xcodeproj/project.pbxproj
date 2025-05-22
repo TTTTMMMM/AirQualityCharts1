@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04B9FD912DDF88040036C731 /* CauseMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B9FD902DDF88040036C731 /* CauseMenu.swift */; };
 		04CCA3A62DC27F7000710E41 /* ListElementStyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA3A02DC27F7000710E41 /* ListElementStyleView.swift */; };
 		04CCA3A72DC27F7000710E41 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA3A22DC27F7000710E41 /* ContentView.swift */; };
 		04CCA3A82DC27F7000710E41 /* DailyComparisonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA3A32DC27F7000710E41 /* DailyComparisonView.swift */; };
@@ -64,6 +65,7 @@
 		043AFD1A2DBADDAB005629B9 /* AirQualityCharts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirQualityCharts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		043AFD2A2DBADDAD005629B9 /* AirQualityChartsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AirQualityChartsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		043AFD342DBADDAD005629B9 /* AirQualityChartsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AirQualityChartsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		04B9FD902DDF88040036C731 /* CauseMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CauseMenu.swift; sourceTree = "<group>"; };
 		04CCA3A02DC27F7000710E41 /* ListElementStyleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListElementStyleView.swift; sourceTree = "<group>"; };
 		04CCA3A22DC27F7000710E41 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		04CCA3A32DC27F7000710E41 /* DailyComparisonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyComparisonView.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 				04CCA4332DDE622700710E41 /* DatePickerSectionView.swift */,
 				04CCA4352DDE6CBD00710E41 /* CauseAndGraphPickerView.swift */,
 				04CCA4382DDE7F5000710E41 /* ShowDailyLineGraphsView.swift */,
+				04B9FD902DDF88040036C731 /* CauseMenu.swift */,
 			);
 			path = DailyViewSubViews;
 			sourceTree = "<group>";
@@ -459,6 +462,7 @@
 				04CCA4072DD5122200710E41 /* AuthenticationManager.swift in Sources */,
 				04CCA4392DDE7F5000710E41 /* ShowDailyLineGraphsView.swift in Sources */,
 				04CCA42A2DDA3B8A00710E41 /* ProfileView.swift in Sources */,
+				04B9FD912DDF88040036C731 /* CauseMenu.swift in Sources */,
 				04CCA3C72DC6C98200710E41 /* AirQualityDataManager.swift in Sources */,
 				04CCA3B02DC419CD00710E41 /* AQSample.swift in Sources */,
 				04CCA3B82DC67B6B00710E41 /* DailyViewModel.swift in Sources */,

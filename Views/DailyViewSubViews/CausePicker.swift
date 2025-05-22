@@ -1,11 +1,12 @@
 import SwiftUI
 
+
 struct CausePicker: View {
    
    @StateObject var viewModel = DailyViewModel()
    
    @State var selection: String? = nil
-   let causes: [String] = ["Wood Stove", "Cleaners", "Pollen", "Cooking", "Breath", "Other", "Unknown"]
+   let causes: [String] = ["Wood Stove", "Cleaners", "Pollen", "Cooking", "Breath", "Other", "Unknown", "Remove Cause"]
    
    var body: some View {
       VStack (spacing: 2) {
@@ -39,7 +40,7 @@ struct CausePicker: View {
                print("bye bye without calling updateCause()")
             }
          }
-         if (selection != nil ) {
+         if (selection != nil) {
             Text("Remove Cause")
                .font(.subheadline)
                .onTapGesture {

@@ -51,7 +51,7 @@ class DailyViewModel: ObservableObject {
       let firebaseID = "00Acz98Ndoq0x5tr2uWO"
       var aqs: AQSample? = nil
       Task {
-         try await AirQualityDataManager.shared.setCause(firebaseID: firebaseID, reason: reason)
+         try await AirQualityDataManager.shared.updateCause(firebaseID: firebaseID, reason: reason)
          aqs = try await AirQualityDataManager.shared.getAQSample(firebaseID: firebaseID)   //get the updated value to verify the update worked
          await MainActor.run {
             if let aqs {

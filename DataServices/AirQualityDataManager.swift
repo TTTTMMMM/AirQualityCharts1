@@ -36,9 +36,11 @@ final class AirQualityDataManager {
       try await airQualitySampleDocument(firebaseID: firebaseID).getDocument(as: AQSample.self)
    }
    
-   func setCause(firebaseID: String, reason: String?) async throws {
+   // the following function updates only the 'cause' property of an
+   // air quality sample in the firebase firestore db
+   func updateCause(firebaseID: String, reason: String?) async throws {
       let data: [String:Any] = [   // create a dictionary
-         AQSample.CodingKeys.cause.stringValue : reason ?? ""  // Not hardcoding the firebase key, but using CodingKeys construct instead
+         AQSample.CodingKeys.cause.stringValue : reason ?? nil
       ]
       try await airQualitySampleDocument(firebaseID: firebaseID).updateData(data)
    }
