@@ -101,6 +101,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				01.png,
+				02.png,
 			);
 			target = 043AFD192DBADDAB005629B9 /* AirQualityCharts */;
 		};
@@ -108,6 +109,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				01.png,
+				02.png,
 			);
 			target = 043AFD292DBADDAD005629B9 /* AirQualityChartsTests */;
 		};
@@ -115,6 +117,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				01.png,
+				02.png,
 			);
 			target = 043AFD332DBADDAD005629B9 /* AirQualityChartsUITests */;
 		};

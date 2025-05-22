@@ -12,4 +12,6 @@
       temperature: 78.5)
 ```
 
-![Alt Line Chart](images/01.png)
+![Alt Line Chart 1](images/01.png)
+
+![Alt Line Chart 2](images/02.png)
