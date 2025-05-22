@@ -1,4 +1,5 @@
 
+1. Sample Data from Firebase Firestore
 ```
       0046sa5vLc00OjjKPIGD ->
       AirQualityCharts.AQSample(
@@ -10,3 +11,5 @@
       humidity: 40.6,
       temperature: 78.5)
 ```
+
+![Alt Line Chart](images/01.png)

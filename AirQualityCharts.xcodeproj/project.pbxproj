@@ -97,6 +97,27 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		04B9FD9E2DDFEAD20036C731 /* Exceptions for "images" folder in "AirQualityCharts" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				01.png,
+			);
+			target = 043AFD192DBADDAB005629B9 /* AirQualityCharts */;
+		};
+		04B9FD9F2DDFEAD20036C731 /* Exceptions for "images" folder in "AirQualityChartsTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				01.png,
+			);
+			target = 043AFD292DBADDAD005629B9 /* AirQualityChartsTests */;
+		};
+		04B9FDA02DDFEAD20036C731 /* Exceptions for "images" folder in "AirQualityChartsUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				01.png,
+			);
+			target = 043AFD332DBADDAD005629B9 /* AirQualityChartsUITests */;
+		};
 		04CCA3FB2DD2350B00710E41 /* Exceptions for "AirQualityCharts" folder in "AirQualityCharts" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -113,6 +134,16 @@
 				04CCA3FB2DD2350B00710E41 /* Exceptions for "AirQualityCharts" folder in "AirQualityCharts" target */,
 			);
 			path = AirQualityCharts;
+			sourceTree = "<group>";
+		};
+		04B9FD9C2DDFEAB30036C731 /* images */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				04B9FD9E2DDFEAD20036C731 /* Exceptions for "images" folder in "AirQualityCharts" target */,
+				04B9FD9F2DDFEAD20036C731 /* Exceptions for "images" folder in "AirQualityChartsTests" target */,
+				04B9FDA02DDFEAD20036C731 /* Exceptions for "images" folder in "AirQualityChartsUITests" target */,
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -162,6 +193,7 @@
 				04CCA3B52DC420CB00710E41 /* DataServices */,
 				04CCA3ED2DD15A7B00710E41 /* GoogleService-Info.plist */,
 				04B9FD982DDFE9570036C731 /* README.md */,
+				04B9FD9C2DDFEAB30036C731 /* images */,
 			);
 			sourceTree = "<group>";
 		};
@@ -306,6 +338,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				043AFD1C2DBADDAB005629B9 /* AirQualityCharts */,
+				04B9FD9C2DDFEAB30036C731 /* images */,
 			);
 			name = AirQualityCharts;
 			packageProductDependencies = (
@@ -333,6 +366,9 @@
 			dependencies = (
 				043AFD2C2DBADDAD005629B9 /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				04B9FD9C2DDFEAB30036C731 /* images */,
+			);
 			name = AirQualityChartsTests;
 			packageProductDependencies = (
 			);
@@ -352,6 +388,9 @@
 			);
 			dependencies = (
 				043AFD362DBADDAD005629B9 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				04B9FD9C2DDFEAB30036C731 /* images */,
 			);
 			name = AirQualityChartsUITests;
 			packageProductDependencies = (
