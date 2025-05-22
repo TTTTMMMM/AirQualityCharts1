@@ -46,21 +46,41 @@ class DailyViewModel: ObservableObject {
       }
    }
    
-   func updateCause(reason: String) async -> () {
-      // still don't know if I'll pass in a firbaseID or an AQSample from which to get the firebaseID
-      let firebaseID = "00Acz98Ndoq0x5tr2uWO"
-      var aqs: AQSample? = nil
-      Task {
-         try await AirQualityDataManager.shared.updateCause(firebaseID: firebaseID, reason: reason)
-         aqs = try await AirQualityDataManager.shared.getAQSample(firebaseID: firebaseID)   //get the updated value to verify the update worked
+   func getSamplesByIDs(ids: [Int]) async throws {
+      let samples = try? await AirQualityDataManager.shared.getSamplesByID(ids: ids)
+      if let samples = samples {
+         print("🐰 \(samples.count) 🐰")
+//         samples.forEach {
+//            print($0.temperature)
+//            print($0.humidity)
+//            print($0.unBiasedECO2)
+//            print($0.tVOC)
+//            print("----")
+//         }
          await MainActor.run {
-            if let aqs {
-               self.aqSample = aqs
-            }
-            print("In updateCause() \n \(firebaseID) -> \(self.aqSample.debugDescription)")
+            self.aqMeasurements = samples
          }
       }
    }
+   
+   func getOneDayOfSamples(date: Date) async throws {
+      let samples = try? await AirQualityDataManager.shared.getSamplesByDate(date: date)
+      if let samples = samples {
+         print("🐰 \(samples.count) 🐰 \(samples.last?.dateString ?? "n/a") 🐰")
+//         samples.forEach {
+//            print($0.dateString, $0.temperature)
+//            print($0.humidity)
+//            print($0.unBiasedECO2)
+//            print($0.tVOC)
+//            print("----")
+//         }
+         await MainActor.run {
+            self.aqMeasurements = samples
+         }
+      }
+   }
+   
+   
    
    func getAQMeasurements(dt: Int) async throws -> () {  // returns Void
       print("getAQMeasurements(\(dt))")

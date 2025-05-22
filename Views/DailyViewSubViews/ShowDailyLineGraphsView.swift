@@ -30,12 +30,6 @@ struct ShowDailyLineGraphsView: View {
              Chart {
                 ForEach (viewModel.aqMeasurements)  { measurement in
                    if displayTemperature {
-                      PointMark(
-                         x: .value("timestamp", measurement.timeString),
-                         y: .value("temperature", measurement.temperature)
-                      )
-                      .symbol(.triangle)
-                      .foregroundStyle(.green)
                       LineMark(
                          x: .value("timestamp", measurement.timeString),
                          y: .value("temperature", measurement.temperature),
@@ -44,12 +38,6 @@ struct ShowDailyLineGraphsView: View {
                       .foregroundStyle(Color.green)
                    }
                    if displayHumidity {
-                      PointMark(
-                         x: .value("timestamp", measurement.timeString),
-                         y: .value("humidity", measurement.humidity)
-                      )
-                      .symbol(.circle)
-                      .foregroundStyle(.black)
                       LineMark(
                          x: .value("timestamp", measurement.timeString),
                          y: .value("humidity", measurement.humidity),
@@ -58,12 +46,6 @@ struct ShowDailyLineGraphsView: View {
                       .foregroundStyle(Color.black)
                    }
                    if displayECO2 {
-                      PointMark(
-                         x: .value("timestamp", measurement.timeString),
-                         y: .value("ECO2", measurement.unBiasedECO2)
-                      )
-                      .symbol(.cross)
-                      .foregroundStyle(.blue)
                       LineMark(
                          x: .value("timestamp", measurement.timeString),
                          y: .value("ECO2", measurement.unBiasedECO2),
@@ -72,12 +54,6 @@ struct ShowDailyLineGraphsView: View {
                       .foregroundStyle(Color.blue)
                    }
                    if displayTVOC {
-                      PointMark(
-                         x: .value("timestamp", measurement.timeString),
-                         y: .value("TVOC", measurement.tVOC)
-                      )
-                      .symbol(.diamond)
-                      .foregroundStyle(.red)
                       LineMark(
                          x: .value("timestamp", measurement.timeString),
                          y: .value("TVOC", measurement.tVOC),
@@ -94,18 +70,20 @@ struct ShowDailyLineGraphsView: View {
              .animation(.linear(duration: 0.6), value: displayTVOC)
              .animation(.linear(duration: 2.6), value: viewModel.aqMeasurements)
              .chartScrollableAxes(.horizontal)
-             .chartXVisibleDomain(length: 10)
+             .chartXVisibleDomain(length: 800)
              .chartLegend(position: .top, alignment: .leading, spacing: 8)
-//             .chartForegroundStyleScale(
-//                ["Temperature": Color.accentColor,
-//                 "Humidity": Color.black,
-//                 "eCO2": Color.blue,
-//                 "tVOC": Color.red
-//                ]
-//             )
              .chartForegroundStyleScale(
-               ["Temperature": Color.accentColor, "eCO2": Color.blue, "TVOC": Color.red]
+                ["Temperature": Color.accentColor,
+                 "Humidity": Color.black,
+                 "eCO2": Color.blue,
+                 "tVOC": Color.red
+                ]
              )
+//             .chartForegroundStyleScale(
+//               ["Temperature": Color.accentColor,
+//                "eCO2": Color.blue,
+//                "TVOC": Color.red]
+//             )
              .chartYAxis {
                 AxisMarks(position: .leading)
              }
@@ -113,9 +91,7 @@ struct ShowDailyLineGraphsView: View {
           .task {
              do {
                 isLoading = true
-//                try await viewModel.createSample()
-                try await viewModel.getSample()
-                try await viewModel.getAQMeasurements(dt: 1746135360)
+                try await viewModel.getOneDayOfSamples(date: selectedDate)
                 isLoading = false
              }
              catch {

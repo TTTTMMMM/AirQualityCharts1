@@ -9,7 +9,7 @@ struct CauseAndGraphPickerView: View {
    
    var body: some View {
       VStack(alignment: .leading, spacing: 10) {
-         CauseMenu()
+         CauseMenuView()
          GraphPickerView(displayTemperature: $displayTemperature, displayHumidity: $displayHumidity, displayECO2: $displayECO2, displayTVOC: $displayTVOC)
       }
       .padding(3)

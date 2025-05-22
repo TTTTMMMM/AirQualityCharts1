@@ -45,6 +45,35 @@ final class AirQualityDataManager {
       try await airQualitySampleDocument(firebaseID: firebaseID).updateData(data)
    }
    
+   // function that queries by ID, puts the documents into AirQualitySample object, and returns results in array
+   // the function seems to havea a limit of about 20 ids before it just craps out
+   func getSamplesByID(ids: [Int]) async throws -> [AQSample] {
+      var aqsArray: [AQSample] = []
+      let snap = try await airQualityCollection.whereField("id", in: ids).order(by: "id").limit(to: 50).getDocuments()
+      for document in snap.documents {
+         aqsArray.append(try document.data(as: AQSample.self))
+      }
+      return(aqsArray)
+   }
+   
+   // function that queries for on day's worth of samples, puts the documents into AirQualitySample object, and returns results in array
+   func getSamplesByDate(date: Date) async throws -> [AQSample] {
+      var aqsArray: [AQSample] = []
+      let calendar = Calendar.current
+      let components = calendar.dateComponents([.year, .month, .day], from: date)
+      print(components)
+      let start = calendar.date(from: components)
+      let end = calendar.date(byAdding: .day, value: 1, to: start ?? Date())
+      print (start ?? Date())
+      print(end ?? Date())
+      
+      let snap = try await airQualityCollection.whereField("dt", isGreaterThan: start as Any).whereField("dt", isLessThan: end as Any).order(by: "dt").limit(to: 1440).getDocuments()
+      for document in snap.documents {
+         aqsArray.append(try document.data(as: AQSample.self))
+      }
+      return(aqsArray)
+   }
+   
    static let mockDataDay1: [AQSample] = [
       AQSample(
          id: 23904,
