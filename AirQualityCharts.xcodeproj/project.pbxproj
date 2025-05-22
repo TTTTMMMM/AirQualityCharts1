@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		04B9FD912DDF88040036C731 /* CauseMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B9FD902DDF88040036C731 /* CauseMenuView.swift */; };
 		04B9FD932DDFA30E0036C731 /* CauseMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B9FD922DDFA30E0036C731 /* CauseMenuViewModel.swift */; };
+		04B9FD992DDFE9680036C731 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 04B9FD982DDFE9570036C731 /* README.md */; };
+		04B9FD9A2DDFE9680036C731 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 04B9FD982DDFE9570036C731 /* README.md */; };
+		04B9FD9B2DDFE9680036C731 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 04B9FD982DDFE9570036C731 /* README.md */; };
 		04CCA3A62DC27F7000710E41 /* ListElementStyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA3A02DC27F7000710E41 /* ListElementStyleView.swift */; };
 		04CCA3A72DC27F7000710E41 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA3A22DC27F7000710E41 /* ContentView.swift */; };
 		04CCA3A82DC27F7000710E41 /* DailyComparisonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA3A32DC27F7000710E41 /* DailyComparisonView.swift */; };
@@ -66,6 +69,7 @@
 		043AFD342DBADDAD005629B9 /* AirQualityChartsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AirQualityChartsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04B9FD902DDF88040036C731 /* CauseMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CauseMenuView.swift; sourceTree = "<group>"; };
 		04B9FD922DDFA30E0036C731 /* CauseMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CauseMenuViewModel.swift; sourceTree = "<group>"; };
+		04B9FD982DDFE9570036C731 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		04CCA3A02DC27F7000710E41 /* ListElementStyleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListElementStyleView.swift; sourceTree = "<group>"; };
 		04CCA3A22DC27F7000710E41 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		04CCA3A32DC27F7000710E41 /* DailyComparisonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyComparisonView.swift; sourceTree = "<group>"; };
@@ -157,6 +161,7 @@
 				04CCA3B42DC41FD200710E41 /* Models */,
 				04CCA3B52DC420CB00710E41 /* DataServices */,
 				04CCA3ED2DD15A7B00710E41 /* GoogleService-Info.plist */,
+				04B9FD982DDFE9570036C731 /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -370,10 +375,12 @@
 					};
 					043AFD292DBADDAD005629B9 = {
 						CreatedOnToolsVersion = 16.0;
+						LastSwiftMigration = 1600;
 						TestTargetID = 043AFD192DBADDAB005629B9;
 					};
 					043AFD332DBADDAD005629B9 = {
 						CreatedOnToolsVersion = 16.0;
+						LastSwiftMigration = 1600;
 						TestTargetID = 043AFD192DBADDAB005629B9;
 					};
 				};
@@ -408,6 +415,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04B9FD9A2DDFE9680036C731 /* README.md in Resources */,
 				04CCA3EE2DD15A7B00710E41 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -416,6 +424,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04B9FD9B2DDFE9680036C731 /* README.md in Resources */,
 				04CCA3F02DD15A7B00710E41 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -424,6 +433,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04B9FD992DDFE9680036C731 /* README.md in Resources */,
 				04CCA3EF2DD15A7B00710E41 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -674,6 +684,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -682,6 +693,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tm.AirQualityChartsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AirQualityCharts.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AirQualityCharts";
@@ -692,6 +704,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -709,6 +722,7 @@
 		043AFD452DBADDAD005629B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -716,6 +730,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tm.AirQualityChartsUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = AirQualityCharts;
@@ -725,6 +740,7 @@
 		043AFD462DBADDAD005629B9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
