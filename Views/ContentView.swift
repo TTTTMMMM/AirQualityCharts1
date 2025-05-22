@@ -14,7 +14,10 @@ struct ContentView: View {
             List {
                ForEach (clvmArray) {item in
                   NavigationLink(destination: item.chartView) {
-                     ListelementStyleView(nameOfImage: item.imageName, textToDisplayOnListElement: item.listDisplayText)
+                     ListelementStyleView(
+                        nameOfImage: item.imageName,
+                        textToDisplayOnListElement:
+                           item.listDisplayText)
                   }
                }
                .styleListElement()

@@ -15,13 +15,23 @@ class DailyViewModel: ObservableObject {
       print("DailyViewModel.init()")
    }
    
+   // I won't be using this in the app, just here to create a test sample
    func createSample() async throws {
       let firebaseID = "00Acz98Ndoq0x5tr2uWO"
-      let aqSample = AQSample(id: 3698, tVOC: 3, dt: Date(), eCO2: 401, forwarder: "forwarder_NAS-220P", humidity: 34.1, temperature: 71.4)
+      let aqSample = AQSample(
+         id: 3698,
+         tVOC: 3,
+         dt: Date(),
+         eCO2: 401,
+         forwarder: "forwarder_NAS-220P",
+         humidity: 34.1,
+         temperature: 71.4
+      )
       
       try? await AirQualityDataManager.shared.createSample(firebaseID: firebaseID, aqSample: aqSample)
    }
    
+   // I won't be using this in the app, just here to get a test sample to see how a sample comes back from Firebase
    func getSample() async throws {
       let firebaseID = "0046sa5vLc00OjjKPIGD"
       //      let firebaseID = "00Acz98Ndoq0x5tr2uWO"
@@ -33,6 +43,22 @@ class DailyViewModel: ObservableObject {
          let ts = self.aqSample?.timeString ?? "nil"
          print("\(ds)")
          print("\(ts)")
+      }
+   }
+   
+   func updateCause(reason: String) async -> () {
+      // still don't know if I'll pass in a firbaseID or an AQSample from which to get the firebaseID
+      let firebaseID = "00Acz98Ndoq0x5tr2uWO"
+      var aqs: AQSample? = nil
+      Task {
+         try await AirQualityDataManager.shared.setCause(firebaseID: firebaseID, reason: reason)
+         aqs = try await AirQualityDataManager.shared.getAQSample(firebaseID: firebaseID)   //get the updated value to verify the update worked
+         await MainActor.run {
+            if let aqs {
+               self.aqSample = aqs
+            }
+            print("In updateCause() \n \(firebaseID) -> \(self.aqSample.debugDescription)")
+         }
       }
    }
    

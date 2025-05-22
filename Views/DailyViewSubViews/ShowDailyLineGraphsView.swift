@@ -4,7 +4,6 @@ import Charts
 struct ShowDailyLineGraphsView: View {
    
    @StateObject var viewModel = DailyViewModel()
-
    
    @Binding var selectedDate: Date
    @Binding var displayTemperature: Bool
@@ -104,7 +103,9 @@ struct ShowDailyLineGraphsView: View {
 //                 "tVOC": Color.red
 //                ]
 //             )
-             .chartForegroundStyleScale(["Temperature": Color.accentColor, "eCO2": Color.blue, "TVOC": Color.red])
+             .chartForegroundStyleScale(
+               ["Temperature": Color.accentColor, "eCO2": Color.blue, "TVOC": Color.red]
+             )
              .chartYAxis {
                 AxisMarks(position: .leading)
              }
@@ -133,5 +134,11 @@ struct ShowDailyLineGraphsView: View {
    @Previewable @State var displayECO2 = true
    @Previewable @State var displayTVOC = true
    
-   ShowDailyLineGraphsView(selectedDate: $selectedDate, displayTemperature: $displayTemperature, displayHumidity: $displayHumidity, displayECO2: $displayECO2, displayTVOC: $displayTVOC)
+   ShowDailyLineGraphsView(
+      selectedDate: $selectedDate,
+      displayTemperature: $displayTemperature,
+      displayHumidity: $displayHumidity,
+      displayECO2: $displayECO2,
+      displayTVOC: $displayTVOC
+   )
 }

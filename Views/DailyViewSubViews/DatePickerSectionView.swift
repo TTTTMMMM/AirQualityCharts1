@@ -5,17 +5,17 @@ struct DatePickerSectionView: View {
    @Binding var selectedDate: Date
    @Binding var charted: Bool
    
-   private var bounds: ClosedRange<Date> {(Calendar.current.date(from: DateComponents(
-      timeZone: .current, year: 2025, month: 4, day: 17))!)...Date()}
+   private var bounds: ClosedRange<Date> {
+      (Calendar.current.date(
+         from: DateComponents(
+            timeZone: .current,
+            year: 2025,
+            month: 4,
+            day: 17))!)...Date()}
    
    private var dateFormatter: DateFormatter {
       let dateFormatter = DateFormatter()
       dateFormatter.dateFormat = "MMM dd, yyyy"
-      return dateFormatter
-   }
-   private var dateFormatter2: DateFormatter {
-      let dateFormatter = DateFormatter()
-      dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
       return dateFormatter
    }
    

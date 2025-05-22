@@ -36,8 +36,11 @@ final class AirQualityDataManager {
       try await airQualitySampleDocument(firebaseID: firebaseID).getDocument(as: AQSample.self)
    }
    
-   func setCause(firebaseID: String, aqSample: AQSample) async throws {
-      try airQualitySampleDocument(firebaseID: firebaseID).setData(from: aqSample, merge: false)
+   func setCause(firebaseID: String, reason: String?) async throws {
+      let data: [String:Any] = [   // create a dictionary
+         AQSample.CodingKeys.cause.stringValue : reason ?? ""  // Not hardcoding the firebase key, but using CodingKeys construct instead
+      ]
+      try await airQualitySampleDocument(firebaseID: firebaseID).updateData(data)
    }
    
    static let mockDataDay1: [AQSample] = [

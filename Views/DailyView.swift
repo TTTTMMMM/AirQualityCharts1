@@ -14,17 +14,6 @@ struct DailyView: View {
    @State var displayECO2 = true
    @State var displayTVOC = true
    
-   private var dateFormatter: DateFormatter {
-      let dateFormatter = DateFormatter()
-      dateFormatter.dateFormat = "MMM dd, yyyy"
-      return dateFormatter
-   }
-   private var dateFormatter2: DateFormatter {
-      let dateFormatter = DateFormatter()
-      dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
-      return dateFormatter
-   }
-   
    var body: some View {
       VStack (alignment: .center) {
          DatePickerSectionView(selectedDate: $selectedDate, charted: $charted)
