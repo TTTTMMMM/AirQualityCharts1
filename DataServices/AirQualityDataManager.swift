@@ -50,4 +50,20 @@ final class AirQualityDataManager {
       }
       return(aqsArray)
    }
+   
+   // function that queries for one hour's worth of samples, puts the documents into AirQualitySample object, and returns results in array
+   // 480 is the number of minutes in an an 8-hour window, just in case there is/was a problem with a runaway query as I was developing
+   func getSamplesByHour(date: Date, numberOfHours: Int) async throws -> [AQSample] {
+      var aqsArray: [AQSample] = []
+      let calendar = Calendar.current
+      let components = calendar.dateComponents([.year, .month, .day, .hour], from: date)
+      let start = calendar.date(from: components)
+      let end = calendar.date(byAdding: .hour, value: numberOfHours, to: start ?? Date())
+      
+      let snap = try await airQualityCollection.whereField("dt", isGreaterThan: start as Any).whereField("dt", isLessThan: end as Any).order(by: "dt").limit(to: 480).getDocuments()
+      for document in snap.documents {
+         aqsArray.append(try document.data(as: AQSample.self))
+      }
+      return(aqsArray)
+   }
 }

@@ -11,7 +11,6 @@ class DailyViewModel: ObservableObject {
    @Published private(set) var aqSample: AQSample? = nil
    
    init() {
-      print("DailyViewModel.init()")
    }
    
    // I won't be using this in the app, just here to create a test sample

@@ -3,10 +3,11 @@
 //
 import SwiftUI
 
-struct DailyView: View {
+struct HourlyView: View {
 
-   @StateObject var viewModel = DailyViewModel()
-   @State var selectedDate = Date()
+   @StateObject var viewModel = HourlyViewModel()
+   @State var selectedDateHour = Date()
+   @State var numberOfHoursDuration: String = "1"
    @State var charted = false
    @State var displayTemperature = true
    @State var displayHumidity = true
@@ -15,11 +16,14 @@ struct DailyView: View {
    
    var body: some View {
       VStack (alignment: .center) {
-         DatePickerSectionView(selectedDate: $selectedDate, charted: $charted)
+         HourlyPickerSectionView(
+            selectedDateHour: $selectedDateHour,
+            numberOfHoursDuration: $numberOfHoursDuration,
+            charted: $charted)
       }
       Spacer()
          .fullScreenCover(isPresented: $charted) {
-            dailyChartSheet()
+            hourlyChartSheet()
          }
          .padding()
          .background(Color.white)
@@ -30,12 +34,13 @@ struct DailyView: View {
    DailyView()
 }
 
-extension DailyView {
+extension HourlyView {
    
-   func dailyChartSheet() -> some View {
+   func hourlyChartSheet() -> some View {
       VStack () {
-         ShowDailyLineGraphsView(
-            selectedDate: $selectedDate,
+         ShowHourlyLineGraphsView(
+            selectedDateHour: $selectedDateHour,
+            numberOfHoursDuration: $numberOfHoursDuration,
             displayTemperature: $displayTemperature,
             displayHumidity: $displayHumidity,
             displayECO2: $displayECO2,

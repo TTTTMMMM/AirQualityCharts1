@@ -10,12 +10,12 @@ struct ChartListViewModel: Identifiable {
 
 let dailyView = ChartListViewModel(
    imageName: "Line-Graph",
-   listDisplayText: "Daily Trend",
+   listDisplayText: "Daily Graph",
    chartView: AnyView(DailyView()))
 let weeklyView = ChartListViewModel(
    imageName: "bar-chart",
-   listDisplayText: "Weekly Trend",
-   chartView: AnyView(WeeklyView()))
+   listDisplayText: "Hourly Graph",
+   chartView: AnyView(HourlyView()))
 let dailyComparisonView = ChartListViewModel(
    imageName: "daily-comparison",
    listDisplayText: "Daily Comparison",
