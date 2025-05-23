@@ -35,18 +35,7 @@ final class AirQualityDataManager {
       try await airQualitySampleDocument(firebaseID: firebaseID).updateData(data)
    }
    
-   // function that queries by ID, puts the documents into AirQualitySample object, and returns results in array
-   // the function seems to havea a limit of about 20 ids before it just craps out
-   func getSamplesByID(ids: [Int]) async throws -> [AQSample] {
-      var aqsArray: [AQSample] = []
-      let snap = try await airQualityCollection.whereField("id", in: ids).order(by: "id").limit(to: 50).getDocuments()
-      for document in snap.documents {
-         aqsArray.append(try document.data(as: AQSample.self))
-      }
-      return(aqsArray)
-   }
-   
-   // function that queries for on day's worth of samples, puts the documents into AirQualitySample object, and returns results in array
+   // function that queries for one day's worth of samples, puts the documents into AirQualitySample object, and returns results in array
    // 1440 is the number of minutes in a day, just in case there is/was a problem with a runaway query as I was developing
    func getSamplesByDate(date: Date) async throws -> [AQSample] {
       var aqsArray: [AQSample] = []

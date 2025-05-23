@@ -8,14 +8,6 @@ struct BackButtonView: View {
    var body: some View {
       Button(action: {
          charted.toggle()
-         Task {
-            do {
-               try await viewModel.clearAQMeasurements()
-            }
-            catch {
-               print(error.localizedDescription)
-            }
-         }
       }, label: {
          Image(systemName: "clear")
             .font(.title2)
