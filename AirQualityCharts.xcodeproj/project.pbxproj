@@ -13,7 +13,6 @@
 		04B9FD992DDFE9680036C731 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 04B9FD982DDFE9570036C731 /* README.md */; };
 		04B9FD9A2DDFE9680036C731 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 04B9FD982DDFE9570036C731 /* README.md */; };
 		04B9FD9B2DDFE9680036C731 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 04B9FD982DDFE9570036C731 /* README.md */; };
-		04B9FDA32DE0FFB20036C731 /* HourlyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B9FDA22DE0FFB20036C731 /* HourlyViewModel.swift */; };
 		04B9FDA62DE1014A0036C731 /* HourlyPickerSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B9FDA52DE1014A0036C731 /* HourlyPickerSectionView.swift */; };
 		04B9FDA82DE1050A0036C731 /* ShowHourlyLineGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B9FDA72DE1050A0036C731 /* ShowHourlyLineGraphView.swift */; };
 		04CCA3A62DC27F7000710E41 /* ListElementStyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA3A02DC27F7000710E41 /* ListElementStyleView.swift */; };
@@ -23,7 +22,7 @@
 		04CCA3AA2DC27F7000710E41 /* HourlyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA3A52DC27F7000710E41 /* HourlyView.swift */; };
 		04CCA3AC2DC27F7000710E41 /* ChartListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA3AB2DC27F7000710E41 /* ChartListViewModel.swift */; };
 		04CCA3B02DC419CD00710E41 /* AQSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA3AF2DC419CD00710E41 /* AQSample.swift */; };
-		04CCA3B82DC67B6B00710E41 /* DailyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA3B72DC67B6B00710E41 /* DailyViewModel.swift */; };
+		04CCA3B82DC67B6B00710E41 /* AirQualityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA3B72DC67B6B00710E41 /* AirQualityViewModel.swift */; };
 		04CCA3C72DC6C98200710E41 /* AirQualityDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA3B62DC4212000710E41 /* AirQualityDataManager.swift */; };
 		04CCA3EE2DD15A7B00710E41 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04CCA3ED2DD15A7B00710E41 /* GoogleService-Info.plist */; };
 		04CCA3EF2DD15A7B00710E41 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04CCA3ED2DD15A7B00710E41 /* GoogleService-Info.plist */; };
@@ -75,7 +74,6 @@
 		04B9FD902DDF88040036C731 /* CauseMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CauseMenuView.swift; sourceTree = "<group>"; };
 		04B9FD922DDFA30E0036C731 /* CauseMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CauseMenuViewModel.swift; sourceTree = "<group>"; };
 		04B9FD982DDFE9570036C731 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		04B9FDA22DE0FFB20036C731 /* HourlyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyViewModel.swift; sourceTree = "<group>"; };
 		04B9FDA52DE1014A0036C731 /* HourlyPickerSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyPickerSectionView.swift; sourceTree = "<group>"; };
 		04B9FDA72DE1050A0036C731 /* ShowHourlyLineGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowHourlyLineGraphView.swift; sourceTree = "<group>"; };
 		04CCA3A02DC27F7000710E41 /* ListElementStyleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListElementStyleView.swift; sourceTree = "<group>"; };
@@ -86,7 +84,7 @@
 		04CCA3AB2DC27F7000710E41 /* ChartListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartListViewModel.swift; sourceTree = "<group>"; };
 		04CCA3AF2DC419CD00710E41 /* AQSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AQSample.swift; sourceTree = "<group>"; };
 		04CCA3B62DC4212000710E41 /* AirQualityDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirQualityDataManager.swift; sourceTree = "<group>"; };
-		04CCA3B72DC67B6B00710E41 /* DailyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyViewModel.swift; sourceTree = "<group>"; };
+		04CCA3B72DC67B6B00710E41 /* AirQualityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirQualityViewModel.swift; sourceTree = "<group>"; };
 		04CCA3ED2DD15A7B00710E41 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04CCA4022DD5014700710E41 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		04CCA4062DD5122200710E41 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
@@ -258,8 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				04CCA3AB2DC27F7000710E41 /* ChartListViewModel.swift */,
-				04CCA3B72DC67B6B00710E41 /* DailyViewModel.swift */,
-				04B9FDA22DE0FFB20036C731 /* HourlyViewModel.swift */,
+				04CCA3B72DC67B6B00710E41 /* AirQualityViewModel.swift */,
 				04B9FD922DDFA30E0036C731 /* CauseMenuViewModel.swift */,
 			);
 			path = ViewModels;
@@ -528,14 +525,13 @@
 				04B9FD912DDF88040036C731 /* CauseMenuView.swift in Sources */,
 				04CCA3C72DC6C98200710E41 /* AirQualityDataManager.swift in Sources */,
 				04CCA3B02DC419CD00710E41 /* AQSample.swift in Sources */,
-				04CCA3B82DC67B6B00710E41 /* DailyViewModel.swift in Sources */,
+				04CCA3B82DC67B6B00710E41 /* AirQualityViewModel.swift in Sources */,
 				04CCA4362DDE6CBD00710E41 /* CauseAndGraphPickerView.swift in Sources */,
 				04CCA4272DDA37A300710E41 /* AuthenticationViewModel.swift in Sources */,
 				04CCA3AC2DC27F7000710E41 /* ChartListViewModel.swift in Sources */,
 				04CCA4092DD51EF100710E41 /* RootView.swift in Sources */,
 				04CCA4322DDE5F8A00710E41 /* BackButtonView.swift in Sources */,
 				04B9FDA82DE1050A0036C731 /* ShowHourlyLineGraphView.swift in Sources */,
-				04B9FDA32DE0FFB20036C731 /* HourlyViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

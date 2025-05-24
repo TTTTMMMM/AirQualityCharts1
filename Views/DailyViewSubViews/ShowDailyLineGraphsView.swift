@@ -3,7 +3,7 @@ import Charts
 
 struct ShowDailyLineGraphsView: View {
    
-   @StateObject var viewModel = DailyViewModel()
+   @StateObject var viewModel = AirQualityViewModel()
    
    @Binding var selectedDate: Date
    @Binding var displayTemperature: Bool

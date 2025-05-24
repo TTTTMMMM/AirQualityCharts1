@@ -5,7 +5,7 @@ import SwiftUI
 
 struct DailyView: View {
 
-   @StateObject var viewModel = DailyViewModel()
+   @StateObject var viewModel = AirQualityViewModel()
    @State var selectedDate = Date()
    @State var charted = false
    @State var displayTemperature = true
@@ -69,7 +69,8 @@ extension DailyView {
             displayTemperature: $displayTemperature,
             displayHumidity: $displayHumidity,
             displayECO2: $displayECO2,
-            displayTVOC: $displayTVOC
+            displayTVOC: $displayTVOC,
+            numLeft: $left
          ),
          alignment: .topTrailing)
    }

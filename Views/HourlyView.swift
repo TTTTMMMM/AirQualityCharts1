@@ -5,7 +5,7 @@ import SwiftUI
 
 struct HourlyView: View {
    
-   @StateObject var viewModel = HourlyViewModel()
+   @StateObject var viewModel = AirQualityViewModel()
    @State var selectedDateHour = Calendar.current.date(
       byAdding: .hour,
       value: -2,
@@ -77,7 +77,8 @@ extension HourlyView {
             displayTemperature: $displayTemperature,
             displayHumidity: $displayHumidity,
             displayECO2: $displayECO2,
-            displayTVOC: $displayTVOC
+            displayTVOC: $displayTVOC,
+            numLeft: $left
          ),
          alignment: .topTrailing)
    }

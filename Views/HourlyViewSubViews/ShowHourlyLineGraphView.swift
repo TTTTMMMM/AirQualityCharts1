@@ -3,7 +3,7 @@ import Charts
 
 struct ShowHourlyLineGraphsView: View {
    
-   @StateObject var viewModel = HourlyViewModel()
+   @StateObject var viewModel = AirQualityViewModel()
    
    @Binding var selectedDateHour: Date
    @Binding var numberOfHoursDuration: String
@@ -97,7 +97,7 @@ struct ShowHourlyLineGraphsView: View {
       .task {
          do {
             isLoading = true
-            try await viewModel.getOneHourOfSamples(date: selectedDateHour, numberOfHours: Int(numberOfHoursDuration) ?? 1)
+            try await viewModel.getSecifiedHoursWorthOfSamples(date: selectedDateHour, numberOfHours: Int(numberOfHoursDuration) ?? 1)
             isLoading = false
          }
          catch {

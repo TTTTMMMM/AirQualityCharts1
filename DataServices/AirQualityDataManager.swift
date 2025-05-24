@@ -49,7 +49,7 @@ final class AirQualityDataManager {
       let start = calendar.date(from: components)
       let end = calendar.date(byAdding: .day, value: 1, to: start ?? Date())
       
-      let snap = try await airQualityCollection.whereField("dt", isGreaterThan: start as Any).whereField("dt", isLessThan: end as Any).order(by: "dt").limit(to: 1440).getDocuments()
+      let snap = try await airQualityCollection.whereField(AQSample.CodingKeys.dt.stringValue, isGreaterThan: start as Any).whereField(AQSample.CodingKeys.dt.stringValue, isLessThan: end as Any).order(by: AQSample.CodingKeys.dt.stringValue).limit(to: 1440).getDocuments()
       for document in snap.documents {
          aqsArray.append(try document.data(as: AQSample.self))
       }
@@ -65,7 +65,7 @@ final class AirQualityDataManager {
       let start = calendar.date(from: components)
       let end = calendar.date(byAdding: .hour, value: numberOfHours, to: start ?? Date())
       
-      let snap = try await airQualityCollection.whereField("dt", isGreaterThan: start as Any).whereField("dt", isLessThan: end as Any).order(by: "dt").limit(to: 480).getDocuments()
+      let snap = try await airQualityCollection.whereField(AQSample.CodingKeys.dt.stringValue, isGreaterThan: start as Any).whereField(AQSample.CodingKeys.dt.stringValue, isLessThan: end as Any).order(by: AQSample.CodingKeys.dt.stringValue).limit(to: 480).getDocuments()
       for document in snap.documents {
          aqsArray.append(try document.data(as: AQSample.self))
       }
@@ -78,7 +78,7 @@ final class AirQualityDataManager {
    }
    
    func setNumFreebies(freebies: Freebies) async throws -> () {
-      try await freebiesDocument().setData(from: freebies)
+      try  freebiesDocument().setData(from: freebies)
    }
    
 }
