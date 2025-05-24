@@ -4,7 +4,7 @@
 import SwiftUI
 
 struct HourlyView: View {
-
+   
    @StateObject var viewModel = HourlyViewModel()
    @State var selectedDateHour = Calendar.current.date(
       byAdding: .hour,
@@ -16,6 +16,7 @@ struct HourlyView: View {
    @State var displayHumidity = true
    @State var displayECO2 = true
    @State var displayTVOC = true
+   @State var left: Int? = 0
    
    var body: some View {
       VStack (alignment: .center) {
@@ -24,7 +25,15 @@ struct HourlyView: View {
             numberOfHoursDuration: $numberOfHoursDuration,
             charted: $charted)
       }
+      .task {
+         try? await viewModel.getFreebiesLeft()
+         await MainActor.run {
+            self.left = viewModel.dailyFreebiesLeft
+         }
+      }
       Spacer()
+      Text("Freebies left: \(left ?? 0)")
+         .font(.subheadline)
          .fullScreenCover(isPresented: $charted) {
             hourlyChartSheet()
          }
@@ -34,7 +43,7 @@ struct HourlyView: View {
 }
 
 #Preview {
-   DailyView()
+   HourlyView()
 }
 
 extension HourlyView {
@@ -55,12 +64,21 @@ extension HourlyView {
       .overlay(
          BackButtonView(charted: $charted),
          alignment: .topLeading)
+      .onDisappear {
+         Task {
+            try await viewModel.getFreebiesLeft()
+            await MainActor.run {
+               self.left = viewModel.dailyFreebiesLeft
+            }
+         }
+      }
       .overlay(
          CauseAndGraphPickerView(
             displayTemperature: $displayTemperature,
             displayHumidity: $displayHumidity,
             displayECO2: $displayECO2,
-            displayTVOC: $displayTVOC),
+            displayTVOC: $displayTVOC
+         ),
          alignment: .topTrailing)
    }
 }

@@ -9,6 +9,7 @@ class DailyViewModel: ObservableObject {
    
    @Published var aqMeasurements: [AQSample] = []
    @Published private(set) var aqSample: AQSample? = nil
+   @Published var dailyFreebiesLeft: Int? = nil
    
    init() {
    }
@@ -47,7 +48,7 @@ class DailyViewModel: ObservableObject {
    func getOneDayOfSamples(date: Date) async throws {
       let samples = try? await AirQualityDataManager.shared.getSamplesByDate(date: date)
       if let samples = samples {
-         print("🐰 \(samples.count) 🐰 \(samples.last?.dateString ?? "n/a") 🐰")
+         try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
 //         samples.forEach {
 //            print($0.dateString, $0.temperature)
 //            print($0.humidity)
@@ -57,6 +58,29 @@ class DailyViewModel: ObservableObject {
 //         }
          await MainActor.run {
             self.aqMeasurements = samples
+         }
+      }
+   }
+   
+   func getFreebiesLeft() async throws {
+      var numFreebies = try? await AirQualityDataManager.shared.getNumFreebies()
+      if let newNumFreebies = numFreebies {
+         await MainActor.run {
+            self.dailyFreebiesLeft = newNumFreebies.numLeft
+         }
+      }
+   }
+   
+   private func subtractFreebliesLeft(numSamplesToRemove: Int) async throws {
+      var numFreebies = try? await AirQualityDataManager.shared.getNumFreebies()
+      if var numFreebies = numFreebies {
+         numFreebies.numLeft = numFreebies.numLeft - numSamplesToRemove
+         try? await AirQualityDataManager.shared.setNumFreebies(freebies: numFreebies)
+      }
+      numFreebies = try? await AirQualityDataManager.shared.getNumFreebies()
+      if let newNumFreebies = numFreebies {
+         await MainActor.run {
+            self.dailyFreebiesLeft = newNumFreebies.numLeft
          }
       }
    }

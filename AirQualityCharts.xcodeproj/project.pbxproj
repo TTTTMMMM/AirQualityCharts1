@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0443B6A02DE15C650077675B /* Freebies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B69F2DE15C4C0077675B /* Freebies.swift */; };
 		04B9FD912DDF88040036C731 /* CauseMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B9FD902DDF88040036C731 /* CauseMenuView.swift */; };
 		04B9FD932DDFA30E0036C731 /* CauseMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B9FD922DDFA30E0036C731 /* CauseMenuViewModel.swift */; };
 		04B9FD992DDFE9680036C731 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 04B9FD982DDFE9570036C731 /* README.md */; };
@@ -70,6 +71,7 @@
 		043AFD1A2DBADDAB005629B9 /* AirQualityCharts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirQualityCharts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		043AFD2A2DBADDAD005629B9 /* AirQualityChartsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AirQualityChartsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		043AFD342DBADDAD005629B9 /* AirQualityChartsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AirQualityChartsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0443B69F2DE15C4C0077675B /* Freebies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Freebies.swift; sourceTree = "<group>"; };
 		04B9FD902DDF88040036C731 /* CauseMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CauseMenuView.swift; sourceTree = "<group>"; };
 		04B9FD922DDFA30E0036C731 /* CauseMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CauseMenuViewModel.swift; sourceTree = "<group>"; };
 		04B9FD982DDFE9570036C731 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 		04CCA3B42DC41FD200710E41 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0443B69F2DE15C4C0077675B /* Freebies.swift */,
 				04CCA3AF2DC419CD00710E41 /* AQSample.swift */,
 			);
 			path = Models;
@@ -517,6 +520,7 @@
 				04CCA4342DDE622700710E41 /* DatePickerSectionView.swift in Sources */,
 				04CCA41E2DD547E500710E41 /* utilities.swift in Sources */,
 				04CCA40B2DD5264B00710E41 /* SettingsView.swift in Sources */,
+				0443B6A02DE15C650077675B /* Freebies.swift in Sources */,
 				04B9FDA62DE1014A0036C731 /* HourlyPickerSectionView.swift in Sources */,
 				04CCA4072DD5122200710E41 /* AuthenticationManager.swift in Sources */,
 				04CCA4392DDE7F5000710E41 /* ShowDailyLineGraphsView.swift in Sources */,

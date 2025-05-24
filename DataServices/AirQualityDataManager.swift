@@ -12,9 +12,14 @@ final class AirQualityDataManager {
    private init() {}
    
    private let airQualityCollection = Firestore.firestore().collection("air_quality")
+   private let freebiesLeftCollection = Firestore.firestore().collection("freebies_left")
    
    private func airQualitySampleDocument(firebaseID: String) -> DocumentReference {
       return airQualityCollection.document(firebaseID)
+   }
+   
+   private func freebiesDocument() -> DocumentReference {
+      return freebiesLeftCollection.document("freebies")  // only one document is in this collection
    }
    
    func createSample(firebaseID: String, aqSample: AQSample) async throws {
@@ -66,4 +71,14 @@ final class AirQualityDataManager {
       }
       return(aqsArray)
    }
+   
+   func getNumFreebies() async throws -> Freebies {
+      let freebies = try await freebiesDocument().getDocument(as: Freebies.self)
+      return freebies
+   }
+   
+   func setNumFreebies(freebies: Freebies) async throws -> () {
+      try await freebiesDocument().setData(from: freebies)
+   }
+   
 }
