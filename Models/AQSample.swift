@@ -31,7 +31,8 @@ struct AQSample: Identifiable, Equatable, Codable {
    }
    
    // the right hand side of the = is what the key is called in the firestore database
-   // e.g., the struct uses tVOC (lowercase t), but Firebase has it defined as TVOC (uppercase T)
+   // e.g., the struct uses tVOC (lowercase t), but Firebase has it
+   // defined as TVOC (uppercase T)
    enum CodingKeys: String, CodingKey {
       case id           = "id"
       case tVOC         = "TVOC"
@@ -43,7 +44,8 @@ struct AQSample: Identifiable, Equatable, Codable {
       case cause        = "cause"
    }
    
-   // when we download from firebase, we're going to decode the firebase document into whatever sits on the left hand side of the = sign
+   // when we download from firebase, we're going to decode the firebase document
+   // into whatever sits on the left hand side of the = sign
       mutating func decode(from decoder: Decoder) throws {
       let container = try decoder.container(keyedBy: CodingKeys.self)
       self.id = try container.decode(Int.self, forKey: .id)
