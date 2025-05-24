@@ -92,7 +92,7 @@ class AirQualityViewModel: ObservableObject {
    
    func getFreebiesLeft() async throws {
       // Get the current number of free samples left from firestore database
-      var freebies = try? await AirQualityDataManager.shared.getNumFreebies()
+      let freebies = try? await AirQualityDataManager.shared.getNumFreebies()
       if let freebies = freebies {
          // update the UI on the Main thread
          await MainActor.run {

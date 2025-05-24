@@ -17,7 +17,7 @@ struct HourlyView: View {
    @State var displayECO2 = true
    @State var displayTVOC = true
    @State var left: Int? = 0
-   
+
    var body: some View {
       VStack (alignment: .center) {
          HourlyPickerSectionView(
