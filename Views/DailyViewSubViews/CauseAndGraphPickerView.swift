@@ -12,6 +12,7 @@ struct CauseAndGraphPickerView: View {
       VStack(alignment: .leading, spacing: 10) {
          Text("Freebies Left: \(numLeft ?? 0)")
             .font(.subheadline)
+            .padding(4)
          CauseMenuView()
          GraphPickerView(displayTemperature: $displayTemperature, displayHumidity: $displayHumidity, displayECO2: $displayECO2, displayTVOC: $displayTVOC)
       }
@@ -27,17 +28,18 @@ struct CauseAndGraphPickerView: View {
    }
 }
 
-//#Preview {
-//   @Previewable @State var displayTemperature = true
-//   @Previewable @State var displayHumidity = true
-//   @Previewable @State var displayECO2 = true
-//   @Previewable @State var displayTVOC = true
-//   @Previewable @State var left Int?
-//   CauseAndGraphPickerView(
-//      displayTemperature: $displayTemperature,
-//      displayHumidity: $displayHumidity,
-//      displayECO2: $displayECO2,
-//      displayTVOC: $displayTVOC,
-//      numLeft: $left
-//   )
-//}
+#Preview {
+   @Previewable @State var displayTemperature = true
+   @Previewable @State var displayHumidity = true
+   @Previewable @State var displayECO2 = true
+   @Previewable @State var displayTVOC = true
+   @Previewable @State var left: Int? = 88
+   
+   CauseAndGraphPickerView(
+      displayTemperature: $displayTemperature,
+      displayHumidity: $displayHumidity,
+      displayECO2: $displayECO2,
+      displayTVOC: $displayTVOC,
+      numLeft: $left
+   )
+}
