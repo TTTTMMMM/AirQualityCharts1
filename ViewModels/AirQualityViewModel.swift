@@ -57,16 +57,8 @@ class AirQualityViewModel: ObservableObject {
    }
    
    func getOneDayOfSamples(date: Date) async throws {
-      let samples = try? await AirQualityDataManager.shared.getSamplesByDate(date: date)
-      if let samples = samples {
+      if let samples = try? await AirQualityDataManager.shared.getSamplesByDate(date: date) {
          try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
-//         samples.forEach {
-//            print($0.dateString, $0.temperature)
-//            print($0.humidity)
-//            print($0.unBiasedECO2)
-//            print($0.tVOC)
-//            print("----")
-//         }
          await MainActor.run {
             self.aqMeasurements = samples
          }
@@ -74,8 +66,7 @@ class AirQualityViewModel: ObservableObject {
    }
    
    func getSecifiedHoursWorthOfSamples(date: Date, numberOfHours: Int) async throws {
-      let samples = try? await AirQualityDataManager.shared.getSamplesByHour(date: date, numberOfHours: numberOfHours)
-      if let samples = samples {
+      if let samples = try? await AirQualityDataManager.shared.getSamplesByHour(date: date, numberOfHours: numberOfHours) {
          try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
 //         samples.forEach {
 //            print($0.dateString, $0.temperature)
@@ -92,9 +83,8 @@ class AirQualityViewModel: ObservableObject {
    
    func getFreebiesLeft() async throws {
       // Get the current number of free samples left from firestore database
-      let freebies = try? await AirQualityDataManager.shared.getNumFreebies()
-      if let freebies = freebies {
-         // update the UI on the Main thread
+      if let freebies = try? await AirQualityDataManager.shared.getNumFreebies() {
+         // after safely unwrapping, update the UI on the Main thread
          await MainActor.run {
             self.dailyFreebiesLeft = freebies.numLeft
          }
@@ -103,15 +93,15 @@ class AirQualityViewModel: ObservableObject {
    
    private func subtractFreebliesLeft(numSamplesToRemove: Int) async throws {
       // Get the current number of free samples left from firestore database
-      var freebies = try? await AirQualityDataManager.shared.getNumFreebies()
-      if var numFreebies = freebies {    // safely unwrap the result
+      if var numFreebies = try? await AirQualityDataManager.shared.getNumFreebies() {
+         // after safely unwrapping the result
          // subtract the number of free samples left and update the firestore database
          numFreebies.numLeft = numFreebies.numLeft - numSamplesToRemove
          try? await AirQualityDataManager.shared.setNumFreebies(freebies: numFreebies)
       }
       // Read the updated current number of free samples left from firestore database
-      freebies = try? await AirQualityDataManager.shared.getNumFreebies()
-      if let newNumFreebies = freebies { // safely unwrap the result
+      if let newNumFreebies = try? await AirQualityDataManager.shared.getNumFreebies() {
+         // after safely unwrapping the result
          // update the UI on the Main thread
          await MainActor.run {
             self.dailyFreebiesLeft = newNumFreebies.numLeft
