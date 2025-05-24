@@ -14,7 +14,12 @@ struct CauseAndGraphPickerView: View {
             .font(.subheadline)
             .padding(4)
          CauseMenuView()
-         GraphPickerView(displayTemperature: $displayTemperature, displayHumidity: $displayHumidity, displayECO2: $displayECO2, displayTVOC: $displayTVOC)
+         GraphPickerView(
+            displayTemperature: $displayTemperature,
+            displayHumidity: $displayHumidity,
+            displayECO2: $displayECO2,
+            displayTVOC: $displayTVOC
+         )
       }
       .padding(3)
       .background(Color.gray.opacity(0.1))
