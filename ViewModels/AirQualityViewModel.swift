@@ -38,14 +38,20 @@ class AirQualityViewModel: ObservableObject {
          temperature: 71.4
       )
       
-      try? await AirQualityDataManager.shared.createSample(firebaseID: firebaseID, aqSample: aqSample)
+      try? await AirQualityDataManager.shared.createSample(
+         firebaseID: firebaseID,
+         aqSample: aqSample
+      )
    }
    
-   // I won't be using this in the app, just here to get a test sample to see how a sample comes back from Firebase
+   // I won't be using this in the app, just here to get a test sample to see how a
+   // sample comes back from Firebase
    func getSample() async throws {
       let firebaseID = "0046sa5vLc00OjjKPIGD"
       //      let firebaseID = "00Acz98Ndoq0x5tr2uWO"
-      let aqs = try await AirQualityDataManager.shared.getAQSample(firebaseID: firebaseID)
+      let aqs = try await AirQualityDataManager.shared.getAQSample(
+         firebaseID: firebaseID
+      )
       await MainActor.run {
          self.aqSample = aqs
          print("\(firebaseID) -> \(self.aqSample.debugDescription)")
@@ -57,7 +63,9 @@ class AirQualityViewModel: ObservableObject {
    }
    
    func getOneDayOfSamples(date: Date) async throws {
-      if let samples = try? await AirQualityDataManager.shared.getSamplesByDate(date: date) {
+      if let samples = try? await AirQualityDataManager.shared.getSamplesByDate(
+         date: date
+      ) {
          try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
          await MainActor.run {
             self.aqMeasurements = samples
@@ -66,7 +74,10 @@ class AirQualityViewModel: ObservableObject {
    }
    
    func getSecifiedHoursWorthOfSamples(date: Date, numberOfHours: Int) async throws {
-      if let samples = try? await AirQualityDataManager.shared.getSamplesByHour(date: date, numberOfHours: numberOfHours) {
+      if let samples = try? await AirQualityDataManager.shared.getSamplesByHour(
+         date: date,
+         numberOfHours: numberOfHours
+      ) {
          try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
 //         samples.forEach {
 //            print($0.dateString, $0.temperature)
