@@ -9,7 +9,6 @@ class HourlyViewModel: ObservableObject {
    
    @Published var aqMeasurements: [AQSample] = []
    @Published private(set) var aqSample: AQSample? = nil
-   @Published var selectedHoursDuration: HoursDuration? = nil
    
    init() {
    }

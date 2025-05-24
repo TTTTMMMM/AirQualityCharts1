@@ -6,8 +6,11 @@ import SwiftUI
 struct HourlyView: View {
 
    @StateObject var viewModel = HourlyViewModel()
-   @State var selectedDateHour = Date()
-   @State var numberOfHoursDuration: String = "1"
+   @State var selectedDateHour = Calendar.current.date(
+      byAdding: .hour,
+      value: -2,
+      to: Date())!  // defaults to a couple of hours back from current time
+   @State var numberOfHoursDuration: String = "3"
    @State var charted = false
    @State var displayTemperature = true
    @State var displayHumidity = true
