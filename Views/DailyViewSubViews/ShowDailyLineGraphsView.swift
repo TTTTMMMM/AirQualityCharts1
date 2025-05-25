@@ -48,7 +48,7 @@ struct ShowDailyLineGraphsView: View {
                if displayECO2 {
                   LineMark(
                      x: .value("timestamp", measurement.timeString),
-                     y: .value("ECO2", measurement.unBiasedECO2),
+                     y: .value("ECO2", measurement.unBiasedECO2AndScaled),
                      series: .value("unBiasedECO2", "C")
                   )
                   .foregroundStyle(Color.blue)

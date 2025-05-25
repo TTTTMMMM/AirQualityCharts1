@@ -26,9 +26,14 @@ struct AQSample: Identifiable, Equatable, Codable {
       return dateFormatter.string(from: dt)
    }
    
-   var unBiasedECO2: Int {
-      return eCO2-400
+   var unBiasedECO2AndScaled: Double {
+      return Double((eCO2-400))*0.1
    }
+
+   var scaledTVOC: Double {
+      return Double(tVOC)*0.1
+   }
+   
    
    // the right hand side of the = is what the key is called in the firestore database
    // e.g., the struct uses tVOC (lowercase t), but Firebase has it

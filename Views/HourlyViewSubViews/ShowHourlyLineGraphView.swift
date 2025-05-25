@@ -49,7 +49,7 @@ struct ShowHourlyLineGraphsView: View {
                if displayECO2 {
                   LineMark(
                      x: .value("timestamp", measurement.timeString),
-                     y: .value("ECO2", measurement.unBiasedECO2),
+                     y: .value("ECO2", measurement.unBiasedECO2AndScaled),
                      series: .value("unBiasedECO2", "C")
                   )
                   .foregroundStyle(Color.blue)
@@ -57,7 +57,7 @@ struct ShowHourlyLineGraphsView: View {
                if displayTVOC {
                   LineMark(
                      x: .value("timestamp", measurement.timeString),
-                     y: .value("TVOC", measurement.tVOC),
+                     y: .value("TVOC", measurement.scaledTVOC),
                      series: .value("tVOC", "D")
                   )
                   .foregroundStyle(Color.red)
@@ -97,7 +97,10 @@ struct ShowHourlyLineGraphsView: View {
       .task {
          do {
             isLoading = true
-            try await viewModel.getSecifiedHoursWorthOfSamples(date: selectedDateHour, numberOfHours: Int(numberOfHoursDuration) ?? 1)
+            try await viewModel.getSecifiedHoursWorthOfSamples(
+               date: selectedDateHour,
+               numberOfHours: Int(numberOfHoursDuration) ?? 1
+            )
             isLoading = false
          }
          catch {

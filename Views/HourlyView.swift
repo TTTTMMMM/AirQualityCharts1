@@ -81,5 +81,6 @@ extension HourlyView {
             numLeft: $left
          ),
          alignment: .topTrailing)
+      }
    }
-}
+
