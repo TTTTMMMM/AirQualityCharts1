@@ -61,8 +61,9 @@ final class AirQualityDataManager {
       return(aqsArray)
    }
    
-   // function that queries for one hour's worth of samples, puts the
-   // documents into AirQualitySample object, and returns results in array
+   // function that queries for a specified number of hour's [1..8] worth
+   // of samples, puts the documents into AirQualitySample object, and
+   // returns results in an array
    // 480 is the number of minutes in an an 8-hour window, just in case there
    // is/was a problem with a runaway query as I was developing
    func getSamplesByHour(date: Date, numberOfHours: Int) async throws -> [AQSample] {
