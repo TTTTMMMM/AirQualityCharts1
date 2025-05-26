@@ -69,7 +69,7 @@ struct ShowHourlyLineGraphsView: View {
          .animation(.linear(duration: 0.6), value: displayHumidity)
          .animation(.linear(duration: 0.6), value: displayECO2)
          .animation(.linear(duration: 0.6), value: displayTVOC)
-         .animation(.linear(duration: 2.6), value: viewModel.aqMeasurements)
+         .animation(.linear(duration: 0.6), value: viewModel.aqMeasurements)
          .chartScrollableAxes(.horizontal)
          .chartXVisibleDomain(length: 120)
          .chartLegend(position: .top, alignment: .leading, spacing: 8)

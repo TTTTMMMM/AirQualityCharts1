@@ -35,7 +35,8 @@ struct AQSample: Identifiable, Equatable, Codable {
    }
    
    
-   // the right hand side of the = is what the key is called in the firestore database
+   // the right hand side of the = is what the key is called
+   // in the firestore database
    // e.g., the struct uses tVOC (lowercase t), but Firebase has it
    // defined as TVOC (uppercase T)
    enum CodingKeys: String, CodingKey {
