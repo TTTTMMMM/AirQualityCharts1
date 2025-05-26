@@ -19,16 +19,23 @@ final class AirQualityDataManager {
    }
    
    private func freebiesDocument() -> DocumentReference {
-      return freebiesLeftCollection.document("freebies")  // only one document is in this collection
+      // only one document is in this collection
+      return freebiesLeftCollection.document("freebies")
    }
    
    func createSample(firebaseID: String, aqSample: AQSample) async throws {
-      try airQualitySampleDocument(firebaseID: firebaseID).setData(from: aqSample, merge: false)
+      try airQualitySampleDocument(firebaseID: firebaseID).setData(
+         from: aqSample,
+         merge: false
+      )
    }
    
    func getAQSample(firebaseID: String) async throws -> AQSample {
-      // next line directly decodes from firebase document to an airquality sample type and returns it
-      try await airQualitySampleDocument(firebaseID: firebaseID).getDocument(as: AQSample.self)
+      // next line directly decodes from firebase document to an
+      // airquality sample type and returns it
+      try await airQualitySampleDocument(firebaseID: firebaseID).getDocument(
+         as: AQSample.self
+      )
    }
    
    // the following function updates only the 'cause' property of an
@@ -53,8 +60,12 @@ final class AirQualityDataManager {
       
       let snap = try await airQualityCollection.whereField(
          AQSample.CodingKeys.dt.stringValue,
-         isGreaterThan: start as Any).whereField(AQSample.CodingKeys.dt.stringValue,
-            isLessThan: end as Any).order(by: AQSample.CodingKeys.dt.stringValue).limit(to: 1440).getDocuments()
+         isGreaterThan: start as Any
+      ).whereField(AQSample.CodingKeys.dt.stringValue,
+                   isLessThan: end as Any
+      ).order(
+         by: AQSample.CodingKeys.dt.stringValue
+      ).limit(to: 1440).getDocuments()
       for document in snap.documents {
          aqsArray.append(try document.data(as: AQSample.self))
       }
@@ -73,9 +84,14 @@ final class AirQualityDataManager {
       let start = calendar.date(from: components)
       let end = calendar.date(byAdding: .hour, value: numberOfHours, to: start ?? Date())
       
-      let snap = try await airQualityCollection.whereField(AQSample.CodingKeys.dt.stringValue,
-            isGreaterThan: start as Any).whereField(AQSample.CodingKeys.dt.stringValue,
-            isLessThan: end as Any).order(by: AQSample.CodingKeys.dt.stringValue).limit(to: 480).getDocuments()
+      let snap = try await airQualityCollection.whereField(
+         AQSample.CodingKeys.dt.stringValue,
+         isGreaterThan: start as Any
+      ).whereField(AQSample.CodingKeys.dt.stringValue,
+                   isLessThan: end as Any
+      ).order(
+         by: AQSample.CodingKeys.dt.stringValue
+      ).limit(to: 480).getDocuments()
       for document in snap.documents {
          aqsArray.append(try document.data(as: AQSample.self))
       }
