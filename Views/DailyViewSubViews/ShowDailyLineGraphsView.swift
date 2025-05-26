@@ -56,7 +56,7 @@ struct ShowDailyLineGraphsView: View {
                if displayTVOC {
                   LineMark(
                      x: .value("timestamp", measurement.timeString),
-                     y: .value("TVOC", measurement.tVOC),
+                     y: .value("TVOC", measurement.scaledTVOC),
                      series: .value("tVOC", "D")
                   )
                   .foregroundStyle(Color.red)
