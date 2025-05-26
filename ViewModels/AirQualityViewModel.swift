@@ -114,4 +114,10 @@ class AirQualityViewModel: ObservableObject {
       try? await getFreebiesLeft()
    }
    
+   func addListenerForAQSamples()  {
+      AirQualityDataManager.shared.addListenerForAirQualitySamples { [weak self] aqsArray in
+         self?.aqMeasurements = aqsArray
+      }
+      }
+   
 }

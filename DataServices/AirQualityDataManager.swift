@@ -107,4 +107,37 @@ final class AirQualityDataManager {
       try  freebiesDocument().setData(from: freebies)
    }
    
+   // function that sets up a Firestore listener for real-time data,
+   // starting a couple of hours back from now.
+   // couldn't do this without following along to
+   // https://www.youtube.com/watch?v=a87MFlvfWvA&list=PLwvDm4Vfkdphl8ly0oi0aHx0v2B7UvDK0&index=17
+   //
+   func addListenerForAirQualitySamples(completion: @escaping (_ aqsArray:[AQSample]) -> Void) {
+      let calendar = Calendar.current
+//      let components = calendar.dateComponents([.year, .month, .day], from: Date())
+      let start = calendar.date(byAdding: .hour, value: -2, to: Date())
+//      let end = calendar.date(byAdding: .hour, value: 6, to: Date())
+
+//      airQualityCollection.addSnapshotListener { querySnapshot, error in
+//         guard let documents = querySnapshot?.documents else {
+//            print("No samples")
+//            return
+//         }
+//         let aqsArray: [AQSample] = documents.compactMap({try? $0.data(as: AQSample.self)})
+//         completion(aqsArray)
+//      }
+      
+      // Try this tomorrow, after I get my 50,000 freebies reinstated
+      airQualityCollection.whereField(AQSample.CodingKeys.dt.stringValue,isGreaterThan: start as Any)
+         .addSnapshotListener { querySnapshot, error in
+         guard let documents = querySnapshot?.documents else {
+            print("No samples")
+            return
+         }
+         let aqsArray: [AQSample] = documents.compactMap({try? $0.data(as: AQSample.self)})
+         completion(aqsArray)
+      }
+      
+   }
+   
 }

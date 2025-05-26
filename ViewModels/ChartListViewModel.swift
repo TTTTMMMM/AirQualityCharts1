@@ -17,9 +17,9 @@ let weeklyView = ChartListViewModel(
    listDisplayText: "Hourly Graph",
    chartView: AnyView(HourlyView()))
 let dailyComparisonView = ChartListViewModel(
-   imageName: "daily-comparison",
-   listDisplayText: "Daily Comparison",
-   chartView: AnyView(DailyComparisonView()))
+   imageName: "realTimeListener",
+   listDisplayText: "Real Time Listener",
+   chartView: AnyView(RealTimeListenerView()))
 
 let clvmArray: [ChartListViewModel] = [dailyView, weeklyView, dailyComparisonView]
 

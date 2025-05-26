@@ -1,7 +1,7 @@
 import SwiftUI
 import Charts
 
-struct ShowRealTimeLineGraph: View {
+struct ShowRealTimeLineGraphView: View {
    
    @StateObject var viewModel = AirQualityViewModel()
    @Binding var displayTemperature: Bool
@@ -120,7 +120,7 @@ struct ShowRealTimeLineGraph: View {
    @Previewable @State var displayECO2 = true
    @Previewable @State var displayTVOC = true
    
-   ShowRealTimeLineGraph(
+   ShowRealTimeLineGraphView(
       displayTemperature: $displayTemperature,
       displayHumidity: $displayHumidity,
       displayECO2: $displayECO2,

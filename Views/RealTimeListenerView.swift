@@ -1,16 +1,93 @@
+//
+// https://www.youtube.com/playlist?list=PLwvDm4Vfkdphl8ly0oi0aHx0v2B7UvDK0
+//
 import SwiftUI
 
-struct DailyComparisonView: View {
+struct RealTimeListenerView: View {
+
+   @StateObject var viewModel = AirQualityViewModel()
+   @State var selectedDate = Date()
+   @State var charted = false
+   @State var displayTemperature = true
+   @State var displayHumidity = true
+   @State var displayECO2 = true
+   @State var displayTVOC = true
+   @State var left: Int? = 0
+   
+   private var dateFormatter: DateFormatter {
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateFormat = "MMM dd, yyyy"
+      return dateFormatter
+   }
+
    var body: some View {
-      ZStack {
-         Color.purple.edgesIgnoringSafeArea(.all)
-         Text("Real-time Listener")
-            .font(.system(size: 80, weight: .bold, design: .default))
-            .foregroundStyle(.white)
+      VStack (alignment: .center) {
+         Button(action: {
+            charted.toggle()
+         },
+                label: {
+            Text("Listen for Air Quality Updates\n \(self.dateFormatter.string(from: self.selectedDate))")
+               .font(.headline)
+               .foregroundStyle(.white)
+         })
+         .padding(10)
+         .font(.title)
+         .background(Color.accentColor)
+         .clipShape(RoundedRectangle(cornerRadius: 10))
+         .shadow(color: Color.black.opacity(0.9), radius: 10, x: 0, y: 5)      }
+      .task {
+         try? await viewModel.getFreebiesLeft()
+         await MainActor.run {
+            self.left = viewModel.dailyFreebiesLeft
+         }
       }
+      Spacer()
+      Text("Freebies left: \(left ?? 0)")
+         .font(.subheadline)
+         .fullScreenCover(isPresented: $charted) {
+            realTimeChartSheet()
+         }
+         .padding()
+         .background(Color.white)
    }
 }
 
 #Preview {
-    DailyComparisonView()
+   RealTimeListenerView()
+}
+
+extension RealTimeListenerView {
+   
+   func realTimeChartSheet() -> some View {
+      VStack () {
+         ShowRealTimeLineGraphView(
+            displayTemperature: $displayTemperature,
+            displayHumidity: $displayHumidity,
+            displayECO2: $displayECO2,
+            displayTVOC: $displayTVOC
+         )
+      }
+      .ignoresSafeArea()
+      .background(.gray)
+      .overlay(
+         BackButtonView(charted: $charted),
+         alignment: .topLeading)
+      .onDisappear {
+         Task {
+            try await viewModel.getFreebiesLeft()
+            await MainActor.run {
+               self.left = viewModel.dailyFreebiesLeft
+            }
+         }
+      }
+      .overlay(
+         CauseAndGraphPickerView(
+            displayTemperature: $displayTemperature,
+            displayHumidity: $displayHumidity,
+            displayECO2: $displayECO2,
+            displayTVOC: $displayTVOC,
+            numLeft: $left
+         ),
+         alignment: .topTrailing)
+   }
 }
