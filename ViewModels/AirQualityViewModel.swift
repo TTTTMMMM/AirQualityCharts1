@@ -118,6 +118,9 @@ class AirQualityViewModel: ObservableObject {
       AirQualityDataManager.shared.addListenerForAirQualitySamples { [weak self] aqsArray in
          self?.aqMeasurements = aqsArray
       }
-      }
+   }
    
+   func removeAQSamplesListener()  {
+      AirQualityDataManager.shared.removeListenerForAirQualitySamples()
+      }
 }

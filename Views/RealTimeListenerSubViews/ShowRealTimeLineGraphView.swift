@@ -8,13 +8,12 @@ struct ShowRealTimeLineGraphView: View {
    @Binding var displayHumidity: Bool
    @Binding var displayECO2: Bool
    @Binding var displayTVOC: Bool
-   @State var isLoading: Bool = true
    @State private var didAppear: Bool = false
 
    var selectedDateHour: Date = Date()
    var startTime = Calendar.current.date(
       byAdding: .hour,
-      value: -3,
+      value: -2,
       to: Date())
    
    private var dateFormatter: DateFormatter {
@@ -25,7 +24,7 @@ struct ShowRealTimeLineGraphView: View {
    
    private var dateFormatter2: DateFormatter {
       let dateFormatter = DateFormatter()
-      dateFormatter.dateFormat = "HH:00"
+      dateFormatter.dateFormat = "HH:mm"
       return dateFormatter
    }
    
@@ -33,10 +32,6 @@ struct ShowRealTimeLineGraphView: View {
       GroupBox {
          Text("Real-time Chart for \(self.dateFormatter.string(from: self.selectedDateHour)) starting at \(self.dateFormatter2.string(from: self.startTime!))")
             .font(.title2)
-         if(isLoading) {
-            ProgressView()
-               .scaleEffect(2)
-         }
          Chart {
             ForEach (viewModel.aqMeasurements)  { measurement in
                if displayTemperature {
@@ -108,6 +103,9 @@ struct ShowRealTimeLineGraphView: View {
             didAppear = true
             viewModel.addListenerForAQSamples()
          }
+      }
+      .onDisappear {
+         viewModel.removeAQSamplesListener()
       }
       .padding(12)
    }
