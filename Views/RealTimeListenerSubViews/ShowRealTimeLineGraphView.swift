@@ -81,9 +81,9 @@ struct ShowRealTimeLineGraphView: View {
             .chartLegend(position: .top, alignment: .leading, spacing: 8)
             .chartForegroundStyleScale(
                ["Temperature": Color.accentColor,
-//                "Humidity": Color.black,
-//                "eCO2": Color.blue,
-//                "tVOC": Color.red
+                "Humidity": Color.black,
+                "eCO2": Color.blue,
+                "tVOC": Color.red
                ]
             )
             .chartXAxis {
