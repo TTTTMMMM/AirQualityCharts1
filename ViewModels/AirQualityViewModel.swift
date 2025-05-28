@@ -12,7 +12,15 @@ class AirQualityViewModel: ObservableObject {
    @Published private(set) var aqSample: AQSample? = nil
    @Published var dailyFreebiesLeft: Int? = nil
    private  var cancellables = Set<AnyCancellable>()
-   @Published var lastSample: AQSample = AQSample(id: 0, tVOC: 0, dt: Date(), eCO2: 0, forwarder: "none", humidity: 0, temperature: 0)
+   @Published var lastSample: AQSample = AQSample(
+      id: 0,
+      tVOC: 0,
+      dt: Date(),
+      eCO2: 0,
+      forwarder: "none",
+      humidity: 0,
+      temperature: 0
+   )
    
    init() {
    }
