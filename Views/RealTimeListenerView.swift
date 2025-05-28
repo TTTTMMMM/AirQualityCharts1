@@ -80,14 +80,5 @@ extension RealTimeListenerView {
             }
          }
       }
-      .overlay(
-         CauseAndGraphPickerView(
-            displayTemperature: $displayTemperature,
-            displayHumidity: $displayHumidity,
-            displayECO2: $displayECO2,
-            displayTVOC: $displayTVOC,
-            numLeft: $left
-         ),
-         alignment: .topTrailing)
    }
 }

@@ -99,8 +99,8 @@ struct ShowRealTimeLineGraphView: View {
             .chartYAxis {
                AxisMarks(position: .leading)
             }
-            LastSampleView()
-               .padding(.leading, 620)
+            causeAndGraphPickerView2()
+               .padding(.leading, 850)
          }
       }
       .onAppear {
@@ -164,5 +164,38 @@ extension ShowRealTimeLineGraphView {
          .transition(.opacity)
          .animation(.linear(duration: 0.6), value: viewModel.lastSample)
       }
+}
+
+extension ShowRealTimeLineGraphView {
+   
+   func causeAndGraphPickerView2() -> some View {
+      
+      return
+         HStack (alignment: .top) {
+            LastSampleView()
+               .padding(.top, 14)
+            VStack(alignment: .leading, spacing: 10) {
+               Text("Freebies Left: \(viewModel.dailyFreebiesLeft ?? 0)")
+                  .font(.caption2)
+                  .padding(4)
+               CauseMenuView()
+               GraphPickerView(
+                  displayTemperature: $displayTemperature,
+                  displayHumidity: $displayHumidity,
+                  displayECO2: $displayECO2,
+                  displayTVOC: $displayTVOC
+               )
+            }
+            .padding(3)
+            .background(Color.gray.opacity(0.1))
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .overlay(
+               RoundedRectangle(cornerRadius: 6)
+                  .stroke(.black, lineWidth: 1)
+            )
+            .padding(.top, 14)
+            .padding(.trailing, 25)
+         }
+   }
 }
 

@@ -23,6 +23,9 @@ class AirQualityViewModel: ObservableObject {
    )
    
    init() {
+      Task {
+         try? await self.getFreebiesLeft()
+      }
    }
    
    enum HoursDuration: String, CaseIterable {
