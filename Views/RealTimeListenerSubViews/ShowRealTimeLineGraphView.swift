@@ -32,70 +32,75 @@ struct ShowRealTimeLineGraphView: View {
       GroupBox {
          Text("Real-time Chart for \(self.dateFormatter.string(from: self.selectedDateHour)) starting at \(self.dateFormatter2.string(from: self.startTime!))")
             .font(.title2)
-         Chart {
-            ForEach (viewModel.aqMeasurements)  { measurement in
-               if displayTemperature {
-                  LineMark(
-                     x: .value("timestamp", measurement.timeString),
-                     y: .value("temperature", measurement.temperature),
-                     series: .value("temperature", "A")
-                  )
-                  .foregroundStyle(Color.green)
-               }
-               if displayHumidity {
-                  LineMark(
-                     x: .value("timestamp", measurement.timeString),
-                     y: .value("humidity", measurement.humidity),
-                     series: .value("humidity", "B")
-                  )
-                  .foregroundStyle(Color.black)
-               }
-               if displayECO2 {
-                  LineMark(
-                     x: .value("timestamp", measurement.timeString),
-                     y: .value("ECO2", measurement.unBiasedECO2AndScaled),
-                     series: .value("unBiasedECO2", "C")
-                  )
-                  .foregroundStyle(Color.blue)
-               }
-               if displayTVOC {
-                  LineMark(
-                     x: .value("timestamp", measurement.timeString),
-                     y: .value("TVOC", measurement.scaledTVOC),
-                     series: .value("tVOC", "D")
-                  )
-                  .foregroundStyle(Color.red)
-               }
-            }
-         }
-         .transition(.opacity)
-         .animation(.linear(duration: 0.6), value: displayTemperature)
-         .animation(.linear(duration: 0.6), value: displayHumidity)
-         .animation(.linear(duration: 0.6), value: displayECO2)
-         .animation(.linear(duration: 0.6), value: displayTVOC)
-         .animation(.linear(duration: 0.6), value: viewModel.aqMeasurements)
-         .chartScrollableAxes(.horizontal)
-         .chartXVisibleDomain(length: 240)
-         .chartLegend(position: .top, alignment: .leading, spacing: 8)
-         .chartForegroundStyleScale(
-            ["Temperature": Color.accentColor,
-             "Humidity": Color.black,
-             "eCO2": Color.blue,
-             "tVOC": Color.red
-            ]
-         )
-         .chartXAxis {
-            AxisMarks(
-               // label every 15 mins
-               values: .automatic(desiredCount: 15)
-            ) { mark in
-               if mark.index % 15 == 0 {
-                  AxisValueLabel()
+
+         ZStack (alignment: .top) {
+            Chart {
+               ForEach (viewModel.aqMeasurements)  { measurement in
+                  if displayTemperature {
+                     LineMark(
+                        x: .value("timestamp", measurement.timeString),
+                        y: .value("temperature", measurement.temperature),
+                        series: .value("temperature", "A")
+                     )
+                     .foregroundStyle(Color.green)
+                  }
+                  if displayHumidity {
+                     LineMark(
+                        x: .value("timestamp", measurement.timeString),
+                        y: .value("humidity", measurement.humidity),
+                        series: .value("humidity", "B")
+                     )
+                     .foregroundStyle(Color.black)
+                  }
+                  if displayECO2 {
+                     LineMark(
+                        x: .value("timestamp", measurement.timeString),
+                        y: .value("ECO2", measurement.unBiasedECO2AndScaled),
+                        series: .value("unBiasedECO2", "C")
+                     )
+                     .foregroundStyle(Color.blue)
+                  }
+                  if displayTVOC {
+                     LineMark(
+                        x: .value("timestamp", measurement.timeString),
+                        y: .value("TVOC", measurement.scaledTVOC),
+                        series: .value("tVOC", "D")
+                     )
+                     .foregroundStyle(Color.red)
+                  }
                }
             }
-         }
-         .chartYAxis {
-            AxisMarks(position: .leading)
+            .transition(.opacity)
+            .animation(.linear(duration: 0.6), value: displayTemperature)
+            .animation(.linear(duration: 0.6), value: displayHumidity)
+            .animation(.linear(duration: 0.6), value: displayECO2)
+            .animation(.linear(duration: 0.6), value: displayTVOC)
+            .animation(.linear(duration: 0.6), value: viewModel.aqMeasurements)
+            .chartScrollableAxes(.horizontal)
+            .chartXVisibleDomain(length: 240)
+            .chartLegend(position: .top, alignment: .leading, spacing: 8)
+            .chartForegroundStyleScale(
+               ["Temperature": Color.accentColor,
+//                "Humidity": Color.black,
+//                "eCO2": Color.blue,
+//                "tVOC": Color.red
+               ]
+            )
+            .chartXAxis {
+               AxisMarks(
+                  // label every 15 mins
+                  values: .automatic(desiredCount: 15)
+               ) { mark in
+                  if mark.index % 15 == 0 {
+                     AxisValueLabel()
+                  }
+               }
+            }
+            .chartYAxis {
+               AxisMarks(position: .leading)
+            }
+            LastSampleView()
+               .padding(.leading, 620)
          }
       }
       .onAppear {
@@ -125,3 +130,39 @@ struct ShowRealTimeLineGraphView: View {
       displayTVOC: $displayTVOC
    )
 }
+
+extension ShowRealTimeLineGraphView {
+   func LastSampleView() -> some View {
+      var dateFormatter2: DateFormatter {
+         let dateFormatter = DateFormatter()
+         dateFormatter.dateFormat = "YYYY-MMM-dd HH:mm"
+         return dateFormatter
+      }
+      
+      return
+         VStack (alignment: .leading) {
+            Text("Last Sample")
+               .font(.subheadline)
+               .foregroundStyle(.black)
+               .frame(maxWidth: .infinity, alignment: .center)
+            Text(verbatim: "ID: \(viewModel.lastSample.id)")
+            Text(verbatim: "Temperature: \(viewModel.lastSample.temperature)°F")
+            Text(verbatim: "Humidity: \(viewModel.lastSample.humidity)%")
+            Text(verbatim: "ECO2: \(viewModel.lastSample.eCO2) -> \(viewModel.lastSample.unBiasedECO2AndScaled)")
+            Text(verbatim: "TVOC: \(viewModel.lastSample.tVOC) -> \(viewModel.lastSample.scaledTVOC)")
+            Text("\(dateFormatter2.string(from: viewModel.lastSample.dt))")
+         }
+         .font(.caption2)
+         .padding(6)
+         .background(Color.gray.opacity(0.1))
+         .clipShape(RoundedRectangle(cornerRadius: 10))
+         .overlay(
+            RoundedRectangle(cornerRadius: 6)
+               .stroke(.black, lineWidth: 1)
+         )
+         .frame(width: 130)
+         .transition(.opacity)
+         .animation(.linear(duration: 0.6), value: viewModel.lastSample)
+      }
+}
+

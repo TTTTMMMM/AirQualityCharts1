@@ -10,11 +10,11 @@ struct CauseAndGraphPickerView: View {
       
    var body: some View {
       HStack (alignment: .top) {
-         LastSampleView()
-            .padding(.top, 44)
+//         LastSampleView()
+//            .padding(.top, 44)
          VStack(alignment: .leading, spacing: 10) {
             Text("Freebies Left: \(numLeft ?? 0)")
-               .font(.subheadline)
+               .font(.caption2)
                .padding(4)
             CauseMenuView()
             GraphPickerView(

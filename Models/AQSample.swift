@@ -33,11 +33,13 @@ struct AQSample: Identifiable, Equatable, Codable {
    }
    
    var unBiasedECO2AndScaled: Double {
-      return Double((eCO2-400))*0.1
+      let x = Double((eCO2-400))*0.1
+      return Double(round(1000 * x) / 1000)
    }
 
    var scaledTVOC: Double {
-      return Double(tVOC)*0.1
+      let x = Double(tVOC)*0.1
+      return Double(round(1000 * x) / 1000)
    }
    
    

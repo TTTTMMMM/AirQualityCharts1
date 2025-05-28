@@ -13,13 +13,13 @@ class AirQualityViewModel: ObservableObject {
    @Published var dailyFreebiesLeft: Int? = nil
    private  var cancellables = Set<AnyCancellable>()
    @Published var lastSample: AQSample = AQSample(
-      id: 0,
-      tVOC: 0,
+      id: 1,
+      tVOC: 2,
       dt: Date(),
-      eCO2: 0,
+      eCO2: 3,
       forwarder: "none",
-      humidity: 0,
-      temperature: 0
+      humidity: 4,
+      temperature: 5
    )
    
    init() {
@@ -130,8 +130,13 @@ class AirQualityViewModel: ObservableObject {
          .sink { completion in
          } receiveValue: { [weak self] aqsArray in
             self?.aqMeasurements = aqsArray
-            self?.lastSample = self?.aqMeasurements.last ?? AQSample(id: 0, tVOC: 0, dt: Date(), eCO2: 0, forwarder: "none", humidity: 0, temperature: 0)
-            print("🐘🐘🐘🐘 \(String(describing: self?.aqMeasurements.last)) 🐘🐘🐘🐘")
+            Task {
+               await MainActor.run {
+                  if let lastOne = self?.aqMeasurements.last {
+                     self?.lastSample = lastOne
+                  }
+               }
+            }
          }
          .store(in: &cancellables)
          }

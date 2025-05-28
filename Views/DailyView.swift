@@ -26,7 +26,7 @@ struct DailyView: View {
       }
       Spacer()
       Text("Freebies left: \(left ?? 0)")
-         .font(.subheadline)
+         .font(.caption2)
          .fullScreenCover(isPresented: $charted) {
             dailyChartSheet()
          }
