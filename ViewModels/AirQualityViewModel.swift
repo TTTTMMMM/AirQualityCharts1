@@ -3,6 +3,7 @@
 //
 import Foundation
 import FirebaseFirestore
+import Combine
 
 @MainActor
 class AirQualityViewModel: ObservableObject {
@@ -10,6 +11,8 @@ class AirQualityViewModel: ObservableObject {
    @Published var aqMeasurements: [AQSample] = []
    @Published private(set) var aqSample: AQSample? = nil
    @Published var dailyFreebiesLeft: Int? = nil
+   private  var cancellables = Set<AnyCancellable>()
+   @Published var lastSample: AQSample = AQSample(id: 0, tVOC: 0, dt: Date(), eCO2: 0, forwarder: "none", humidity: 0, temperature: 0)
    
    init() {
    }
@@ -115,12 +118,17 @@ class AirQualityViewModel: ObservableObject {
    }
    
    func addListenerForAQSamples()  {
-      AirQualityDataManager.shared.addListenerForAirQualitySamples { [weak self] aqsArray in
-         self?.aqMeasurements = aqsArray
-      }
-   }
+      AirQualityDataManager.shared.addListenerForAirQualitySamples()
+         .sink { completion in
+         } receiveValue: { [weak self] aqsArray in
+            self?.aqMeasurements = aqsArray
+            self?.lastSample = self?.aqMeasurements.last ?? AQSample(id: 0, tVOC: 0, dt: Date(), eCO2: 0, forwarder: "none", humidity: 0, temperature: 0)
+            print("🐘🐘🐘🐘 \(String(describing: self?.aqMeasurements.last)) 🐘🐘🐘🐘")
+         }
+         .store(in: &cancellables)
+         }
    
-   func removeAQSamplesListener()  {
-      AirQualityDataManager.shared.removeListenerForAirQualitySamples()
+   func cancelCombineSubscriptions()  {
+      cancellables.removeAll()
       }
 }

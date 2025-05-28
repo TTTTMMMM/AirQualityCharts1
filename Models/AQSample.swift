@@ -20,6 +20,12 @@ struct AQSample: Identifiable, Equatable, Codable {
       return dateFormatter.string(from: dt)
    }
    
+   var dateString2: String {
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+      return dateFormatter.string(from: dt)
+   }
+   
    var timeString: String {
       let dateFormatter = DateFormatter()
       dateFormatter.dateFormat = "HH:mm"

@@ -5,6 +5,7 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseSharedSwift
+import Combine
 
 final class AirQualityDataManager {
    
@@ -114,7 +115,8 @@ final class AirQualityDataManager {
    // couldn't do this without following along with
    // https://www.youtube.com/watch?v=a87MFlvfWvA&list=PLwvDm4Vfkdphl8ly0oi0aHx0v2B7UvDK0&index=17
    //
-   func addListenerForAirQualitySamples(completion: @escaping (_ aqsArray:[AQSample]) -> Void) {
+   func addListenerForAirQualitySamples() -> AnyPublisher<[AQSample], Error> {
+      let publisher = PassthroughSubject<[AQSample], Error>()
       let calendar = Calendar.current
       let start = calendar.date(byAdding: .hour, value: -2, to: Date())
       
@@ -126,8 +128,9 @@ final class AirQualityDataManager {
             return
          }
          let aqsArray: [AQSample] = documents.compactMap({try? $0.data(as: AQSample.self)})
-         completion(aqsArray)
+         publisher.send(aqsArray)
       }
+      return publisher.eraseToAnyPublisher()
    }
    
    func removeListenerForAirQualitySamples() {

@@ -75,7 +75,7 @@ struct ShowRealTimeLineGraphView: View {
          .animation(.linear(duration: 0.6), value: displayTVOC)
          .animation(.linear(duration: 0.6), value: viewModel.aqMeasurements)
          .chartScrollableAxes(.horizontal)
-         .chartXVisibleDomain(length: 180)
+         .chartXVisibleDomain(length: 240)
          .chartLegend(position: .top, alignment: .leading, spacing: 8)
          .chartForegroundStyleScale(
             ["Temperature": Color.accentColor,
@@ -105,7 +105,7 @@ struct ShowRealTimeLineGraphView: View {
          }
       }
       .onDisappear {
-         viewModel.removeAQSamplesListener()
+         viewModel.cancelCombineSubscriptions()
       }
       .padding(12)
    }
