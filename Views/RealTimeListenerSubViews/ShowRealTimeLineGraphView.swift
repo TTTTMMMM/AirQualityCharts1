@@ -99,8 +99,10 @@ struct ShowRealTimeLineGraphView: View {
             .chartYAxis {
                AxisMarks(position: .leading)
             }
-            causeAndGraphPickerView2()
-               .padding(.leading, 850)
+            HStack {
+               Spacer()
+               causeAndGraphPickerView2()
+            }
          }
       }
       .onAppear {
@@ -112,7 +114,6 @@ struct ShowRealTimeLineGraphView: View {
       .onDisappear {
          viewModel.cancelCombineSubscriptions()
       }
-      .padding(12)
    }
 }
 
@@ -194,7 +195,6 @@ extension ShowRealTimeLineGraphView {
                   .stroke(.black, lineWidth: 1)
             )
             .padding(.top, 14)
-            .padding(.trailing, 25)
          }
    }
 }
