@@ -12,6 +12,7 @@ class AirQualityViewModel: ObservableObject {
    @Published private(set) var aqSample: AQSample? = nil
    @Published var dailyFreebiesLeft: Int? = nil
    private  var cancellables = Set<AnyCancellable>()
+   private var prevCountOfAQSamples: Int = 0
    @Published var lastSample: AQSample = AQSample(
       id: 1,
       tVOC: 2,
@@ -138,6 +139,14 @@ class AirQualityViewModel: ObservableObject {
                   if let lastOne = self?.aqMeasurements.last {
                      self?.lastSample = lastOne
                   }
+               }
+               if let count = self?.aqMeasurements.count {
+                  if let prevCount = self?.prevCountOfAQSamples {
+                     let realCount = count - prevCount
+                     try? await self!.subtractFreebliesLeft(numSamplesToRemove: realCount)
+                     self?.prevCountOfAQSamples = prevCount + realCount
+                  }
+
                }
             }
          }
