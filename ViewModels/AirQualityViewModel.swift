@@ -13,15 +13,7 @@ class AirQualityViewModel: ObservableObject {
    @Published var dailyFreebiesLeft: Int? = nil
    private  var cancellables = Set<AnyCancellable>()
    private var prevCountOfAQSamples: Int = 0
-   @Published var lastSample: AQSample = AQSample(
-      id: 1,
-      tVOC: 2,
-      dt: Date(),
-      eCO2: 3,
-      forwarder: "none",
-      humidity: 4,
-      temperature: 5
-   )
+   @Published var lastSample: AQSample? = nil
    
    init() {
       Task {
@@ -140,18 +132,21 @@ class AirQualityViewModel: ObservableObject {
                      self?.lastSample = lastOne
                   }
                }
+               // let's adjust the numFreebies left (+1 in the realCount
+               // refers to the read of numFreebies from Firestore to
+               // get the current count)
                if let count = self?.aqMeasurements.count {
                   if let prevCount = self?.prevCountOfAQSamples {
-                     let realCount = count - prevCount
+                     let realCount = count - prevCount + 1
                      try? await self?.subtractFreebliesLeft(numSamplesToRemove: realCount)
                      self?.prevCountOfAQSamples = prevCount + realCount
                   }
-
                }
             }
          }
+         // don't forget to store in cancellables, so we can remove listener when we're done
          .store(in: &cancellables)
-         }
+   }
    
    func cancelCombineSubscriptions()  {
       cancellables.removeAll()

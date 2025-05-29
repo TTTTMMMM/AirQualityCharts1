@@ -114,7 +114,8 @@ final class AirQualityDataManager {
    // starting a couple of hours back from now.
    // couldn't do this without following along with
    // https://www.youtube.com/watch?v=a87MFlvfWvA&list=PLwvDm4Vfkdphl8ly0oi0aHx0v2B7UvDK0&index=17
-   //
+   // Note that this uses the Combine framework, not async-await
+   
    func addListenerForAirQualitySamples() -> AnyPublisher<[AQSample], Error> {
       let publisher = PassthroughSubject<[AQSample], Error>()
       let calendar = Calendar.current
@@ -131,10 +132,6 @@ final class AirQualityDataManager {
          publisher.send(aqsArray)
       }
       return publisher.eraseToAnyPublisher()
-   }
-   
-   func removeListenerForAirQualitySamples() {
-      self.airQualitySampleListener?.remove()
    }
    
 }
