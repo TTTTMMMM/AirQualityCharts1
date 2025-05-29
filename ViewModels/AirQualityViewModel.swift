@@ -137,8 +137,8 @@ class AirQualityViewModel: ObservableObject {
                // get the current count)
                if let count = self?.aqMeasurements.count {
                   if let prevCount = self?.prevCountOfAQSamples {
-                     let realCount = count - prevCount + 1
-                     try? await self?.subtractFreebliesLeft(numSamplesToRemove: realCount)
+                     let realCount = count - prevCount
+                     try? await self?.subtractFreebliesLeft(numSamplesToRemove: realCount + 1)
                      self?.prevCountOfAQSamples = prevCount + realCount
                   }
                }

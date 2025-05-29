@@ -38,7 +38,6 @@
 		04CCA4072DD5122200710E41 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA4062DD5122200710E41 /* AuthenticationManager.swift */; };
 		04CCA4092DD51EF100710E41 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA4082DD51EF100710E41 /* RootView.swift */; };
 		04CCA40B2DD5264B00710E41 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA40A2DD5264B00710E41 /* SettingsView.swift */; };
-		04CCA41E2DD547E500710E41 /* utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA41D2DD547E500710E41 /* utilities.swift */; };
 		04CCA4202DD55E6E00710E41 /* SignInGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA41F2DD55E6E00710E41 /* SignInGoogleHelper.swift */; };
 		04CCA4242DDA367F00710E41 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA4232DDA367F00710E41 /* SettingsViewModel.swift */; };
 		04CCA4272DDA37A300710E41 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA4262DDA37A300710E41 /* AuthenticationViewModel.swift */; };
@@ -92,7 +91,6 @@
 		04CCA4062DD5122200710E41 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		04CCA4082DD51EF100710E41 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		04CCA40A2DD5264B00710E41 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		04CCA41D2DD547E500710E41 /* utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utilities.swift; sourceTree = "<group>"; };
 		04CCA41F2DD55E6E00710E41 /* SignInGoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleHelper.swift; sourceTree = "<group>"; };
 		04CCA4232DDA367F00710E41 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		04CCA4262DDA37A300710E41 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
@@ -191,7 +189,6 @@
 			isa = PBXGroup;
 			children = (
 				04CCA4212DDA35AE00710E41 /* Core */,
-				04CCA41C2DD547CA00710E41 /* Utilities */,
 				04CCA4012DD4FF5900710E41 /* Authentication */,
 				043AFD1C2DBADDAB005629B9 /* AirQualityCharts */,
 				043AFD1B2DBADDAB005629B9 /* Products */,
@@ -294,14 +291,6 @@
 				04CCA41F2DD55E6E00710E41 /* SignInGoogleHelper.swift */,
 			);
 			path = Authentication;
-			sourceTree = "<group>";
-		};
-		04CCA41C2DD547CA00710E41 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				04CCA41D2DD547E500710E41 /* utilities.swift */,
-			);
-			path = Utilities;
 			sourceTree = "<group>";
 		};
 		04CCA4212DDA35AE00710E41 /* Core */ = {
@@ -524,7 +513,6 @@
 				04B9FD932DDFA30E0036C731 /* CauseMenuViewModel.swift in Sources */,
 				04CCA3AA2DC27F7000710E41 /* HourlyView.swift in Sources */,
 				04CCA4342DDE622700710E41 /* DatePickerSectionView.swift in Sources */,
-				04CCA41E2DD547E500710E41 /* utilities.swift in Sources */,
 				04CCA40B2DD5264B00710E41 /* SettingsView.swift in Sources */,
 				0443B6A02DE15C650077675B /* Freebies.swift in Sources */,
 				04B9FDA62DE1014A0036C731 /* HourlyPickerSectionView.swift in Sources */,
