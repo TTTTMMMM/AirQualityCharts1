@@ -112,9 +112,10 @@ final class AirQualityDataManager {
    
    // function that sets up a Firestore listener for real-time data,
    // starting a couple of hours back from now.
-   // couldn't do this without following along with
+   // could not have done this func without following along with
    // https://www.youtube.com/watch?v=a87MFlvfWvA&list=PLwvDm4Vfkdphl8ly0oi0aHx0v2B7UvDK0&index=17
-   // Note that this uses the Combine framework, not async-await
+   // Note that this uses the Combine framework, not async-await, because
+   // Firebase does not have an async-await method for adding a listener (yet?)
    
    func addListenerForAirQualitySamples() -> AnyPublisher<[AQSample], Error> {
       let publisher = PassthroughSubject<[AQSample], Error>()
