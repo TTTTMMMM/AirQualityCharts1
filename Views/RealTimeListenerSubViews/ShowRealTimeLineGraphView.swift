@@ -8,7 +8,7 @@ struct ShowRealTimeLineGraphView: View {
    @Binding var displayHumidity: Bool
    @Binding var displayECO2: Bool
    @Binding var displayTVOC: Bool
-   @State private var didAppear: Bool = false
+   @State private var didAppear: Bool = false  // only call on the 1rst time the view is created
 
    var selectedDateHour: Date = Date()
    var startTime = Calendar.current.date(
