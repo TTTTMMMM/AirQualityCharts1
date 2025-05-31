@@ -142,16 +142,18 @@ extension ShowRealTimeLineGraphView {
       
       return
          VStack (alignment: .leading) {
-            Text("Last Sample")
-               .font(.subheadline)
-               .foregroundStyle(.black)
-               .frame(maxWidth: .infinity, alignment: .center)
-            Text(verbatim: "ID: \(viewModel.lastSample?.id ?? 0)")
-            Text(verbatim: "Temperature: \(viewModel.lastSample?.temperature ?? 0)°F")
-            Text(verbatim: "Humidity: \(viewModel.lastSample?.humidity ?? 0)%")
-            Text(verbatim: "ECO2: \(viewModel.lastSample?.eCO2 ?? 0) -> \(viewModel.lastSample?.unBiasedECO2AndScaled ?? 0)")
-            Text(verbatim: "TVOC: \(viewModel.lastSample?.tVOC ?? 0) -> \(viewModel.lastSample?.scaledTVOC ?? 0)")
-            Text("\(dateFormatter2.string(from: viewModel.lastSample?.dt ?? .now))")
+            if let ls = viewModel.lastSample {
+               Text("Last Sample")
+                  .font(.subheadline)
+                  .foregroundStyle(.black)
+                  .frame(maxWidth: .infinity, alignment: .center)
+               Text(verbatim: "ID: \(ls.id)")
+               Text(verbatim: "Temperature: \(ls.temperature)°F")
+               Text(verbatim: "Humidity: \(ls.humidity)%")
+               Text(verbatim: "ECO2: \(ls.eCO2) -> \(ls.unBiasedECO2AndScaled)")
+               Text(verbatim: "TVOC: \(ls.tVOC) -> \(ls.scaledTVOC)")
+               Text("\(dateFormatter2.string(from: ls.dt))")
+            }
          }
          .font(.caption2)
          .padding(6)
