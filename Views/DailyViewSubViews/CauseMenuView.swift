@@ -20,7 +20,7 @@ struct CauseMenuView: View {
          }
       }
       .font(.subheadline)
-      .foregroundStyle(Color.black)
+      .foregroundStyle(Color.white)
       .padding(5)
       .clipShape(RoundedRectangle(cornerRadius: 1))
    }

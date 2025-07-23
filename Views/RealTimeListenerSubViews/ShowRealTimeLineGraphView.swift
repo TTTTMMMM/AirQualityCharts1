@@ -50,7 +50,7 @@ struct ShowRealTimeLineGraphView: View {
                         y: .value("humidity", measurement.humidity),
                         series: .value("humidity", "B")
                      )
-                     .foregroundStyle(Color.black)
+                     .foregroundStyle(Color.yellow)
                   }
                   if displayECO2 {
                      LineMark(
@@ -81,7 +81,7 @@ struct ShowRealTimeLineGraphView: View {
             .chartLegend(position: .top, alignment: .leading, spacing: 8)
             .chartForegroundStyleScale(
                ["Temperature": Color.accentColor,
-                "Humidity": Color.black,
+                "Humidity": Color.yellow,
                 "eCO2": Color.blue,
                 "tVOC": Color.red
                ]
@@ -136,7 +136,7 @@ extension ShowRealTimeLineGraphView {
    func LastSampleView() -> some View {
       var dateFormatter2: DateFormatter {
          let dateFormatter = DateFormatter()
-         dateFormatter.dateFormat = "YYYY-MMM-dd HH:mm"
+         dateFormatter.dateFormat = "YYYY-MMM-dd HH:mm:ss"
          return dateFormatter
       }
       
@@ -145,7 +145,7 @@ extension ShowRealTimeLineGraphView {
             if let ls = viewModel.lastSample {
                Text("Last Sample")
                   .font(.subheadline)
-                  .foregroundStyle(.black)
+                  .foregroundStyle(.white)
                   .frame(maxWidth: .infinity, alignment: .center)
                Text(verbatim: "ID: \(ls.id)")
                Text(verbatim: "Temperature: \(ls.temperature)°F")
@@ -155,7 +155,8 @@ extension ShowRealTimeLineGraphView {
                Text("\(dateFormatter2.string(from: ls.dt))")
             }
          }
-         .font(.caption2)
+         .font(.callout)
+         .foregroundStyle(.white)
          .padding(6)
          .background(Color.gray.opacity(0.1))
          .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -163,7 +164,7 @@ extension ShowRealTimeLineGraphView {
             RoundedRectangle(cornerRadius: 6)
                .stroke(.black, lineWidth: 1)
          )
-         .frame(width: 130)
+         .frame(width: 150)
          .transition(.opacity)
          .animation(.linear(duration: 0.6), value: viewModel.lastSample)
       }
