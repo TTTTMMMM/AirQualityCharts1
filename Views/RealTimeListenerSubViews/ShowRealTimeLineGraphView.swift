@@ -179,9 +179,13 @@ extension ShowRealTimeLineGraphView {
             LastSampleView()
                .padding(.top, 14)
             VStack(alignment: .leading, spacing: 10) {
-               Text("Freebies Left: \(viewModel.dailyFreebiesLeft ?? 0)")
-                  .font(.caption2)
-                  .padding(4)
+               if let dfl = viewModel.dailyFreebiesLeft {
+                  Text("Freebies Left: \(dfl)")
+                     .font(.caption2)
+                     .padding(4)
+                     .transition(.opacity)
+                     .animation(.linear(duration: 0.6), value: viewModel.dailyFreebiesLeft)
+               }
                CauseMenuView()
                GraphPickerView(
                   displayTemperature: $displayTemperature,
