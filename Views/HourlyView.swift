@@ -10,7 +10,7 @@ struct HourlyView: View {
       byAdding: .hour,
       value: -2,
       to: Date())!  // defaults to a couple of hours back from current time
-   @State var numberOfHoursDuration: String = "3"
+   @State var numberOfHoursDuration: String = "2"
    @State var charted = false
    @State var displayTemperature = true
    @State var displayHumidity = true
@@ -38,7 +38,7 @@ struct HourlyView: View {
             hourlyChartSheet()
          }
          .padding()
-         .background(Color.white)
+         .background(Color.black)
    }
 }
 

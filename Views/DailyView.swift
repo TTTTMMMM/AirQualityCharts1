@@ -31,7 +31,7 @@ struct DailyView: View {
             dailyChartSheet()
          }
          .padding()
-         .background(Color.white)
+         .background(Color.black)
    }
 }
 

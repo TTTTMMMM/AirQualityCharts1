@@ -17,6 +17,36 @@ final class AirQualityDataManager {
    
    private var airQualitySampleListener : ListenerRegistration? = nil
    
+   private func getRoundedDateTwoHoursAgo() -> Date {
+       let now = Date()
+       let twoHoursAgo = now.addingTimeInterval(-2 * 60 * 60) // Subtract 2 hours (in seconds)
+
+       let calendar = Calendar.current
+       let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: twoHoursAgo)
+
+       guard let hour = components.hour, let minute = components.minute else {
+           return twoHoursAgo // Fallback if components are not available
+       }
+
+       // Calculate total minutes from the beginning of the day for rounding
+       let totalMinutes = hour * 60 + minute
+
+       // Determine the nearest 15-minute interval
+       let roundedMinutes = Int(round(Double(totalMinutes) / 15.0)) * 15
+
+       // Reconstruct the date with the rounded minutes
+       var newComponents = DateComponents()
+       newComponents.year = components.year
+       newComponents.month = components.month
+       newComponents.day = components.day
+       newComponents.hour = roundedMinutes / 60
+       newComponents.minute = roundedMinutes % 60
+       newComponents.second = 0 // Set seconds to 0 for consistent rounding
+
+       return calendar.date(from: newComponents) ?? twoHoursAgo // Fallback if date cannot be created
+   }
+
+   
    private func airQualitySampleDocument(firebaseID: String) -> DocumentReference {
       return airQualityCollection.document(firebaseID)
    }
@@ -120,7 +150,8 @@ final class AirQualityDataManager {
    func addListenerForAirQualitySamples() -> AnyPublisher<[AQSample], Error> {
       let publisher = PassthroughSubject<[AQSample], Error>()
       let calendar = Calendar.current
-      let start = calendar.date(byAdding: .hour, value: -2, to: Date())
+//      let start = calendar.date(byAdding: .hour, value: -2, to: Date())
+      let start = getRoundedDateTwoHoursAgo()
       
       self.airQualitySampleListener = airQualityCollection.whereField(
          AQSample.CodingKeys.dt.stringValue,isGreaterThan: start as Any)

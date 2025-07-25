@@ -1,6 +1,35 @@
 import SwiftUI
 import Charts
 
+func getRoundedDateTwoHoursAgo() -> Date {
+    let now = Date()
+    let twoHoursAgo = now.addingTimeInterval(-2 * 60 * 60) // Subtract 2 hours (in seconds)
+
+    let calendar = Calendar.current
+    let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: twoHoursAgo)
+
+    guard let hour = components.hour, let minute = components.minute else {
+        return twoHoursAgo // Fallback if components are not available
+    }
+
+    // Calculate total minutes from the beginning of the day for rounding
+    let totalMinutes = hour * 60 + minute
+
+    // Determine the nearest 15-minute interval
+    let roundedMinutes = Int(round(Double(totalMinutes) / 15.0)) * 15
+
+    // Reconstruct the date with the rounded minutes
+    var newComponents = DateComponents()
+    newComponents.year = components.year
+    newComponents.month = components.month
+    newComponents.day = components.day
+    newComponents.hour = roundedMinutes / 60
+    newComponents.minute = roundedMinutes % 60
+    newComponents.second = 0 // Set seconds to 0 for consistent rounding
+
+    return calendar.date(from: newComponents) ?? twoHoursAgo // Fallback if date cannot be created
+}
+
 struct ShowRealTimeLineGraphView: View {
    
    @StateObject var viewModel = AirQualityViewModel()
@@ -11,10 +40,7 @@ struct ShowRealTimeLineGraphView: View {
    @State private var didAppear: Bool = false  // only call on the 1rst time the view is created
 
    var selectedDateHour: Date = Date()
-   var startTime = Calendar.current.date(
-      byAdding: .hour,
-      value: -2,
-      to: Date())
+   var startTime = getRoundedDateTwoHoursAgo()
    
    private var dateFormatter: DateFormatter {
       let dateFormatter = DateFormatter()
@@ -30,7 +56,7 @@ struct ShowRealTimeLineGraphView: View {
    
    var body: some View {
       GroupBox {
-         Text("Real-time Chart for \(self.dateFormatter.string(from: self.selectedDateHour)) starting at \(self.dateFormatter2.string(from: self.startTime!))")
+         Text("Real-time Chart for \(self.dateFormatter.string(from: self.selectedDateHour)) starting at \(self.dateFormatter2.string(from: self.startTime))")
             .font(.title2)
 
          ZStack (alignment: .top) {

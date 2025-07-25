@@ -48,7 +48,7 @@ struct RealTimeListenerView: View {
             realTimeChartSheet()
          }
          .padding()
-         .background(Color.white)
+         .background(Color.black)
    }
 }
 
