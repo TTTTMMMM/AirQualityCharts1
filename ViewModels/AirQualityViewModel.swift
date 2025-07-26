@@ -132,13 +132,13 @@ class AirQualityViewModel: ObservableObject {
                      self?.lastSample = lastOne
                   }
                }
-               // let's adjust the numFreebies left (+1 in the realCount
+               // let's adjust the numFreebies left (+2 in the realCount
                // refers to the read of numFreebies from Firestore to
-               // get the current count)
+               // get the current count and then the read to verify after I subtract)
                if let count = self?.aqMeasurements.count {
                   if let prevCount = self?.prevCountOfAQSamples {
                      let realCount = count - prevCount
-                     try? await self?.subtractFreebliesLeft(numSamplesToRemove: realCount + 1)
+                     try? await self?.subtractFreebliesLeft(numSamplesToRemove: realCount + 2)
                      self?.prevCountOfAQSamples = prevCount + realCount
                   }
                }
