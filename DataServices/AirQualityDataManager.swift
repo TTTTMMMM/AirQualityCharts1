@@ -82,7 +82,7 @@ final class AirQualityDataManager {
    
    // function that queries for one day's worth of samples,
    // puts the documents into AirQualitySample object, and returns results in array
-   // 1440 is the number of minutes in a day, just in case there is/was a
+   // 8640 is the number of minutes in a day*6, just in case there is/was a
    // problem with a runaway-query as I was developing
    func getSamplesByDate(date: Date) async throws -> [AQSample] {
       var aqsArray: [AQSample] = []
@@ -98,7 +98,7 @@ final class AirQualityDataManager {
                    isLessThan: end as Any
       ).order(
          by: AQSample.CodingKeys.dt.stringValue
-      ).limit(to: 1440).getDocuments()
+      ).limit(to: 8640).getDocuments()
       for document in snap.documents {
          aqsArray.append(try document.data(as: AQSample.self))
       }
@@ -108,7 +108,7 @@ final class AirQualityDataManager {
    // function that queries for a specified number of hour's [1..8] worth
    // of samples, puts the documents into AirQualitySample object, and
    // returns results in an array
-   // 480 is the number of minutes in an an 8-hour window, just in case there
+   // 480*6 is the number of minutes in an an 8-hour window, just in case there
    // is/was a problem with a runaway query as I was developing
    func getSamplesByHour(date: Date, numberOfHours: Int) async throws -> [AQSample] {
       var aqsArray: [AQSample] = []
@@ -124,7 +124,7 @@ final class AirQualityDataManager {
                    isLessThan: end as Any
       ).order(
          by: AQSample.CodingKeys.dt.stringValue
-      ).limit(to: 480).getDocuments()
+      ).limit(to: 2880).getDocuments()
       for document in snap.documents {
          aqsArray.append(try document.data(as: AQSample.self))
       }

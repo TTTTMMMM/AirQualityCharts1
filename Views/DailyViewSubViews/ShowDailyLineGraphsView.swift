@@ -43,7 +43,7 @@ struct ShowDailyLineGraphsView: View {
                      y: .value("humidity", measurement.humidity),
                      series: .value("humidity", "B")
                   )
-                  .foregroundStyle(Color.black)
+                  .foregroundStyle(Color.yellow)
                }
                if displayECO2 {
                   LineMark(
@@ -74,7 +74,7 @@ struct ShowDailyLineGraphsView: View {
          .chartLegend(position: .top, alignment: .leading, spacing: 8)
          .chartForegroundStyleScale(
             ["Temperature": Color.accentColor,
-             "Humidity": Color.black,
+             "Humidity": Color.yellow,
              "eCO2": Color.blue,
              "tVOC": Color.red
             ]

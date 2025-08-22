@@ -15,3 +15,11 @@
 ![Alt Line Chart 1](images/01.png)
 
 ![Alt Line Chart 2](images/02.png)
+
+![Alt Line Chart 3](images/03.jpeg)
+
+![Alt Line Chart 4](images/04.jpeg)
+
+![Alt Line Chart 5](images/05.jpeg)
+
+![Alt Line Chart 6](images/06.jpeg)
