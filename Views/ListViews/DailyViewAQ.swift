@@ -3,14 +3,10 @@
 //
 import SwiftUI
 
-struct HourlyView: View {
-   
+struct DailyViewAQ: View {
+
    @StateObject var viewModel = AirQualityViewModel()
-   @State var selectedDateHour = Calendar.current.date(
-      byAdding: .hour,
-      value: -2,
-      to: Date())!  // defaults to a couple of hours back from current time
-   @State var numberOfHoursDuration: String = "2"
+   @State var selectedDate = Date()
    @State var charted = false
    @State var displayTemperature = true
    @State var displayHumidity = true
@@ -20,10 +16,7 @@ struct HourlyView: View {
 
    var body: some View {
       VStack (alignment: .center) {
-         HourlyPickerSectionView(
-            selectedDateHour: $selectedDateHour,
-            numberOfHoursDuration: $numberOfHoursDuration,
-            charted: $charted)
+         DatePickerSectionView(selectedDate: $selectedDate, charted: $charted)
       }
       .task {
          try? await viewModel.getFreebiesLeft()
@@ -35,7 +28,7 @@ struct HourlyView: View {
       Text("Freebies left: \(left ?? 0)")
          .font(.caption2)
          .fullScreenCover(isPresented: $charted) {
-            hourlyChartSheet()
+            dailyChartSheet()
          }
          .padding()
          .background(Color.black)
@@ -43,16 +36,15 @@ struct HourlyView: View {
 }
 
 #Preview {
-   HourlyView()
+   DailyViewAQ()
 }
 
-extension HourlyView {
+extension DailyViewAQ {
    
-   func hourlyChartSheet() -> some View {
+   func dailyChartSheet() -> some View {
       VStack () {
-         ShowHourlyLineGraphsView(
-            selectedDateHour: $selectedDateHour,
-            numberOfHoursDuration: $numberOfHoursDuration,
+         ShowDailyLineGraphsViewAQ(
+            selectedDate: $selectedDate,
             displayTemperature: $displayTemperature,
             displayHumidity: $displayHumidity,
             displayECO2: $displayECO2,
@@ -73,7 +65,7 @@ extension HourlyView {
          }
       }
       .overlay(
-         CauseAndGraphPickerView(
+         CauseAndGraphPickerViewAQ(
             displayTemperature: $displayTemperature,
             displayHumidity: $displayHumidity,
             displayECO2: $displayECO2,
@@ -81,6 +73,5 @@ extension HourlyView {
             numLeft: $left
          ),
          alignment: .topTrailing)
-      }
    }
-
+}

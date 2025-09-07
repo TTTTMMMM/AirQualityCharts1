@@ -3,15 +3,17 @@
 //
 import SwiftUI
 
-struct DailyView: View {
+struct DailyViewPM: View {
 
-   @StateObject var viewModel = AirQualityViewModel()
+   @StateObject var viewModel = ParticleCountsViewModel()
    @State var selectedDate = Date()
    @State var charted = false
-   @State var displayTemperature = true
-   @State var displayHumidity = true
-   @State var displayECO2 = true
-   @State var displayTVOC = true
+   @State var displayPM03um = true
+   @State var displayPM05um = true
+   @State var displayPM1um  = true
+   @State var displayPM25um = true
+   @State var displayPM5um  = true
+   @State var displayPM10um = true
    @State var left: Int? = 0
 
    var body: some View {
@@ -36,19 +38,19 @@ struct DailyView: View {
 }
 
 #Preview {
-   DailyView()
+   DailyViewPM()
 }
 
-extension DailyView {
+extension DailyViewPM {
    
    func dailyChartSheet() -> some View {
       VStack () {
-         ShowDailyLineGraphsView(
+         ShowDailyLineGraphsViewPM(
             selectedDate: $selectedDate,
-            displayTemperature: $displayTemperature,
-            displayHumidity: $displayHumidity,
-            displayECO2: $displayECO2,
-            displayTVOC: $displayTVOC
+            displayPM03um: $displayPM03um,
+            displayPM05um: $displayPM05um,
+            displayPM1um: $displayPM1um,
+            displayPM25um: $displayPM25um
          )
       }
       .ignoresSafeArea()
@@ -65,11 +67,11 @@ extension DailyView {
          }
       }
       .overlay(
-         CauseAndGraphPickerView(
-            displayTemperature: $displayTemperature,
-            displayHumidity: $displayHumidity,
-            displayECO2: $displayECO2,
-            displayTVOC: $displayTVOC,
+         CauseAndGraphPickerViewPM(
+            displayPM03um: $displayPM03um,
+            displayPM05um: $displayPM05um,
+            displayPM1um: $displayPM1um,
+            displayPM25um: $displayPM25um,
             numLeft: $left
          ),
          alignment: .topTrailing)

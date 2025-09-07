@@ -12,12 +12,20 @@ struct ContentView: View {
       ZStack {
          NavigationStack() {
             List {
+               Text("Air Quality")
+                  .foregroundStyle(.accent)
+                  .font(.system(size: 24))
                ForEach (clvmArray) {item in
                   NavigationLink(destination: item.chartView) {
                      ListelementStyleView(
                         nameOfImage: item.imageName,
                         textToDisplayOnListElement:
                            item.listDisplayText)
+                  }
+                  if(item.ind == 2){
+                     Text("Particulate Matter")
+                        .foregroundStyle(.accent)
+                        .font(.system(size: 24))
                   }
                }
                .styleListElement()

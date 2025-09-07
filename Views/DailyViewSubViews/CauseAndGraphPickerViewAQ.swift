@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CauseAndGraphPickerView: View {
+struct CauseAndGraphPickerViewAQ: View {
    
    @Binding var displayTemperature: Bool
    @Binding var displayHumidity: Bool
@@ -17,7 +17,7 @@ struct CauseAndGraphPickerView: View {
                .font(.caption2)
                .padding(4)
             CauseMenuView()
-            GraphPickerView(
+            GraphPickerViewAQ(
                displayTemperature: $displayTemperature,
                displayHumidity: $displayHumidity,
                displayECO2: $displayECO2,
@@ -45,7 +45,7 @@ struct CauseAndGraphPickerView: View {
    @Previewable @State var displayTVOC = true
    @Previewable @State var left: Int? = 88
    
-   CauseAndGraphPickerView(
+   CauseAndGraphPickerViewAQ(
       displayTemperature: $displayTemperature,
       displayHumidity: $displayHumidity,
       displayECO2: $displayECO2,

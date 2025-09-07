@@ -6,14 +6,14 @@ import FirebaseFirestore
 import Combine
 
 @MainActor
-class AirQualityViewModel: ObservableObject {
+class ParticleCountsViewModel: ObservableObject {
    
-   @Published var aqMeasurements: [AQSample] = []
-   @Published private(set) var aqSample: AQSample? = nil
+   @Published var pmMeasurements: [PMSizes] = []
+   @Published private(set) var pmSizes: PMSizes? = nil
    @Published var dailyFreebiesLeft: Int? = nil
    private  var cancellables = Set<AnyCancellable>()
-   private var prevCountOfAQSamples: Int = 0
-   @Published var lastSample: AQSample? = nil
+   private var prevCountOfPMSizes: Int = 0
+   @Published var lastSample: PMSizes? = nil
    
    init() {
       Task {
@@ -34,54 +34,54 @@ class AirQualityViewModel: ObservableObject {
    
    // I won't be using this in the app, just here to create a test sample
    func createSample() async throws {
-      let firebaseID = "00Acz98Ndoq0x5tr2uWO"
-      let aqSample = AQSample(
+      let firebaseID = "0000z98Niiq0x5tdWD40"
+      let pmSizes = PMSizes(
          id: 3698,
-         tVOC: 3,
          dt: Date(),
-         eCO2: 401,
-         forwarder: "forwarder_NAS-220P",
-         humidity: 34.1,
-         temperature: 71.4
+         pm03um: 4789,
+         pm05um: 1435,
+         pm1um: 198,
+         pm25um: 2,
+         pm5um: 2,
+         pm10um: 0
       )
       
-      try? await DataManager.shared.createSample(
+      try? await DataManager.shared.createSamplePC(
          firebaseID: firebaseID,
-         aqSample: aqSample
+         PMSizes: pmSizes
       )
    }
    
    // I won't be using this in the app, just here to get a test sample to see how a
    // sample comes back from Firebase
    func getSample() async throws {
-      let firebaseID = "0046sa5vLc00OjjKPIGD"
-      //      let firebaseID = "00Acz98Ndoq0x5tr2uWO"
-      let aqs = try await DataManager.shared.getAQSample(
+      let firebaseID = "01JeagbwvYpuFDGUqzKZ"
+      let pms = try await DataManager.shared.getPCSample(
          firebaseID: firebaseID
       )
       await MainActor.run {
-         self.aqSample = aqs
-         print("\(firebaseID) -> \(self.aqSample.debugDescription)")
-         let ds = self.aqSample?.dateString ?? "nil"
-         let ts = self.aqSample?.timeString ?? "nil"
+         self.pmSizes = pms
+         print("\(firebaseID) -> \(self.pmSizes.debugDescription)")
+         let ds = self.pmSizes?.dateString ?? "nil"
+         let ts = self.pmSizes?.timeString ?? "nil"
          print("\(ds)")
          print("\(ts)")
       }
    }
    
    func getOneDayOfSamples(date: Date) async throws {
-      if let samples = try? await DataManager.shared.getSamplesByDate(
+      if let samples = try? await DataManager.shared.getSamplesByDatePC(
          date: date
       ) {
          try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
          await MainActor.run {
-            self.aqMeasurements = samples
+            self.pmMeasurements = samples
          }
       }
    }
    
    func getSecifiedHoursWorthOfSamples(date: Date, numberOfHours: Int) async throws {
-      if let samples = try? await DataManager.shared.getSamplesByHour(
+      if let samples = try? await DataManager.shared.getSamplesByHourPC(
          date: date,
          numberOfHours: numberOfHours
       ) {
@@ -94,7 +94,7 @@ class AirQualityViewModel: ObservableObject {
 //            print("----")
 //         }
          await MainActor.run {
-            self.aqMeasurements = samples
+            self.pmMeasurements = samples
          }
       }
    }
@@ -122,25 +122,25 @@ class AirQualityViewModel: ObservableObject {
       }
    }
    
-   func addListenerForAQSamples()  {
-      DataManager.shared.addListenerForAirQualitySamples()
+   func addListenerForParticleCountsSizes()  {
+      DataManager.shared.addListenerForParticleCountsSamples()
          .sink { completion in
-         } receiveValue: { [weak self] aqsArray in
-            self?.aqMeasurements = aqsArray
+         } receiveValue: { [weak self] particleSizeCountsArray in
+            self?.pmMeasurements = particleSizeCountsArray
             Task {
                await MainActor.run {
-                  if let lastOne = self?.aqMeasurements.last {
+                  if let lastOne = self?.pmMeasurements.last {
                      self?.lastSample = lastOne
                   }
                }
                // let's adjust the numFreebies left (+1 in the realCount
                // refers to the read of numFreebies from Firestore to
                // get the current count and then the read to verify after I subtract)
-               if let count = self?.aqMeasurements.count {
-                  if let prevCount = self?.prevCountOfAQSamples {
+               if let count = self?.pmMeasurements.count {
+                  if let prevCount = self?.prevCountOfPMSizes {
                      let realCount = count - prevCount
                      try? await self?.subtractFreebliesLeft(numSamplesToRemove: realCount + 1)
-                     self?.prevCountOfAQSamples = prevCount + realCount
+                     self?.prevCountOfPMSizes = prevCount + realCount
                   }
                }
             }

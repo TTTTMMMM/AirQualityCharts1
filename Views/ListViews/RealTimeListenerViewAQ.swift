@@ -3,7 +3,7 @@
 //
 import SwiftUI
 
-struct RealTimeListenerView: View {
+struct RealTimeListenerViewAQ: View {
 
    @StateObject var viewModel = AirQualityViewModel()
    @State var selectedDate = Date()
@@ -53,10 +53,10 @@ struct RealTimeListenerView: View {
 }
 
 #Preview {
-   RealTimeListenerView()
+   RealTimeListenerViewAQ()
 }
 
-extension RealTimeListenerView {
+extension RealTimeListenerViewAQ {
    
    func realTimeChartSheet() -> some View {
       VStack () {

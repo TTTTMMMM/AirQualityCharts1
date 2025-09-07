@@ -213,7 +213,7 @@ extension ShowRealTimeLineGraphView {
                      .animation(.linear(duration: 0.6), value: viewModel.dailyFreebiesLeft)
                }
                CauseMenuView()
-               GraphPickerView(
+               GraphPickerViewAQ(
                   displayTemperature: $displayTemperature,
                   displayHumidity: $displayHumidity,
                   displayECO2: $displayECO2,

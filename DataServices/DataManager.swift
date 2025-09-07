@@ -7,16 +7,18 @@ import FirebaseFirestore
 import FirebaseSharedSwift
 import Combine
 
-final class AirQualityDataManager {
+final class DataManager {
    
-   static let shared = AirQualityDataManager()
+   static let shared = DataManager()
    private init() {}
    
    private let airQualityCollection = Firestore.firestore().collection("air_quality")
+   private let particleCountsCollection = Firestore.firestore().collection("particle_counts")
    private let freebiesLeftCollection = Firestore.firestore().collection("freebies_left")
    
    private var airQualitySampleListener : ListenerRegistration? = nil
-   
+   private var particleCountsListener : ListenerRegistration? = nil
+
    private func getRoundedDateTwoHoursAgo() -> Date {
        let now = Date()
        let twoHoursAgo = now.addingTimeInterval(-2 * 60 * 60) // Subtract 2 hours (in seconds)
@@ -51,6 +53,10 @@ final class AirQualityDataManager {
       return airQualityCollection.document(firebaseID)
    }
    
+   private func particleCountDocument(firebaseID: String) -> DocumentReference {
+      return particleCountsCollection.document(firebaseID)
+   }
+   
    private func freebiesDocument() -> DocumentReference {
       // only one document is in this collection
       return freebiesLeftCollection.document("freebies")
@@ -63,11 +69,26 @@ final class AirQualityDataManager {
       )
    }
    
+   func createSamplePC(firebaseID: String, PMSizes: PMSizes) async throws {
+      try particleCountDocument(firebaseID: firebaseID).setData(
+         from: PMSizes,
+         merge: false
+      )
+   }
+   
    func getAQSample(firebaseID: String) async throws -> AQSample {
       // next line directly decodes from firebase document to an
       // airquality sample type and returns it
       try await airQualitySampleDocument(firebaseID: firebaseID).getDocument(
          as: AQSample.self
+      )
+   }
+   
+   func getPCSample(firebaseID: String) async throws -> PMSizes {
+      // next line directly decodes from firebase document to an
+      // PMSizes sample type and returns it
+      try await particleCountDocument(firebaseID: firebaseID).getDocument(
+         as: PMSizes.self
       )
    }
    
@@ -80,10 +101,11 @@ final class AirQualityDataManager {
       try await airQualitySampleDocument(firebaseID: firebaseID).updateData(data)
    }
    
-   // function that queries for one day's worth of samples,
-   // puts the documents into AirQualitySample object, and returns results in array
-   // 8640 is the number of minutes in a day*6, just in case there is/was a
-   // problem with a runaway-query as I was developing
+   // function that queries for one day's worth of air quality samples,
+   // puts the documents into PMSizes object, and returns results in array
+   // 8640 = (1440 minutes/day * 6 samples/minute) when sampling the sensor
+   // 6 times a minute, just in case there is/was a problem with a
+   // runaway-query as I was developing
    func getSamplesByDate(date: Date) async throws -> [AQSample] {
       var aqsArray: [AQSample] = []
       let calendar = Calendar.current
@@ -105,10 +127,37 @@ final class AirQualityDataManager {
       return(aqsArray)
    }
    
+   // function that queries for one day's worth of particle_counts,
+   // puts the documents into PMSizes object, and returns results in array
+   // 8640 = (1440 minutes/day * 6 samples/minute) when sampling the sensor
+   // 6 times a minute, just in case there is/was a problem with a
+   // runaway-query as I was developing
+   func getSamplesByDatePC(date: Date) async throws -> [PMSizes] {
+      var pcsArray: [PMSizes] = []
+      let calendar = Calendar.current
+      let components = calendar.dateComponents([.year, .month, .day], from: date)
+      let start = calendar.date(from: components)
+      let end = calendar.date(byAdding: .day, value: 1, to: start ?? Date())
+      
+      let snap = try await particleCountsCollection.whereField(
+         PMSizes.CodingKeys.dt.stringValue,
+         isGreaterThan: start as Any
+      ).whereField(PMSizes.CodingKeys.dt.stringValue,
+                   isLessThan: end as Any
+      ).order(
+         by: PMSizes.CodingKeys.dt.stringValue
+      ).limit(to: 8640).getDocuments()
+      for document in snap.documents {
+         pcsArray.append(try document.data(as: PMSizes.self))
+      }
+      return(pcsArray)
+   }
+   
    // function that queries for a specified number of hour's [1..8] worth
    // of samples, puts the documents into AirQualitySample object, and
    // returns results in an array
-   // 480*6 is the number of minutes in an an 8-hour window, just in case there
+   // 2880 = 480 minutes/8-hour window * 6 samples/minute is the number of samples in
+   // an an 8-hour window, just in case there
    // is/was a problem with a runaway query as I was developing
    func getSamplesByHour(date: Date, numberOfHours: Int) async throws -> [AQSample] {
       var aqsArray: [AQSample] = []
@@ -131,6 +180,33 @@ final class AirQualityDataManager {
       return(aqsArray)
    }
    
+   // function that queries for a specified number of hour's [1..8] worth
+   // of samples, puts the documents into PMSizes object, and
+   // returns results in an array
+   // 2880 = 480 minutes/8-hour window * 6 samples/minute is the number of samples in
+   // an an 8-hour window, just in case there
+   // is/was a problem with a runaway query as I was developing
+   func getSamplesByHourPC(date: Date, numberOfHours: Int) async throws -> [PMSizes] {
+      var pcsArray: [PMSizes] = []
+      let calendar = Calendar.current
+      let components = calendar.dateComponents([.year, .month, .day, .hour], from: date)
+      let start = calendar.date(from: components)
+      let end = calendar.date(byAdding: .hour, value: numberOfHours, to: start ?? Date())
+      
+      let snap = try await particleCountsCollection.whereField(
+         PMSizes.CodingKeys.dt.stringValue,
+         isGreaterThan: start as Any
+      ).whereField(PMSizes.CodingKeys.dt.stringValue,
+                   isLessThan: end as Any
+      ).order(
+         by: PMSizes.CodingKeys.dt.stringValue
+      ).limit(to: 2880).getDocuments()
+      for document in snap.documents {
+         pcsArray.append(try document.data(as: PMSizes.self))
+      }
+      return(pcsArray)
+   }
+   
    func getNumFreebies() async throws -> Freebies {
       let freebies = try await freebiesDocument().getDocument(as: Freebies.self)
       return freebies
@@ -150,7 +226,6 @@ final class AirQualityDataManager {
    func addListenerForAirQualitySamples() -> AnyPublisher<[AQSample], Error> {
       let publisher = PassthroughSubject<[AQSample], Error>()
       let calendar = Calendar.current
-//      let start = calendar.date(byAdding: .hour, value: -2, to: Date())
       let start = getRoundedDateTwoHoursAgo()
       
       self.airQualitySampleListener = airQualityCollection.whereField(
@@ -162,6 +237,31 @@ final class AirQualityDataManager {
          }
          let aqsArray: [AQSample] = documents.compactMap({try? $0.data(as: AQSample.self)})
          publisher.send(aqsArray)
+      }
+      return publisher.eraseToAnyPublisher()
+   }
+   
+   // function that sets up a Firestore listener for real-time data,
+   // starting a couple of hours back from now.
+   // could not have done this func without following along with
+   // https://www.youtube.com/watch?v=a87MFlvfWvA&list=PLwvDm4Vfkdphl8ly0oi0aHx0v2B7UvDK0&index=17
+   // Note that this uses the Combine framework, not async-await, because
+   // Firebase does not have an async-await method for adding a listener (yet?)
+   
+   func addListenerForParticleCountsSamples() -> AnyPublisher<[PMSizes], Error> {
+      let publisher = PassthroughSubject<[PMSizes], Error>()
+      let calendar = Calendar.current
+      let start = getRoundedDateTwoHoursAgo()
+      
+      self.particleCountsListener = self.particleCountsCollection.whereField(
+         PMSizes.CodingKeys.dt.stringValue,isGreaterThan: start as Any)
+      .addSnapshotListener { querySnapshot, error in
+         guard let documents = querySnapshot?.documents else {
+            print("No samples")
+            return
+         }
+         let pcsArray: [PMSizes] = documents.compactMap({try? $0.data(as: PMSizes.self)})
+         publisher.send(pcsArray)
       }
       return publisher.eraseToAnyPublisher()
    }

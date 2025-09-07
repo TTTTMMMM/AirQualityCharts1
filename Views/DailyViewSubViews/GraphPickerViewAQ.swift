@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct GraphPickerView: View {
+struct GraphPickerViewAQ: View {
    
    @Binding var displayTemperature: Bool
    @Binding var displayHumidity: Bool
@@ -33,5 +33,5 @@ struct GraphPickerView: View {
 }
 
 #Preview {
-   GraphPickerView(displayTemperature: .constant(true), displayHumidity: .constant(true), displayECO2: .constant(true), displayTVOC: .constant(true))
+   GraphPickerViewAQ(displayTemperature: .constant(true), displayHumidity: .constant(true), displayECO2: .constant(true), displayTVOC: .constant(true))
 }

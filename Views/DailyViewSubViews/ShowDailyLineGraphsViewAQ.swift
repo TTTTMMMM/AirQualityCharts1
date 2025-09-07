@@ -1,7 +1,7 @@
 import SwiftUI
 import Charts
 
-struct ShowDailyLineGraphsView: View {
+struct ShowDailyLineGraphsViewAQ: View {
    
    @StateObject var viewModel = AirQualityViewModel()
    
@@ -115,7 +115,7 @@ struct ShowDailyLineGraphsView: View {
    @Previewable @State var displayECO2 = true
    @Previewable @State var displayTVOC = true
    
-   ShowDailyLineGraphsView(
+   ShowDailyLineGraphsViewAQ(
       selectedDate: $selectedDate,
       displayTemperature: $displayTemperature,
       displayHumidity: $displayHumidity,

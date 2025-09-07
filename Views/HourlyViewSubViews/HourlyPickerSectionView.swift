@@ -12,8 +12,8 @@ struct HourlyPickerSectionView: View {
          from: DateComponents(
             timeZone: .current,
             year: 2025,
-            month: 4,
-            day: 17))!)...Date()}
+            month: 7,
+            day: 28))!)...Date()}
    
    private var dateFormatter: DateFormatter {
       let dateFormatter = DateFormatter()

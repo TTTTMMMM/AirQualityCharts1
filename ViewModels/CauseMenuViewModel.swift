@@ -22,11 +22,11 @@ final class CauseMenuViewModel: ObservableObject {
       switch reason {
          case .remove:
             self.selectedCause = nil
-            try? await AirQualityDataManager.shared.updateCause(firebaseID: firebaseID, reason: nil)
+            try? await DataManager.shared.updateCause(firebaseID: firebaseID, reason: nil)
             break
          default :
             self.selectedCause = reason
-            try? await AirQualityDataManager.shared.updateCause(firebaseID: firebaseID, reason: reason.rawValue)
+            try? await DataManager.shared.updateCause(firebaseID: firebaseID, reason: reason.rawValue)
             break
       }
       
