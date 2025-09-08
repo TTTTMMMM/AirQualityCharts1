@@ -1,29 +1,35 @@
 import SwiftUI
 import Charts
 
-struct ShowDailyLineGraphsViewPM: View {
+struct ShowHourlyLineGraphsViewPM: View {
    
    @StateObject var viewModel = ParticleCountsViewModel()
    
-   @Binding var selectedDate: Date
+   @Binding var selectedDateHour: Date
+   @Binding var numberOfHoursDuration: String
    @Binding var displayPM03um: Bool
    @Binding var displayPM05um: Bool
    @Binding var displayPM1um: Bool
    @Binding var displayPM25um: Bool
    @Binding var displayPM5um: Bool
    @Binding var displayPM10um: Bool
-
+   
    @State var isLoading: Bool = true
    
    private var dateFormatter: DateFormatter {
       let dateFormatter = DateFormatter()
-      dateFormatter.dateFormat = "EEEE dd MMM yyyy"
+      dateFormatter.dateFormat = "EEEE dd MMM yyyy HH:00"
       return dateFormatter
+   }
+   
+   private var lengthOfData: Int {
+      let numDuration = Int(numberOfHoursDuration) ?? 2
+      return numDuration*60*6
    }
    
    var body: some View {
       GroupBox {
-         Text("Particulate Matter: \(self.dateFormatter.string(from: self.selectedDate))")
+         Text("Particulate Matter: \(self.dateFormatter.string(from: self.selectedDateHour))")
             .font(.title2)
          if(isLoading) {
             ProgressView()
@@ -80,8 +86,8 @@ struct ShowDailyLineGraphsViewPM: View {
                   .foregroundStyle(Color.mint)
                }
             }  // ForEach
-         }     // Chart
-      }        // GroupBox
+         }    // Chart
+      }       // GroupBox
       .chartYAxis {
           AxisMarks(position: .leading) { value in
               AxisGridLine()
@@ -89,7 +95,8 @@ struct ShowDailyLineGraphsViewPM: View {
           }
       }
       .chartXAxis {
-         AxisMarks(             // label every 30 mins
+         AxisMarks(
+            // label every 30 mins
             values: .automatic(desiredCount: 30)
          ) { mark in
             if mark.index % 30 == 0 {
@@ -117,33 +124,38 @@ struct ShowDailyLineGraphsViewPM: View {
       .animation(.linear(duration: 0.6), value: displayPM10um)
       .animation(.linear(duration: 0.6), value: viewModel.pmMeasurements)
       .chartScrollableAxes(.horizontal)
-      .chartXVisibleDomain(length: 800)
+      .chartXVisibleDomain(length: lengthOfData)
       .padding(12)
       .task {
          do {
             isLoading = true
-            try await viewModel.getOneDayOfSamples(date: selectedDate)
+            try await viewModel.getSecifiedHoursWorthOfSamples(
+               date: selectedDateHour,
+               numberOfHours: Int(numberOfHoursDuration) ?? 1
+            )
             isLoading = false
          }
          catch {
             print(error.localizedDescription)
-         }     // catch
-      }        // task
-   }           // Body
-}              // View
+         }
+      }
+   }
+}
 
 #Preview {
    
-   @Previewable @State var selectedDate  = Date()
+   @Previewable @State var selectedDate = Date()
+   @Previewable @State var numberOfHoursDuration = "1"
    @Previewable @State var displayPM03um = true
    @Previewable @State var displayPM05um = true
    @Previewable @State var displayPM1um  = true
    @Previewable @State var displayPM25um = true
    @Previewable @State var displayPM5um  = true
    @Previewable @State var displayPM10um = true
-
-   ShowDailyLineGraphsViewPM(
-      selectedDate:  $selectedDate,
+   
+   ShowHourlyLineGraphsViewPM(
+      selectedDateHour: $selectedDate,
+      numberOfHoursDuration: $numberOfHoursDuration,
       displayPM03um: $displayPM03um,
       displayPM05um: $displayPM05um,
       displayPM1um:  $displayPM1um,

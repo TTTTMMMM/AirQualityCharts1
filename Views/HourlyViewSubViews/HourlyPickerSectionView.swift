@@ -44,7 +44,7 @@ struct HourlyPickerSectionView: View {
                }
             }
             .font(.headline)
-            .foregroundStyle(Color.black)
+            .foregroundStyle(Color.accent)
             .padding(5)
             .clipShape(RoundedRectangle(cornerRadius: 1))
             Spacer()

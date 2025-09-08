@@ -3,10 +3,14 @@
 //
 import SwiftUI
 
-struct DailyViewPM: View {
-
+struct HourlyViewPM: View {
+   
    @StateObject var viewModel = ParticleCountsViewModel()
-   @State var selectedDate = Date()
+   @State var selectedDateHour = Calendar.current.date(
+      byAdding: .hour,
+      value: -2,
+      to: Date())!  // defaults to starting two hours back from current time
+   @State var numberOfHoursDuration: String = "2"
    @State var charted = false
    @State var displayPM03um = true
    @State var displayPM05um = true
@@ -18,7 +22,10 @@ struct DailyViewPM: View {
 
    var body: some View {
       VStack (alignment: .center) {
-         DatePickerSectionView(selectedDate: $selectedDate, charted: $charted)
+         HourlyPickerSectionView(
+            selectedDateHour: $selectedDateHour,
+            numberOfHoursDuration: $numberOfHoursDuration,
+            charted: $charted)
       }
       .task {
          try? await viewModel.getFreebiesLeft()
@@ -30,7 +37,7 @@ struct DailyViewPM: View {
       Text("Freebies left: \(left ?? 0)")
          .font(.caption2)
          .fullScreenCover(isPresented: $charted) {
-            dailyChartSheet()
+            hourlyChartSheet()
          }
          .padding()
          .background(Color.black)
@@ -38,15 +45,16 @@ struct DailyViewPM: View {
 }
 
 #Preview {
-   DailyViewPM()
+   HourlyViewPM()
 }
 
-extension DailyViewPM {
+extension HourlyViewPM {
    
-   func dailyChartSheet() -> some View {
+   func hourlyChartSheet() -> some View {
       VStack () {
-         ShowDailyLineGraphsViewPM(
-            selectedDate: $selectedDate,
+         ShowHourlyLineGraphsViewPM(
+            selectedDateHour: $selectedDateHour,
+            numberOfHoursDuration: $numberOfHoursDuration,
             displayPM03um: $displayPM03um,
             displayPM05um: $displayPM05um,
             displayPM1um: $displayPM1um,
@@ -79,5 +87,6 @@ extension DailyViewPM {
             numLeft: $left
          ),
          alignment: .topTrailing)
+      }
    }
-}
+

@@ -1,7 +1,7 @@
 import SwiftUI
 import Charts
 
-struct ShowHourlyLineGraphsView: View {
+struct ShowHourlyLineGraphsViewAQ: View {
    
    @StateObject var viewModel = AirQualityViewModel()
    
@@ -16,13 +16,18 @@ struct ShowHourlyLineGraphsView: View {
    
    private var dateFormatter: DateFormatter {
       let dateFormatter = DateFormatter()
-      dateFormatter.dateFormat = "MMM dd, yyyy HH:00"
+      dateFormatter.dateFormat = "EEEE dd MMM yyyy HH:00"
       return dateFormatter
+   }
+   
+   private var lengthOfData: Int {
+      let numDuration = Int(numberOfHoursDuration) ?? 2
+      return numDuration*60*6
    }
    
    var body: some View {
       GroupBox {
-         Text("Environment Chart for \(self.dateFormatter.string(from: self.selectedDateHour)) (and the next \(self.numberOfHoursDuration) hours)")
+         Text("CO2 and TVOC: \(self.dateFormatter.string(from: self.selectedDateHour))")
             .font(.title2)
          if(isLoading) {
             ProgressView()
@@ -44,7 +49,7 @@ struct ShowHourlyLineGraphsView: View {
                      y: .value("humidity", measurement.humidity),
                      series: .value("humidity", "B")
                   )
-                  .foregroundStyle(Color.black)
+                  .foregroundStyle(Color.yellow)
                }
                if displayECO2 {
                   LineMark(
@@ -62,38 +67,43 @@ struct ShowHourlyLineGraphsView: View {
                   )
                   .foregroundStyle(Color.red)
                }
+            } // ForEach
+         }    // Chart
+      }       // GroupBox
+      .chartYAxis {
+          AxisMarks(position: .leading) { value in
+              AxisGridLine()
+              AxisValueLabel()
+          }
+      }
+      .chartXAxis {
+         AxisMarks(
+            // label every 15 mins
+            values: .automatic(desiredCount: 15)
+         ) { mark in
+            if mark.index % 15 == 0 {
+               AxisValueLabel()
+               AxisGridLine()
             }
-         }
-         .transition(.opacity)
-         .animation(.linear(duration: 0.6), value: displayTemperature)
-         .animation(.linear(duration: 0.6), value: displayHumidity)
-         .animation(.linear(duration: 0.6), value: displayECO2)
-         .animation(.linear(duration: 0.6), value: displayTVOC)
-         .animation(.linear(duration: 0.6), value: viewModel.aqMeasurements)
-         .chartScrollableAxes(.horizontal)
-         .chartXVisibleDomain(length: 180)
-         .chartLegend(position: .top, alignment: .leading, spacing: 8)
-         .chartForegroundStyleScale(
-            ["Temperature": Color.accentColor,
-             "Humidity": Color.black,
-             "eCO2": Color.blue,
-             "tVOC": Color.red
-            ]
-         )
-         .chartXAxis {
-            AxisMarks(
-               // label every 15 mins
-               values: .automatic(desiredCount: 15)
-            ) { mark in
-               if mark.index % 15 == 0 {
-                  AxisValueLabel()
-               }
-            }
-         }
-         .chartYAxis {
-            AxisMarks(position: .leading)
          }
       }
+      .chartLegend(position: .top, alignment: .leading, spacing: 8)
+      .chartForegroundStyleScale(
+         ["Temperature": Color.accentColor,
+          "Humidity": Color.yellow,
+          "eCO2": Color.blue,
+          "tVOC": Color.red
+         ]
+      )
+      .transition(.opacity)
+      .animation(.linear(duration: 0.6), value: displayTemperature)
+      .animation(.linear(duration: 0.6), value: displayHumidity)
+      .animation(.linear(duration: 0.6), value: displayECO2)
+      .animation(.linear(duration: 0.6), value: displayTVOC)
+      .animation(.linear(duration: 0.6), value: viewModel.aqMeasurements)
+      .chartScrollableAxes(.horizontal)
+      .chartXVisibleDomain(length: lengthOfData)
+      .padding(12)
       .task {
          do {
             isLoading = true
@@ -107,7 +117,6 @@ struct ShowHourlyLineGraphsView: View {
             print(error.localizedDescription)
          }
       }
-      .padding(12)
    }
 }
 
@@ -120,7 +129,7 @@ struct ShowHourlyLineGraphsView: View {
    @Previewable @State var displayECO2 = true
    @Previewable @State var displayTVOC = true
    
-   ShowHourlyLineGraphsView(
+   ShowHourlyLineGraphsViewAQ(
       selectedDateHour: $selectedDate,
       numberOfHoursDuration: $numberOfHoursDuration,
       displayTemperature: $displayTemperature,
@@ -129,3 +138,4 @@ struct ShowHourlyLineGraphsView: View {
       displayTVOC: $displayTVOC
    )
 }
+   

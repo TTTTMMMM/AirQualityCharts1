@@ -16,7 +16,7 @@ struct CauseAndGraphPickerViewAQ: View {
             Text("Freebies Left: \(numLeft ?? 0)")
                .font(.caption2)
                .padding(4)
-            CauseMenuView()
+//            CauseMenuView()
             GraphPickerViewAQ(
                displayTemperature: $displayTemperature,
                displayHumidity: $displayHumidity,

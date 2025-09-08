@@ -27,7 +27,7 @@ struct PMSizes: Identifiable, Equatable, Codable {
    }
 
    var scaledPM03um: Int {
-      return Int(round(Double(pm03um)*0.01))
+      return Int(round(Double(pm03um)*0.1))
    }
    
    var scaledPM05um: Int {

@@ -6,6 +6,8 @@ struct CauseAndGraphPickerViewPM: View {
    @Binding var displayPM05um: Bool
    @Binding var displayPM1um: Bool
    @Binding var displayPM25um: Bool
+   @Binding var displayPM5um: Bool
+   @Binding var displayPM10um: Bool
    @Binding var numLeft: Int?
       
    var body: some View {
@@ -20,7 +22,9 @@ struct CauseAndGraphPickerViewPM: View {
                displayPM03um: $displayPM03um,
                displayPM05um: $displayPM05um,
                displayPM1um:  $displayPM1um,
-               displayPM25um: $displayPM25um
+               displayPM25um: $displayPM25um,
+               displayPM5um: $displayPM5um,
+               displayPM10um: $displayPM10um
             )
          }
          .padding(3)
@@ -40,8 +44,10 @@ struct CauseAndGraphPickerViewPM: View {
 #Preview {
    @Previewable @State var displayPM03um = true
    @Previewable @State var displayPM05um = true
-   @Previewable @State var displayPM1um = true
+   @Previewable @State var displayPM1um  = true
    @Previewable @State var displayPM25um = true
+   @Previewable @State var displayPM5um  = true
+   @Previewable @State var displayPM10um = true
    @Previewable @State var left: Int? = 88
    
    CauseAndGraphPickerViewPM(
@@ -49,6 +55,8 @@ struct CauseAndGraphPickerViewPM: View {
       displayPM05um: $displayPM05um,
       displayPM1um:  $displayPM1um,
       displayPM25um: $displayPM25um,
+      displayPM5um: $displayPM5um,
+      displayPM10um: $displayPM10um,
       numLeft: $left
    )
 }

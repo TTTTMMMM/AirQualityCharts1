@@ -36,7 +36,7 @@ let weeklyViewPM = ChartListViewModel(
    ind: 4,
    imageName: "pm2",
    listDisplayText: "Hourly",
-   chartView: AnyView(HourlyViewAQ()))
+   chartView: AnyView(HourlyViewPM()))
 let dailyComparisonViewPM = ChartListViewModel(
    ind: 5,
    imageName: "pm3",

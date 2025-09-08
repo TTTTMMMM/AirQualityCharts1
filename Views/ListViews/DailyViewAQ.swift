@@ -9,9 +9,9 @@ struct DailyViewAQ: View {
    @State var selectedDate = Date()
    @State var charted = false
    @State var displayTemperature = true
-   @State var displayHumidity = true
-   @State var displayECO2 = true
-   @State var displayTVOC = true
+   @State var displayHumidity    = true
+   @State var displayECO2        = true
+   @State var displayTVOC        = true
    @State var left: Int? = 0
 
    var body: some View {

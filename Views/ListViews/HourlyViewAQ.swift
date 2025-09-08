@@ -9,7 +9,7 @@ struct HourlyViewAQ: View {
    @State var selectedDateHour = Calendar.current.date(
       byAdding: .hour,
       value: -2,
-      to: Date())!  // defaults to a couple of hours back from current time
+      to: Date())!  // defaults to starting one hour back from current time
    @State var numberOfHoursDuration: String = "2"
    @State var charted = false
    @State var displayTemperature = true
@@ -50,7 +50,7 @@ extension HourlyViewAQ {
    
    func hourlyChartSheet() -> some View {
       VStack () {
-         ShowHourlyLineGraphsView(
+         ShowHourlyLineGraphsViewAQ(
             selectedDateHour: $selectedDateHour,
             numberOfHoursDuration: $numberOfHoursDuration,
             displayTemperature: $displayTemperature,

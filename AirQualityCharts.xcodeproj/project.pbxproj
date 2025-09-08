@@ -15,7 +15,7 @@
 		04B9FD9A2DDFE9680036C731 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 04B9FD982DDFE9570036C731 /* README.md */; };
 		04B9FD9B2DDFE9680036C731 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 04B9FD982DDFE9570036C731 /* README.md */; };
 		04B9FDA62DE1014A0036C731 /* HourlyPickerSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B9FDA52DE1014A0036C731 /* HourlyPickerSectionView.swift */; };
-		04B9FDA82DE1050A0036C731 /* ShowHourlyLineGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B9FDA72DE1050A0036C731 /* ShowHourlyLineGraphView.swift */; };
+		04B9FDA82DE1050A0036C731 /* ShowHourlyLineGraphsViewAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B9FDA72DE1050A0036C731 /* ShowHourlyLineGraphsViewAQ.swift */; };
 		04CCA3A62DC27F7000710E41 /* ListElementStyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA3A02DC27F7000710E41 /* ListElementStyleView.swift */; };
 		04CCA3A72DC27F7000710E41 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA3A22DC27F7000710E41 /* ContentView.swift */; };
 		04CCA3A82DC27F7000710E41 /* RealTimeListenerViewAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA3A32DC27F7000710E41 /* RealTimeListenerViewAQ.swift */; };
@@ -53,6 +53,8 @@
 		04EAE6572E6D000B00E151C0 /* ShowDailyLineGraphsViewPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAE6562E6D000B00E151C0 /* ShowDailyLineGraphsViewPM.swift */; };
 		04EAE6592E6D002500E151C0 /* GraphPickerViewPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAE6582E6D002500E151C0 /* GraphPickerViewPM.swift */; };
 		04EAE65D2E6D006200E151C0 /* CauseAndGraphPickerViewPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAE65C2E6D006200E151C0 /* CauseAndGraphPickerViewPM.swift */; };
+		04EAE6872E6E597E00E151C0 /* HourlyViewPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAE6862E6E597E00E151C0 /* HourlyViewPM.swift */; };
+		04EAE6892E6E5AB700E151C0 /* ShowHourlyLineGraphsViewPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAE6882E6E5AB700E151C0 /* ShowHourlyLineGraphsViewPM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,7 +84,7 @@
 		04B9FD922DDFA30E0036C731 /* CauseMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CauseMenuViewModel.swift; sourceTree = "<group>"; };
 		04B9FD982DDFE9570036C731 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		04B9FDA52DE1014A0036C731 /* HourlyPickerSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyPickerSectionView.swift; sourceTree = "<group>"; };
-		04B9FDA72DE1050A0036C731 /* ShowHourlyLineGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowHourlyLineGraphView.swift; sourceTree = "<group>"; };
+		04B9FDA72DE1050A0036C731 /* ShowHourlyLineGraphsViewAQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowHourlyLineGraphsViewAQ.swift; sourceTree = "<group>"; };
 		04CCA3A02DC27F7000710E41 /* ListElementStyleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListElementStyleView.swift; sourceTree = "<group>"; };
 		04CCA3A22DC27F7000710E41 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		04CCA3A32DC27F7000710E41 /* RealTimeListenerViewAQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimeListenerViewAQ.swift; sourceTree = "<group>"; };
@@ -112,6 +114,8 @@
 		04EAE6562E6D000B00E151C0 /* ShowDailyLineGraphsViewPM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDailyLineGraphsViewPM.swift; sourceTree = "<group>"; };
 		04EAE6582E6D002500E151C0 /* GraphPickerViewPM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphPickerViewPM.swift; sourceTree = "<group>"; };
 		04EAE65C2E6D006200E151C0 /* CauseAndGraphPickerViewPM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CauseAndGraphPickerViewPM.swift; sourceTree = "<group>"; };
+		04EAE6862E6E597E00E151C0 /* HourlyViewPM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyViewPM.swift; sourceTree = "<group>"; };
+		04EAE6882E6E5AB700E151C0 /* ShowHourlyLineGraphsViewPM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowHourlyLineGraphsViewPM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -236,7 +240,8 @@
 			isa = PBXGroup;
 			children = (
 				04B9FDA52DE1014A0036C731 /* HourlyPickerSectionView.swift */,
-				04B9FDA72DE1050A0036C731 /* ShowHourlyLineGraphView.swift */,
+				04B9FDA72DE1050A0036C731 /* ShowHourlyLineGraphsViewAQ.swift */,
+				04EAE6882E6E5AB700E151C0 /* ShowHourlyLineGraphsViewPM.swift */,
 			);
 			path = HourlyViewSubViews;
 			sourceTree = "<group>";
@@ -360,6 +365,7 @@
 				04CCA3A42DC27F7000710E41 /* DailyViewAQ.swift */,
 				04EAE6522E6CFC4800E151C0 /* DailyViewPM.swift */,
 				04CCA3A52DC27F7000710E41 /* HourlyViewAQ.swift */,
+				04EAE6862E6E597E00E151C0 /* HourlyViewPM.swift */,
 			);
 			path = ListViews;
 			sourceTree = "<group>";
@@ -532,7 +538,9 @@
 				04CCA3A62DC27F7000710E41 /* ListElementStyleView.swift in Sources */,
 				04EAE6502E6CAD1900E151C0 /* ParticleCountsViewModel.swift in Sources */,
 				04CCA3A72DC27F7000710E41 /* ContentView.swift in Sources */,
+				04EAE6872E6E597E00E151C0 /* HourlyViewPM.swift in Sources */,
 				04CCA4032DD5014700710E41 /* AuthenticationView.swift in Sources */,
+				04EAE6892E6E5AB700E151C0 /* ShowHourlyLineGraphsViewPM.swift in Sources */,
 				04CCA4202DD55E6E00710E41 /* SignInGoogleHelper.swift in Sources */,
 				0443B6A32DE517490077675B /* ShowRealTimeLineGraphView.swift in Sources */,
 				04CCA4302DDE54E800710E41 /* GraphPickerViewAQ.swift in Sources */,
@@ -560,7 +568,7 @@
 				04EAE6572E6D000B00E151C0 /* ShowDailyLineGraphsViewPM.swift in Sources */,
 				04EAE64E2E6C941A00E151C0 /* PMSizes.swift in Sources */,
 				04CCA4322DDE5F8A00710E41 /* BackButtonView.swift in Sources */,
-				04B9FDA82DE1050A0036C731 /* ShowHourlyLineGraphView.swift in Sources */,
+				04B9FDA82DE1050A0036C731 /* ShowHourlyLineGraphsViewAQ.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
