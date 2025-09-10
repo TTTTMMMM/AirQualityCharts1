@@ -18,7 +18,7 @@ struct GraphPickerViewAQ: View {
          }
          .scaleEffect(0.8)
          Toggle(isOn: $displayECO2){
-            Text("ECO2")
+            Text("CO₂")
          }
          .scaleEffect(0.8)
          Toggle(isOn: $displayTVOC){

@@ -12,7 +12,7 @@ struct ContentView: View {
       ZStack {
          NavigationStack() {
             List {
-               Text("CO2 and TVOC")
+               Text("CO₂ and TVOC")
                   .foregroundStyle(.accent)
                   .font(.system(size: 24))
                ForEach (clvmArray) {item in

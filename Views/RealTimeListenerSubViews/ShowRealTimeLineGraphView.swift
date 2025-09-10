@@ -108,7 +108,7 @@ struct ShowRealTimeLineGraphView: View {
             .chartForegroundStyleScale(
                ["Temperature": Color.accentColor,
                 "Humidity": Color.yellow,
-                "eCO2": Color.blue,
+                "CO₂": Color.blue,
                 "tVOC": Color.red
                ]
             )
@@ -176,7 +176,7 @@ extension ShowRealTimeLineGraphView {
                Text(verbatim: "ID: \(ls.id)")
                Text(verbatim: "Temperature: \(ls.temperature)°F")
                Text(verbatim: "Humidity: \(ls.humidity)%")
-               Text(verbatim: "ECO2: \(ls.eCO2) -> \(ls.unBiasedECO2AndScaled)")
+               Text(verbatim: "CO₂: \(ls.eCO2) -> \(ls.unBiasedECO2AndScaled)")
                Text(verbatim: "TVOC: \(ls.tVOC) -> \(ls.scaledTVOC)")
                Text("\(dateFormatter2.string(from: ls.dt))")
             }

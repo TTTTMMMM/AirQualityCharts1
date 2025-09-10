@@ -21,7 +21,7 @@ struct ShowDailyLineGraphsViewAQ: View {
    
    var body: some View {
       GroupBox {
-         Text("CO2 and TVOC: \(self.dateFormatter.string(from: self.selectedDate))")
+         Text("CO₂ and TVOC: \(self.dateFormatter.string(from: self.selectedDate))")
             .font(.title2)
          if(isLoading) {
             ProgressView()
@@ -88,7 +88,7 @@ struct ShowDailyLineGraphsViewAQ: View {
       .chartForegroundStyleScale(
          ["Temperature": Color.accentColor,
           "Humidity": Color.yellow,
-          "eCO2": Color.blue,
+          "CO₂": Color.blue,
           "tVOC": Color.red
          ]
       )

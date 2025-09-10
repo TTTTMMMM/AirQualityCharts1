@@ -40,7 +40,7 @@ struct ShowHourlyLineGraphsViewPM: View {
                if displayPM03um {
                   LineMark(
                      x: .value("timestamp", measurement.timeString),
-                     y: .value("temperature", measurement.pm03um),
+                     y: .value("pm03um", measurement.pm03um),
                      series: .value("scaledPM03um", "A")
                   )
                   .foregroundStyle(Color.green)
@@ -48,7 +48,7 @@ struct ShowHourlyLineGraphsViewPM: View {
                if displayPM05um {
                   LineMark(
                      x: .value("timestamp", measurement.timeString),
-                     y: .value("humidity", measurement.pm05um),
+                     y: .value("pm05um", measurement.pm05um),
                      series: .value("scaledPM05um", "B")
                   )
                   .foregroundStyle(Color.yellow)
@@ -56,7 +56,7 @@ struct ShowHourlyLineGraphsViewPM: View {
                if displayPM1um {
                   LineMark(
                      x: .value("timestamp", measurement.timeString),
-                     y: .value("ECO2", measurement.pm1um),
+                     y: .value("pm1um", measurement.pm1um),
                      series: .value("scaledPM1um", "C")
                   )
                   .foregroundStyle(Color.blue)
@@ -64,7 +64,7 @@ struct ShowHourlyLineGraphsViewPM: View {
                if displayPM25um {
                   LineMark(
                      x: .value("timestamp", measurement.timeString),
-                     y: .value("TVOC", measurement.pm25um),
+                     y: .value("pm25um", measurement.pm25um),
                      series: .value("pm25um", "D")
                   )
                   .foregroundStyle(Color.red)
@@ -72,7 +72,7 @@ struct ShowHourlyLineGraphsViewPM: View {
                if displayPM5um {
                   LineMark(
                      x: .value("timestamp", measurement.timeString),
-                     y: .value("TVOC", measurement.pm5um),
+                     y: .value("pm5um", measurement.pm5um),
                      series: .value("pm5um", "E")
                   )
                   .foregroundStyle(Color.purple)
@@ -80,7 +80,7 @@ struct ShowHourlyLineGraphsViewPM: View {
                if displayPM10um {
                   LineMark(
                      x: .value("timestamp", measurement.timeString),
-                     y: .value("TVOC", measurement.pm10um),
+                     y: .value("pm10um", measurement.pm10um),
                      series: .value("pm10um", "F")
                   )
                   .foregroundStyle(Color.mint)

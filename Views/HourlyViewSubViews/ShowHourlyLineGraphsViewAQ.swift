@@ -27,7 +27,7 @@ struct ShowHourlyLineGraphsViewAQ: View {
    
    var body: some View {
       GroupBox {
-         Text("CO2 and TVOC: \(self.dateFormatter.string(from: self.selectedDateHour))")
+         Text("CO₂ and TVOC: \(self.dateFormatter.string(from: self.selectedDateHour))")
             .font(.title2)
          if(isLoading) {
             ProgressView()
@@ -94,7 +94,7 @@ struct ShowHourlyLineGraphsViewAQ: View {
       .chartForegroundStyleScale(
          ["Temperature": Color.accentColor,
           "Humidity": Color.yellow,
-          "eCO2": Color.blue,
+          "CO₂": Color.blue,
           "tVOC": Color.red
          ]
       )
