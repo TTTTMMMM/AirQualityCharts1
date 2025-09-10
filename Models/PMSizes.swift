@@ -7,12 +7,12 @@ import Foundation
 struct PMSizes: Identifiable, Equatable, Codable {
    var id: Int
    var dt: Date
-   var pm03um: Int  // # num particles > .3um
-   var pm05um: Int  // # num particles > .5um
-   var pm1um: Int   // # num particles > 1um
-   var pm25um: Int  // # num particles > 2.5um
-   var pm5um: Int   // # num particles > 5um
-   var pm10um: Int  // # num particles > 10um
+   var pm03um: Int  // # num particles > .3µm
+   var pm05um: Int  // # num particles > .5µm
+   var pm1um: Int   // # num particles > 1µm
+   var pm25um: Int  // # num particles > 2.5µm
+   var pm5um: Int   // # num particles > 5µm
+   var pm10um: Int  // # num particles > 10µm
 
    var dateString: String {
       let dateFormatter = DateFormatter()

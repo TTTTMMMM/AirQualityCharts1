@@ -110,12 +110,12 @@ struct ShowHourlyLineGraphsViewPM: View {
       }
       .chartLegend(position: .top, alignment: .leading, spacing: 8)
       .chartForegroundStyleScale(
-         ["0.3um": Color.accentColor,
-          "0.5um": Color.yellow,
-          "1.0um": Color.blue,
-          "2.5um": Color.red,
-          "5.0um": Color.purple,
-          "10.0um": Color.mint
+         ["0.3µm": Color.accentColor,
+          "0.5µm": Color.yellow,
+          "1.0µm": Color.blue,
+          "2.5µm": Color.red,
+          "5.0µm": Color.purple,
+          "10.0µm": Color.mint
          ]
       )
       .transition(.opacity)

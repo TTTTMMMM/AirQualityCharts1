@@ -26,7 +26,7 @@ struct RealTimeListenerViewAQ: View {
             charted.toggle()
          },
                 label: {
-            Text("Listen for Air Quality Updates\n \(self.dateFormatter.string(from: self.selectedDate))")
+            Text("Realtime CO₂ and TVOC\n \(self.dateFormatter.string(from: self.selectedDate))")
                .font(.headline)
                .foregroundStyle(.white)
          })
@@ -60,7 +60,7 @@ extension RealTimeListenerViewAQ {
    
    func realTimeChartSheet() -> some View {
       VStack () {
-         ShowRealTimeLineGraphView(
+         ShowRealTimeLineGraphViewAQ(
             displayTemperature: $displayTemperature,
             displayHumidity: $displayHumidity,
             displayECO2: $displayECO2,

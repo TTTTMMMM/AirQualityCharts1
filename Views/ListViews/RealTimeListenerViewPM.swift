@@ -8,10 +8,12 @@ struct RealTimeListenerViewPM: View {
    @StateObject var viewModel = ParticleCountsViewModel()
    @State var selectedDate = Date()
    @State var charted = false
-   @State var displayTemperature = true
-   @State var displayHumidity = true
-   @State var displayECO2 = true
-   @State var displayTVOC = true
+   @State var displayPM03um = true
+   @State var displayPM05um = true
+   @State var displayPM1um  = true
+   @State var displayPM25um = true
+   @State var displayPM5um  = true
+   @State var displayPM10um = true
    @State var left: Int? = 0
    
    private var dateFormatter: DateFormatter {
@@ -26,7 +28,7 @@ struct RealTimeListenerViewPM: View {
             charted.toggle()
          },
                 label: {
-            Text("Listen for Air Quality Updates\n \(self.dateFormatter.string(from: self.selectedDate))")
+            Text("Realtime Particulate Matter\n \(self.dateFormatter.string(from: self.selectedDate))")
                .font(.headline)
                .foregroundStyle(.white)
          })
@@ -53,18 +55,20 @@ struct RealTimeListenerViewPM: View {
 }
 
 #Preview {
-   RealTimeListenerViewAQ()
+   RealTimeListenerViewPM()
 }
 
 extension RealTimeListenerViewPM {
    
    func realTimeChartSheet() -> some View {
       VStack () {
-         ShowRealTimeLineGraphView(
-            displayTemperature: $displayTemperature,
-            displayHumidity: $displayHumidity,
-            displayECO2: $displayECO2,
-            displayTVOC: $displayTVOC
+         ShowRealTimeLineGraphViewPM(
+            displayPM03um: $displayPM03um,
+            displayPM05um: $displayPM05um,
+            displayPM1um:  $displayPM1um,
+            displayPM25um: $displayPM25um,
+            displayPM5um:  $displayPM5um,
+            displayPM10um: $displayPM10um
          )
       }
       .ignoresSafeArea()

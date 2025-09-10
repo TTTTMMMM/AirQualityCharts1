@@ -30,7 +30,7 @@ func getRoundedDateTwoHoursAgo() -> Date {
     return calendar.date(from: newComponents) ?? twoHoursAgo // Fallback if date cannot be created
 }
 
-struct ShowRealTimeLineGraphView: View {
+struct ShowRealTimeLineGraphViewAQ: View {
    
    @StateObject var viewModel = AirQualityViewModel()
    @Binding var displayTemperature: Bool
@@ -44,7 +44,7 @@ struct ShowRealTimeLineGraphView: View {
    
    private var dateFormatter: DateFormatter {
       let dateFormatter = DateFormatter()
-      dateFormatter.dateFormat = "MMM dd, yyyy"
+      dateFormatter.dateFormat = "EEEE dd MMM yyyy"
       return dateFormatter
    }
    
@@ -56,7 +56,7 @@ struct ShowRealTimeLineGraphView: View {
    
    var body: some View {
       GroupBox {
-         Text("Real-time Chart for \(self.dateFormatter.string(from: self.selectedDateHour)) starting at \(self.dateFormatter2.string(from: self.startTime))")
+         Text("Realtime CO₂ and TVOC for \(self.dateFormatter.string(from: self.selectedDateHour)) starting at \(self.dateFormatter2.string(from: self.startTime))")
             .font(.title2)
 
          ZStack (alignment: .top) {
@@ -103,7 +103,7 @@ struct ShowRealTimeLineGraphView: View {
             .animation(.linear(duration: 0.6), value: displayTVOC)
             .animation(.linear(duration: 0.6), value: viewModel.aqMeasurements)
             .chartScrollableAxes(.horizontal)
-            .chartXVisibleDomain(length: 240)
+            .chartXVisibleDomain(length: 900)   // 900 = 2.5 hours worth of samples
             .chartLegend(position: .top, alignment: .leading, spacing: 8)
             .chartForegroundStyleScale(
                ["Temperature": Color.accentColor,
@@ -113,12 +113,16 @@ struct ShowRealTimeLineGraphView: View {
                ]
             )
             .chartXAxis {
-               AxisMarks(
-                  // label every 15 mins
-                  values: .automatic(desiredCount: 15)
+               AxisMarks(  // label every 15 mins = 90 when sampled 6 times per minute
+                  values: .automatic(desiredCount: 90)
                ) { mark in
-                  if mark.index % 15 == 0 {
-                     AxisValueLabel()
+                  if mark.index % 90 == 0 {
+                     AxisValueLabel() {
+                        if let dateString = mark.as(String.self) {
+                           Text(String(dateString.prefix(5)))
+                        }
+                     }
+                     AxisGridLine()
                   }
                }
             }
@@ -150,7 +154,7 @@ struct ShowRealTimeLineGraphView: View {
    @Previewable @State var displayECO2 = true
    @Previewable @State var displayTVOC = true
    
-   ShowRealTimeLineGraphView(
+   ShowRealTimeLineGraphViewAQ(
       displayTemperature: $displayTemperature,
       displayHumidity: $displayHumidity,
       displayECO2: $displayECO2,
@@ -158,7 +162,7 @@ struct ShowRealTimeLineGraphView: View {
    )
 }
 
-extension ShowRealTimeLineGraphView {
+extension ShowRealTimeLineGraphViewAQ {
    func LastSampleView() -> some View {
       var dateFormatter2: DateFormatter {
          let dateFormatter = DateFormatter()
@@ -196,7 +200,7 @@ extension ShowRealTimeLineGraphView {
       }
 }
 
-extension ShowRealTimeLineGraphView {
+extension ShowRealTimeLineGraphViewAQ {
    
    func causeAndGraphPickerView2() -> some View {
       
@@ -212,7 +216,7 @@ extension ShowRealTimeLineGraphView {
                      .transition(.opacity)
                      .animation(.linear(duration: 0.6), value: viewModel.dailyFreebiesLeft)
                }
-               CauseMenuView()
+//               CauseMenuView()
                GraphPickerViewAQ(
                   displayTemperature: $displayTemperature,
                   displayHumidity: $displayHumidity,

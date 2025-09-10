@@ -123,10 +123,12 @@ class ParticleCountsViewModel: ObservableObject {
    }
    
    func addListenerForParticleCountsSizes()  {
+      print("**** Got into addListenerForParticleCountsSizes() ****")
       DataManager.shared.addListenerForParticleCountsSamples()
          .sink { completion in
          } receiveValue: { [weak self] particleSizeCountsArray in
             self?.pmMeasurements = particleSizeCountsArray
+            print("Got into receiveValue")
             Task {
                await MainActor.run {
                   if let lastOne = self?.pmMeasurements.last {
