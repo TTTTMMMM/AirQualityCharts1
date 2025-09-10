@@ -3,9 +3,9 @@
 //
 import SwiftUI
 
-struct RealTimeListenerViewAQ: View {
+struct RealTimeListenerViewPM: View {
 
-   @StateObject var viewModel = AirQualityViewModel()
+   @StateObject var viewModel = ParticleCountsViewModel()
    @State var selectedDate = Date()
    @State var charted = false
    @State var displayTemperature = true
@@ -56,7 +56,7 @@ struct RealTimeListenerViewAQ: View {
    RealTimeListenerViewAQ()
 }
 
-extension RealTimeListenerViewAQ {
+extension RealTimeListenerViewPM {
    
    func realTimeChartSheet() -> some View {
       VStack () {

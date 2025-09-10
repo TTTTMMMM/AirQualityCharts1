@@ -20,7 +20,7 @@ let weeklyViewAQ = ChartListViewModel(
    imageName: "bar-chart",
    listDisplayText: "Hourly",
    chartView: AnyView(HourlyViewAQ()))
-let dailyComparisonViewAQ = ChartListViewModel(
+let realtimeViewAQ = ChartListViewModel(
    ind: 2,
    imageName: "realTimeListener",
    listDisplayText: "Real Time Listener",
@@ -37,11 +37,11 @@ let weeklyViewPM = ChartListViewModel(
    imageName: "pm2",
    listDisplayText: "Hourly",
    chartView: AnyView(HourlyViewPM()))
-let dailyComparisonViewPM = ChartListViewModel(
+let realtimeViewPM = ChartListViewModel(
    ind: 5,
    imageName: "pm3",
    listDisplayText: "Real Time Listener",
-   chartView: AnyView(RealTimeListenerViewAQ()))
+   chartView: AnyView(RealTimeListenerViewPM()))
 
-let clvmArray: [ChartListViewModel] = [dailyViewAQ, weeklyViewAQ, dailyComparisonViewAQ, dailyViewPM, weeklyViewPM, dailyComparisonViewPM]
+let clvmArray: [ChartListViewModel] = [dailyViewAQ, weeklyViewAQ, realtimeViewAQ, dailyViewPM, weeklyViewPM, realtimeViewPM]
 

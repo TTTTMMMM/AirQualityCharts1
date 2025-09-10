@@ -89,11 +89,15 @@ struct ShowDailyLineGraphsViewPM: View {
           }
       }
       .chartXAxis {
-         AxisMarks(             // label every 30 mins
-            values: .automatic(desiredCount: 30)
+         AxisMarks(  // label every 15 mins = 90 when sampled 6 times per minute
+            values: .automatic(desiredCount: 90)
          ) { mark in
-            if mark.index % 30 == 0 {
-               AxisValueLabel()
+            if mark.index % 90 == 0 {
+               AxisValueLabel() {
+                  if let dateString = mark.as(String.self) {
+                     Text(String(dateString.prefix(5)))
+                  }
+               }
                AxisGridLine()
             }
          }
@@ -117,7 +121,7 @@ struct ShowDailyLineGraphsViewPM: View {
       .animation(.linear(duration: 0.6), value: displayPM10um)
       .animation(.linear(duration: 0.6), value: viewModel.pmMeasurements)
       .chartScrollableAxes(.horizontal)
-      .chartXVisibleDomain(length: 800)
+      .chartXVisibleDomain(length: min(viewModel.numberOfSamplesRetrieved ?? 1800, 1800)) // 1800 = 5 hours
       .padding(12)
       .task {
          do {

@@ -22,7 +22,7 @@ struct AQSample: Identifiable, Equatable, Codable {
    
    var timeString: String {
       let dateFormatter = DateFormatter()
-      dateFormatter.dateFormat = "HH:mm"
+      dateFormatter.dateFormat = "HH:mm:ss"
       return dateFormatter.string(from: dt)
    }
    

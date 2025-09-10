@@ -77,12 +77,15 @@ struct ShowHourlyLineGraphsViewAQ: View {
           }
       }
       .chartXAxis {
-         AxisMarks(
-            // label every 15 mins
-            values: .automatic(desiredCount: 15)
+         AxisMarks(  // label every 15 mins = 90 when sampled 6 times per minute
+            values: .automatic(desiredCount: 90)
          ) { mark in
-            if mark.index % 15 == 0 {
-               AxisValueLabel()
+            if mark.index % 90 == 0 {
+               AxisValueLabel() {
+                  if let dateString = mark.as(String.self) {
+                     Text(String(dateString.prefix(5)))
+                  }
+               }
                AxisGridLine()
             }
          }
@@ -102,7 +105,7 @@ struct ShowHourlyLineGraphsViewAQ: View {
       .animation(.linear(duration: 0.6), value: displayTVOC)
       .animation(.linear(duration: 0.6), value: viewModel.aqMeasurements)
       .chartScrollableAxes(.horizontal)
-      .chartXVisibleDomain(length: lengthOfData)
+      .chartXVisibleDomain(length: viewModel.numberOfSamplesRetrieved ?? lengthOfData)
       .padding(12)
       .task {
          do {

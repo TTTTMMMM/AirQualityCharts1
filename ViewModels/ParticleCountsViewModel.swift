@@ -14,6 +14,7 @@ class ParticleCountsViewModel: ObservableObject {
    private  var cancellables = Set<AnyCancellable>()
    private var prevCountOfPMSizes: Int = 0
    @Published var lastSample: PMSizes? = nil
+   @Published var numberOfSamplesRetrieved: Int? = 0
    
    init() {
       Task {
@@ -27,9 +28,6 @@ class ParticleCountsViewModel: ObservableObject {
       case three = "3"
       case four  = "4"
       case five  = "5"
-      case six   = "6"
-      case seven = "7"
-      case eight = "8"
    }
    
    // I won't be using this in the app, just here to create a test sample
@@ -74,6 +72,7 @@ class ParticleCountsViewModel: ObservableObject {
          date: date
       ) {
          try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
+            self.numberOfSamplesRetrieved = samples.count
          await MainActor.run {
             self.pmMeasurements = samples
          }
@@ -86,6 +85,7 @@ class ParticleCountsViewModel: ObservableObject {
          numberOfHours: numberOfHours
       ) {
          try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
+            self.numberOfSamplesRetrieved = samples.count
 //         samples.forEach {
 //            print($0.dateString, $0.temperature)
 //            print($0.humidity)
