@@ -12,27 +12,27 @@ struct GraphPickerViewPM: View {
    var body: some View {
       VStack (alignment: .leading) {
          Toggle(isOn: $displayPM03um){
-            Text("0.3 um")
+            Text("0.3 µm")
          }
          .scaleEffect(0.8)
          Toggle(isOn: $displayPM05um){
-            Text("0.5 um")
+            Text("0.5 µm")
          }
          .scaleEffect(0.8)
          Toggle(isOn: $displayPM1um){
-            Text("1.0 um")
+            Text("1.0 µm")
          }
          .scaleEffect(0.8)
          Toggle(isOn: $displayPM25um){
-            Text("2.5 um")
+            Text("2.5 µm")
          }
          .scaleEffect(0.8)
          Toggle(isOn: $displayPM5um){
-            Text("5.0 um")
+            Text("5.0 µm")
          }
          .scaleEffect(0.8)
          Toggle(isOn: $displayPM10um){
-            Text("10.0 um")
+            Text("10.0 µm")
          }
          .scaleEffect(0.8)
       }
