@@ -105,16 +105,6 @@ struct ShowRealTimeLineGraphViewPM: View {
                   }
                }
             }
-            .chartLegend(position: .top, alignment: .leading, spacing: 8)
-//            .chartForegroundStyleScale(
-//               ["0.3µm": Color.accentColor,
-//                "0.5µm": Color.yellow,
-//                "1.0µm": Color.blue,
-//                "2.5µm": Color.red,
-//                "5.0µm": Color.purple,
-//                "10.0µm": Color.mint
-//               ]
-//            )
             .transition(.opacity)
             .animation(.linear(duration: 0.6), value: displayPM03um)
             .animation(.linear(duration: 0.6), value: displayPM05um)
@@ -124,7 +114,17 @@ struct ShowRealTimeLineGraphViewPM: View {
             .animation(.linear(duration: 0.6), value: displayPM10um)
             .animation(.linear(duration: 0.6), value: viewModel.pmMeasurements)
             .chartScrollableAxes(.horizontal)
-            .chartXVisibleDomain(length: min(viewModel.numberOfSamplesRetrieved ?? 1800, 1800)) // 1800 = 5 hours
+            .chartXVisibleDomain(length: 900) // 900 is 2.5 hours
+            .chartLegend(position: .top, alignment: .leading, spacing: 8)
+            .chartForegroundStyleScale(
+               ["0.3µm": Color.accentColor,
+                "0.5µm": Color.yellow,
+                "1.0µm": Color.blue,
+                "2.5µm": Color.red,
+                "5.0µm": Color.purple,
+                "10.0µm": Color.mint
+               ]
+            )
             .padding(12)
             HStack {
                Spacer()
