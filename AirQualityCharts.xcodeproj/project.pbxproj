@@ -57,6 +57,10 @@
 		04EAE6892E6E5AB700E151C0 /* ShowHourlyLineGraphsViewPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAE6882E6E5AB700E151C0 /* ShowHourlyLineGraphsViewPM.swift */; };
 		04EAE68B2E6F355B00E151C0 /* RealTimeListenerViewPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAE68A2E6F355B00E151C0 /* RealTimeListenerViewPM.swift */; };
 		04EAE68D2E71EBF500E151C0 /* ShowRealTimeLineGraphViewPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAE68C2E71EBF500E151C0 /* ShowRealTimeLineGraphViewPM.swift */; };
+		04F7389B2E7364550054916A /* SummaryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F7389A2E7364550054916A /* SummaryModels.swift */; };
+		04F7389D2E7365610054916A /* AverageViewAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F7389C2E7365610054916A /* AverageViewAQ.swift */; };
+		04F738A02E736C8A0054916A /* CircularTextViewInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F7389F2E736C8A0054916A /* CircularTextViewInt.swift */; };
+		04F738CA2E7378440054916A /* CircularTextViewDbl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F738C92E7378440054916A /* CircularTextViewDbl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +124,10 @@
 		04EAE6882E6E5AB700E151C0 /* ShowHourlyLineGraphsViewPM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowHourlyLineGraphsViewPM.swift; sourceTree = "<group>"; };
 		04EAE68A2E6F355B00E151C0 /* RealTimeListenerViewPM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimeListenerViewPM.swift; sourceTree = "<group>"; };
 		04EAE68C2E71EBF500E151C0 /* ShowRealTimeLineGraphViewPM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowRealTimeLineGraphViewPM.swift; sourceTree = "<group>"; };
+		04F7389A2E7364550054916A /* SummaryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryModels.swift; sourceTree = "<group>"; };
+		04F7389C2E7365610054916A /* AverageViewAQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AverageViewAQ.swift; sourceTree = "<group>"; };
+		04F7389F2E736C8A0054916A /* CircularTextViewInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularTextViewInt.swift; sourceTree = "<group>"; };
+		04F738C92E7378440054916A /* CircularTextViewDbl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularTextViewDbl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -254,6 +262,7 @@
 		04CCA3B12DC41F5F00710E41 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				04F7389E2E736C630054916A /* MiscViews */,
 				04EAE6512E6CBE1A00E151C0 /* ListViews */,
 				0443B6A12DE516D80077675B /* RealTimeListenerSubViews */,
 				04CCA43A2DDE959500710E41 /* ContentViewSubViews */,
@@ -297,6 +306,7 @@
 				0443B69F2DE15C4C0077675B /* Freebies.swift */,
 				04CCA3AF2DC419CD00710E41 /* AQSample.swift */,
 				04EAE64D2E6C941A00E151C0 /* PMSizes.swift */,
+				04F7389A2E7364550054916A /* SummaryModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -374,6 +384,16 @@
 				04EAE6862E6E597E00E151C0 /* HourlyViewPM.swift */,
 			);
 			path = ListViews;
+			sourceTree = "<group>";
+		};
+		04F7389E2E736C630054916A /* MiscViews */ = {
+			isa = PBXGroup;
+			children = (
+				04F7389F2E736C8A0054916A /* CircularTextViewInt.swift */,
+				04F738C92E7378440054916A /* CircularTextViewDbl.swift */,
+				04F7389C2E7365610054916A /* AverageViewAQ.swift */,
+			);
+			path = MiscViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -543,6 +563,7 @@
 				04EAE65D2E6D006200E151C0 /* CauseAndGraphPickerViewPM.swift in Sources */,
 				04CCA3A62DC27F7000710E41 /* ListElementStyleView.swift in Sources */,
 				04EAE6502E6CAD1900E151C0 /* ParticleCountsViewModel.swift in Sources */,
+				04F7389D2E7365610054916A /* AverageViewAQ.swift in Sources */,
 				04CCA3A72DC27F7000710E41 /* ContentView.swift in Sources */,
 				04EAE6872E6E597E00E151C0 /* HourlyViewPM.swift in Sources */,
 				04CCA4032DD5014700710E41 /* AuthenticationView.swift in Sources */,
@@ -558,6 +579,7 @@
 				04CCA4342DDE622700710E41 /* DatePickerSectionView.swift in Sources */,
 				04CCA40B2DD5264B00710E41 /* SettingsView.swift in Sources */,
 				0443B6A02DE15C650077675B /* Freebies.swift in Sources */,
+				04F738CA2E7378440054916A /* CircularTextViewDbl.swift in Sources */,
 				04EAE68D2E71EBF500E151C0 /* ShowRealTimeLineGraphViewPM.swift in Sources */,
 				04B9FDA62DE1014A0036C731 /* HourlyPickerSectionView.swift in Sources */,
 				04EAE6592E6D002500E151C0 /* GraphPickerViewPM.swift in Sources */,
@@ -570,10 +592,12 @@
 				04CCA3B82DC67B6B00710E41 /* AirQualityViewModel.swift in Sources */,
 				04CCA4362DDE6CBD00710E41 /* CauseAndGraphPickerViewAQ.swift in Sources */,
 				04EAE68B2E6F355B00E151C0 /* RealTimeListenerViewPM.swift in Sources */,
+				04F7389B2E7364550054916A /* SummaryModels.swift in Sources */,
 				04CCA4272DDA37A300710E41 /* AuthenticationViewModel.swift in Sources */,
 				04CCA3AC2DC27F7000710E41 /* ChartListViewModel.swift in Sources */,
 				04CCA4092DD51EF100710E41 /* RootView.swift in Sources */,
 				04EAE6572E6D000B00E151C0 /* ShowDailyLineGraphsViewPM.swift in Sources */,
+				04F738A02E736C8A0054916A /* CircularTextViewInt.swift in Sources */,
 				04EAE64E2E6C941A00E151C0 /* PMSizes.swift in Sources */,
 				04CCA4322DDE5F8A00710E41 /* BackButtonView.swift in Sources */,
 				04B9FDA82DE1050A0036C731 /* ShowHourlyLineGraphsViewAQ.swift in Sources */,

@@ -15,20 +15,8 @@ class AirQualityViewModel: ObservableObject {
    private var prevCountOfAQSamples: Int = 0
    @Published var lastSample: AQSample? = nil
    @Published var numberOfSamplesRetrieved: Int? = 0
-   struct MaxValues {
-      var scaledTVOC: Int = 0
-      var unbiasedScaledECO2: Int = 0
-      var temperature: Double = 0.0
-      var humidity: Double = 0.0 
-   }
-   struct AvgValues {
-      var scaledTVOC: Int = 0
-      var unbiasedScaledECO2: Int = 0
-      var temperature: Int = 0
-      var humidity: Int = 0
-   }
-   @Published var maxValues = MaxValues()
-   @Published var avgValues = AvgValues()
+   @Published var maxValues = MaxValuesAQ()
+   @Published var avgValues = AvgValuesAQ()
 
    init() {
       Task {
@@ -104,8 +92,6 @@ class AirQualityViewModel: ObservableObject {
             self.numberOfSamplesRetrieved = samples.count
             self.maxValues = computeMaxValues(samples: samples)
             self.avgValues = computeAvgValues(samples: samples)
-            print("\(self.avgValues)")
-            print("\(self.maxValues)")
          await MainActor.run {
             self.aqMeasurements = samples
          }
@@ -166,8 +152,8 @@ class AirQualityViewModel: ObservableObject {
       cancellables.removeAll()
       }
    
-   func computeMaxValues(samples: [AQSample]) -> MaxValues {
-      return MaxValues(
+   func computeMaxValues(samples: [AQSample]) -> MaxValuesAQ {
+      return MaxValuesAQ(
          scaledTVOC: samples.map { Int($0.scaledTVOC)}.max() ?? 0,
          unbiasedScaledECO2: samples.map { Int($0.unBiasedECO2AndScaled)}.max() ?? 0,
          temperature: samples.map { $0.temperature }.max() ?? 0.0,
@@ -175,8 +161,8 @@ class AirQualityViewModel: ObservableObject {
       )
    }
    
-   func computeAvgValues(samples: [AQSample]) -> AvgValues {
-      return AvgValues(
+   func computeAvgValues(samples: [AQSample]) -> AvgValuesAQ {
+      return AvgValuesAQ(
          scaledTVOC: Int(Double(samples.map { $0.scaledTVOC}.reduce(0, +)) / Double(samples.count).rounded()),
          unbiasedScaledECO2: Int(Double(samples.map { $0.unBiasedECO2AndScaled}.reduce(0, +)) / Double(samples.count).rounded()),
          temperature: Int(samples.map { $0.temperature }.reduce(0.0, +) / Double(samples.count).rounded()),

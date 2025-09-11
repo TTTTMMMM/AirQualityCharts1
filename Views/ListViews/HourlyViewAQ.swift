@@ -80,7 +80,8 @@ extension HourlyViewAQ {
             displayTVOC: $displayTVOC,
             numLeft: $left
          ),
-         alignment: .topTrailing)
-      }
+         alignment: .topTrailing
+      )
    }
+}
 

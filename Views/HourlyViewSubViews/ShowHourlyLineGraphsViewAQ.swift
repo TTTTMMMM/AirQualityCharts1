@@ -114,6 +114,8 @@ struct ShowHourlyLineGraphsViewAQ: View {
                date: selectedDateHour,
                numberOfHours: Int(numberOfHoursDuration) ?? 1
             )
+            print("\(viewModel.avgValues)")
+            print("\(viewModel.maxValues)")
             isLoading = false
          }
          catch {
