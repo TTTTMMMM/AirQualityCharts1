@@ -179,12 +179,12 @@ extension ShowRealTimeLineGraphViewPM {
                   .foregroundStyle(.white)
                   .frame(maxWidth: .infinity, alignment: .center)
                Text(verbatim: "ID: \(ls.id)")
-               Text(verbatim: "# > 0.3µm/.1L: \(ls.pm03um)")
-               Text(verbatim: "# > 0.5µm/.1L: \(ls.pm05um)")
-               Text(verbatim: "# > 1.0µm/.1L: \(ls.pm1um)")
-               Text(verbatim: "# > 2.5µm/.1L: \(ls.pm25um)")
-               Text(verbatim: "# >   5µm/.1L: \(ls.pm5um)")
-               Text(verbatim: "# >  10µm/.1L: \(ls.pm10um)")
+               Text(verbatim: "# > 0.3µm: \(ls.pm03um)")
+               Text(verbatim: "# > 0.5µm: \(ls.pm05um)")
+               Text(verbatim: "# > 1.0µm: \(ls.pm1um)")
+               Text(verbatim: "# > 2.5µm: \(ls.pm25um)")
+               Text(verbatim: "# >   5µm: \(ls.pm5um)")
+               Text(verbatim: "# >  10µm: \(ls.pm10um)")
                Text("\(dateFormatter2.string(from: ls.dt))")
             }
          }
