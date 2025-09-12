@@ -8,13 +8,13 @@ struct AverageViewAQ: View {
    var body: some View {
       ZStack {
          RoundedRectangle(cornerRadius: 20)
-            .fill(Color.gray.opacity(0.2)) // A semi-transparent gray fill
+            .fill(Color.gray.opacity(0.1)) // A semi-transparent gray fill
             .frame(height: 200)
             .frame(width: 510)
          VStack() {
             Text("Averages")
                .font(.system(size: 26, weight: .bold, design: .default))
-               .foregroundColor(.black)
+               .foregroundColor(.white)
             HStack (alignment: .top, spacing: 10) {
                CircularTextViewInt(topText: "Temp", intValue: avgValuesAQ.temperature, circleColor: Color.green)
                   .padding(.top, 4)
