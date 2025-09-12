@@ -13,7 +13,6 @@ struct ShowHourlyLineGraphsViewAQ: View {
    @Binding var displayTVOC: Bool
    
    @State private var showingAverages = true
-   @GestureState private var dragOffset: CGSize = .zero
    @State var isLoading: Bool = true
    
    private var dateFormatter: DateFormatter {
@@ -110,34 +109,21 @@ struct ShowHourlyLineGraphsViewAQ: View {
             .chartScrollableAxes(.horizontal)
             .chartXVisibleDomain(length: viewModel.numberOfSamplesRetrieved ?? lengthOfData)
             .padding(12)
-            VStack {        //average and maximums here, with swipeablity to choose between the two
+            VStack {        //average and maximums here, with dbl-tap to choose between the two
                if showingAverages {
                   AverageViewAQ(avgValuesAQ: $viewModel.avgValues)
-                     .offset(dragOffset)
-                     .animation(.spring(), value: dragOffset)
                } else {
                   MaxViewAQ(maxValuesAQ: $viewModel.maxValues)
-                     .offset(dragOffset)
-                     .animation(.spring(), value: dragOffset)
                }
             }
-            .gesture(
-               DragGesture()
-                  .updating($dragOffset) { value, state, _ in
-                     state = value.translation
-                  }
-                  .onEnded { gesture in
-                     if gesture.translation.width > 50 { // Dragged right
-                        showingAverages = false
-                     } else if gesture.translation.width < -50 { // Dragged left
-                        showingAverages = true
-                     }
-                  }
-            )
+            .onTapGesture(count: 2) { // Detect double-tap
+                withAnimation {       // Optional: Animate the view transition
+                   showingAverages.toggle() // Toggle the state to switch views
+                }
+            }
             .offset(x: -65, y: 20)
          }
    }       // GroupBox
-
       .task {
          do {
             isLoading = true
