@@ -2,13 +2,15 @@ import SwiftUI
 
 struct AverageViewAQ: View {
    
+//   @StateObject var viewModel = AirQualityViewModel()
    @Binding var avgValuesAQ: AvgValuesAQ
    @Binding var maxValuesAQ: MaxValuesAQ
    
    var body: some View {
       ZStack {
          RoundedRectangle(cornerRadius: 20)
-            .fill(Color.gray.opacity(0.1)) // A semi-transparent gray fill
+            .stroke(Color.white, lineWidth: 1)
+            .fill(Color.gray.opacity(0.1))     // A semi-transparent gray fill
             .frame(height: 200)
             .frame(width: 510)
          VStack() {

@@ -108,7 +108,7 @@ struct ShowHourlyLineGraphsViewAQ: View {
             .chartScrollableAxes(.horizontal)
             .chartXVisibleDomain(length: viewModel.numberOfSamplesRetrieved ?? lengthOfData)
             .padding(12)
-            AverageViewAQ(avgValuesAQ: $viewModel.avgValues, maxValuesAQ: $viewModel.maxValues)
+               AverageViewAQ(avgValuesAQ: $viewModel.avgValues, maxValuesAQ: $viewModel.maxValues)
                .offset(x: -50, y: 20)
          }
    }       // GroupBox

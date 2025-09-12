@@ -15,15 +15,16 @@ struct CircularTextViewInt: View {
       .padding(20)
       .background(
           Circle()
-              .fill(circleColor.opacity(0.8))
+              .fill(circleColor.opacity(0.6))
               .stroke(Color.black, lineWidth: 4)
       )
   }
 }
 
 #Preview {
+//   @Previewable @State var intValue = 176
+   var intValue = 176
    var topText: String = "TVOC"
-   var intValue: Int = 176
    var circleColor: Color = .red
    
    CircularTextViewInt(topText: topText, intValue: intValue, circleColor: circleColor)
