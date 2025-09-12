@@ -71,7 +71,6 @@ struct ShowHourlyLineGraphsViewAQ: View {
                   }
                } // ForEach
             }    // Chart
-            //      }        // GroupBox
             .chartYAxis {
                AxisMarks(position: .leading) { value in
                   AxisGridLine()
@@ -122,7 +121,7 @@ struct ShowHourlyLineGraphsViewAQ: View {
                 }
             }
             .offset(x: -65, y: 20)
-         }
+         } // ZStack
    }       // GroupBox
       .task {
          do {
