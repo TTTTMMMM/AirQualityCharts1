@@ -15,6 +15,8 @@ class ParticleCountsViewModel: ObservableObject {
    private var prevCountOfPMSizes: Int = 0
    @Published var lastSample: PMSizes? = nil
    @Published var numberOfSamplesRetrieved: Int? = 0
+   @Published var maxValues = MaxValuesPM()
+   @Published var avgValues = AvgValuesPM()
    
    init() {
       Task {

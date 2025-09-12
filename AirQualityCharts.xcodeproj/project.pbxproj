@@ -61,6 +61,9 @@
 		04F7389D2E7365610054916A /* AverageViewAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F7389C2E7365610054916A /* AverageViewAQ.swift */; };
 		04F738A02E736C8A0054916A /* CircularTextViewInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F7389F2E736C8A0054916A /* CircularTextViewInt.swift */; };
 		04F738CA2E7378440054916A /* CircularTextViewDbl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F738C92E7378440054916A /* CircularTextViewDbl.swift */; };
+		04F738CC2E746F620054916A /* MaxViewAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F738CB2E746F620054916A /* MaxViewAQ.swift */; };
+		04F738CE2E747EAD0054916A /* MaxViewPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F738CD2E747EAD0054916A /* MaxViewPM.swift */; };
+		04F738D02E747FCF0054916A /* AverageViewPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F738CF2E747FCF0054916A /* AverageViewPM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,6 +131,9 @@
 		04F7389C2E7365610054916A /* AverageViewAQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AverageViewAQ.swift; sourceTree = "<group>"; };
 		04F7389F2E736C8A0054916A /* CircularTextViewInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularTextViewInt.swift; sourceTree = "<group>"; };
 		04F738C92E7378440054916A /* CircularTextViewDbl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularTextViewDbl.swift; sourceTree = "<group>"; };
+		04F738CB2E746F620054916A /* MaxViewAQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxViewAQ.swift; sourceTree = "<group>"; };
+		04F738CD2E747EAD0054916A /* MaxViewPM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxViewPM.swift; sourceTree = "<group>"; };
+		04F738CF2E747FCF0054916A /* AverageViewPM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AverageViewPM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -392,6 +398,9 @@
 				04F7389F2E736C8A0054916A /* CircularTextViewInt.swift */,
 				04F738C92E7378440054916A /* CircularTextViewDbl.swift */,
 				04F7389C2E7365610054916A /* AverageViewAQ.swift */,
+				04F738CF2E747FCF0054916A /* AverageViewPM.swift */,
+				04F738CB2E746F620054916A /* MaxViewAQ.swift */,
+				04F738CD2E747EAD0054916A /* MaxViewPM.swift */,
 			);
 			path = MiscViews;
 			sourceTree = "<group>";
@@ -573,6 +582,7 @@
 				04CCA4302DDE54E800710E41 /* GraphPickerViewAQ.swift in Sources */,
 				04CCA4242DDA367F00710E41 /* SettingsViewModel.swift in Sources */,
 				04CCA3A82DC27F7000710E41 /* RealTimeListenerViewAQ.swift in Sources */,
+				04F738CC2E746F620054916A /* MaxViewAQ.swift in Sources */,
 				04CCA3A92DC27F7000710E41 /* DailyViewAQ.swift in Sources */,
 				04B9FD932DDFA30E0036C731 /* CauseMenuViewModel.swift in Sources */,
 				04CCA3AA2DC27F7000710E41 /* HourlyViewAQ.swift in Sources */,
@@ -586,6 +596,7 @@
 				04CCA4072DD5122200710E41 /* AuthenticationManager.swift in Sources */,
 				04CCA4392DDE7F5000710E41 /* ShowDailyLineGraphsViewAQ.swift in Sources */,
 				04CCA42A2DDA3B8A00710E41 /* ProfileView.swift in Sources */,
+				04F738CE2E747EAD0054916A /* MaxViewPM.swift in Sources */,
 				04B9FD912DDF88040036C731 /* CauseMenuView.swift in Sources */,
 				04CCA3C72DC6C98200710E41 /* DataManager.swift in Sources */,
 				04CCA3B02DC419CD00710E41 /* AQSample.swift in Sources */,
@@ -600,6 +611,7 @@
 				04F738A02E736C8A0054916A /* CircularTextViewInt.swift in Sources */,
 				04EAE64E2E6C941A00E151C0 /* PMSizes.swift in Sources */,
 				04CCA4322DDE5F8A00710E41 /* BackButtonView.swift in Sources */,
+				04F738D02E747FCF0054916A /* AverageViewPM.swift in Sources */,
 				04B9FDA82DE1050A0036C731 /* ShowHourlyLineGraphsViewAQ.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

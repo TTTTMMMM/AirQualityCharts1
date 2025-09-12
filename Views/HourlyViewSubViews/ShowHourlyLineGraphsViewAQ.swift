@@ -12,6 +12,8 @@ struct ShowHourlyLineGraphsViewAQ: View {
    @Binding var displayECO2: Bool
    @Binding var displayTVOC: Bool
    
+   @State private var showingAverages = true
+   @GestureState private var dragOffset: CGSize = .zero
    @State var isLoading: Bool = true
    
    private var dateFormatter: DateFormatter {
@@ -108,8 +110,31 @@ struct ShowHourlyLineGraphsViewAQ: View {
             .chartScrollableAxes(.horizontal)
             .chartXVisibleDomain(length: viewModel.numberOfSamplesRetrieved ?? lengthOfData)
             .padding(12)
-               AverageViewAQ(avgValuesAQ: $viewModel.avgValues, maxValuesAQ: $viewModel.maxValues)
-               .offset(x: -50, y: 20)
+            VStack {        //average and maximums here, with swipeablity to choose between the two
+               if showingAverages {
+                  AverageViewAQ(avgValuesAQ: $viewModel.avgValues)
+                     .offset(dragOffset)
+                     .animation(.spring(), value: dragOffset)
+               } else {
+                  MaxViewAQ(maxValuesAQ: $viewModel.maxValues)
+                     .offset(dragOffset)
+                     .animation(.spring(), value: dragOffset)
+               }
+            }
+            .gesture(
+               DragGesture()
+                  .updating($dragOffset) { value, state, _ in
+                     state = value.translation
+                  }
+                  .onEnded { gesture in
+                     if gesture.translation.width > 50 { // Dragged right
+                        showingAverages = false
+                     } else if gesture.translation.width < -50 { // Dragged left
+                        showingAverages = true
+                     }
+                  }
+            )
+            .offset(x: -65, y: 20)
          }
    }       // GroupBox
 
@@ -120,8 +145,6 @@ struct ShowHourlyLineGraphsViewAQ: View {
                date: selectedDateHour,
                numberOfHours: Int(numberOfHoursDuration) ?? 1
             )
-            print("\(viewModel.avgValues)")
-            print("\(viewModel.maxValues)")
             isLoading = false
          }
          catch {

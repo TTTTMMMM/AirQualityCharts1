@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct CircularTextViewDbl: View {
+   var metricType: MetricType
    var topText: String
    var dblValue: Double
    var circleColor: Color
@@ -9,10 +10,19 @@ struct CircularTextViewDbl: View {
       VStack {
           Text(topText)
               .font(.headline)
-          Text(String(format: "%.1f", dblValue))
-            .font(.system(size: 60, weight: .bold, design: .default))
+         switch metricType {
+            case .humidity:
+               Text(String(format: "%.1f%%", dblValue))
+                  .font(.system(size: 25, weight: .bold, design: .default))
+            case .temperature:
+               Text(String(format: "%.1f°", dblValue))
+                  .font(.system(size: 25, weight: .bold, design: .default))
+            case .count:
+               Text(String(format: "%.1f", dblValue))
+                  .font(.system(size: 25, weight: .bold, design: .default))
+         }
       }
-      .padding(30)
+      .padding(25)
       .background(
           Circle()
               .fill(circleColor.opacity(0.8))
@@ -26,6 +36,6 @@ struct CircularTextViewDbl: View {
    var dblValue: Double = 72.5
    var circleColor: Color = .green
    
-   CircularTextViewDbl(topText: topText, dblValue: dblValue, circleColor: circleColor)
+   CircularTextViewDbl(metricType: .temperature, topText: topText, dblValue: dblValue, circleColor: circleColor)
 
 }
