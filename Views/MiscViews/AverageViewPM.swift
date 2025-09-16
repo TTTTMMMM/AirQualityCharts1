@@ -3,6 +3,7 @@ import SwiftUI
 struct AverageViewPM: View {
    
    @Binding var avgValuesPM: AvgValuesPM
+   var titleOfPanel: String
    
    var body: some View {
       ZStack {
@@ -12,7 +13,7 @@ struct AverageViewPM: View {
             .frame(width: 510, height: 200)
             .shadow(color: .green.opacity(0.4), radius: 10, x: 5, y: 5)
          VStack() {
-            Text("Averages")
+            Text(titleOfPanel)
                .font(.system(size: 26, weight: .bold, design: .default))
                .foregroundColor(.white)
             HStack (alignment: .top, spacing: 10) {
@@ -33,6 +34,7 @@ struct AverageViewPM: View {
 
 #Preview {
    @Previewable @StateObject var viewModel = ParticleCountsViewModel()
+   var titleOfPanel = "Averages"
    
-   AverageViewPM(avgValuesPM: $viewModel.avgValues)
+   AverageViewPM(avgValuesPM: $viewModel.avgValues, titleOfPanel: titleOfPanel)
 }

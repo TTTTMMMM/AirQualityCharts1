@@ -112,9 +112,9 @@ struct ShowRealTimeLineGraphViewPM: View {
             }  // HStack
             VStack {        //average and maximums here, with dbl-tap to choose between the two
                if showingAverages {
-                  AverageViewPM(avgValuesPM: $viewModel.avgValuesLastHour)
+                  AverageViewPM(avgValuesPM: $viewModel.avgValuesLastHour, titleOfPanel: "Last Hour Averages")
                } else {
-                  MaxViewPM(maxValuesPM: $viewModel.maxValuesLastHour)
+                  MaxViewPM(maxValuesPM: $viewModel.maxValuesLastHour, titleOfPanel: "Last Hour Maximums")
                }
             }
             .onTapGesture(count: 2) { // Detect double-tap

@@ -141,9 +141,9 @@ struct ShowRealTimeLineGraphViewAQ: View {
             }
             VStack {        //average and maximums here, with dbl-tap to choose between the two
                if showingAverages {
-                  AverageViewAQ(avgValuesAQ: $viewModel.avgValuesLastHour)
+                  AverageViewAQ(avgValuesAQ: $viewModel.avgValuesLastHour, titleOfPanel: "Last Hour Averages")
                } else {
-                  MaxViewAQ(maxValuesAQ: $viewModel.maxValuesLastHour)
+                  MaxViewAQ(maxValuesAQ: $viewModel.maxValuesLastHour, titleOfPanel: "Last Hour Maximums")
                }
             }
             .onTapGesture(count: 2) { // Detect double-tap

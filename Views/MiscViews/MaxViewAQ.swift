@@ -3,6 +3,7 @@ import SwiftUI
 struct MaxViewAQ: View {
    
    @Binding var maxValuesAQ: MaxValuesAQ
+   var titleOfPanel: String
    
    var body: some View {
       ZStack {
@@ -12,7 +13,7 @@ struct MaxViewAQ: View {
             .frame(width: 520, height: 200)
             .shadow(color: .green.opacity(0.4), radius: 10, x: 5, y: 5)
          VStack() {
-            Text("Maximums")
+            Text(titleOfPanel)
                .font(.system(size: 26, weight: .bold, design: .default))
                .foregroundColor(.white)
             HStack (alignment: .top, spacing: 10) {
@@ -33,6 +34,7 @@ struct MaxViewAQ: View {
 
 #Preview {
    @Previewable @StateObject var viewModel = AirQualityViewModel()
+   var titleOfPanel = "Maximums"
    
-   MaxViewAQ(maxValuesAQ: $viewModel.maxValues)
+   MaxViewAQ(maxValuesAQ: $viewModel.maxValues, titleOfPanel: titleOfPanel)
 }

@@ -110,9 +110,9 @@ struct ShowHourlyLineGraphsViewPM: View {
             .padding(12)
             VStack {        //average and maximums here, with dbl-tap to choose between the two
                if showingAverages {
-                  AverageViewPM(avgValuesPM: $viewModel.avgValues)
+                  AverageViewPM(avgValuesPM: $viewModel.avgValues, titleOfPanel: "Averages")
                } else {
-                  MaxViewPM(maxValuesPM: $viewModel.maxValues)
+                  MaxViewPM(maxValuesPM: $viewModel.maxValues, titleOfPanel: "Maximums")
                }
             }
             .onTapGesture(count: 2) { // Detect double-tap

@@ -3,6 +3,7 @@ import SwiftUI
 struct AverageViewAQ: View {
    
    @Binding var avgValuesAQ: AvgValuesAQ
+   var titleOfPanel: String
    
    var body: some View {
       ZStack {
@@ -12,7 +13,7 @@ struct AverageViewAQ: View {
             .frame(width: 530, height: 200)
             .shadow(color: .green.opacity(0.4), radius: 10, x: 5, y: 5)
          VStack() {
-            Text("Averages")
+            Text(titleOfPanel)
                .font(.system(size: 26, weight: .bold, design: .default))
                .foregroundColor(.white)
             HStack (alignment: .top, spacing: 10) {
@@ -33,6 +34,7 @@ struct AverageViewAQ: View {
 
 #Preview {
    @Previewable @StateObject var viewModel = AirQualityViewModel()
-   
-   AverageViewAQ(avgValuesAQ: $viewModel.avgValues)
+   var titleOfPanel = "Average"
+
+   AverageViewAQ(avgValuesAQ: $viewModel.avgValues, titleOfPanel: titleOfPanel)
 }

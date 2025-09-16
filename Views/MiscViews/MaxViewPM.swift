@@ -3,6 +3,7 @@ import SwiftUI
 struct MaxViewPM: View {
    
    @Binding var maxValuesPM: MaxValuesPM
+   var titleOfPanel: String
    
    var body: some View {
       ZStack {
@@ -12,7 +13,7 @@ struct MaxViewPM: View {
             .frame(width: 530, height: 200)
             .shadow(color: .green.opacity(0.4), radius: 10, x: 5, y: 5)
          VStack() {
-            Text("Maximums")
+            Text(titleOfPanel)
                .font(.system(size: 26, weight: .bold, design: .default))
                .foregroundColor(.white)
             HStack (alignment: .top, spacing: 10) {
@@ -33,6 +34,7 @@ struct MaxViewPM: View {
 
 #Preview {
    @Previewable @StateObject var viewModel = ParticleCountsViewModel()
+   var titleOfPanel = "Maximums"
    
-   MaxViewPM(maxValuesPM: $viewModel.maxValues)
+   MaxViewPM(maxValuesPM: $viewModel.maxValues, titleOfPanel: titleOfPanel)
 }
