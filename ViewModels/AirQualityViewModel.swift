@@ -17,6 +17,8 @@ class AirQualityViewModel: ObservableObject {
    @Published var numberOfSamplesRetrieved: Int? = 0
    @Published var maxValues = MaxValuesAQ()
    @Published var avgValues = AvgValuesAQ()
+   @Published var maxValuesLastHour = MaxValuesAQ()
+   @Published var avgValuesLastHour = AvgValuesAQ()
 
    init() {
       Task {
@@ -142,6 +144,8 @@ class AirQualityViewModel: ObservableObject {
                      self?.prevCountOfAQSamples = prevCount + realCount
                   }
                }
+               self?.avgValuesLastHour = self?.computeLastHoursAverages() ?? AvgValuesAQ(scaledTVOC: 0, unbiasedScaledECO2: 0, temperature: 0, humidity: 0)
+               self?.maxValuesLastHour = self?.computeLastHoursMaximums() ?? MaxValuesAQ(scaledTVOC: 0, unbiasedScaledECO2: 0, temperature: 0.0, humidity: 0.0)
             }
          }
          // don't forget to store in cancellables, so we can remove listener when we're done
@@ -167,6 +171,32 @@ class AirQualityViewModel: ObservableObject {
          unbiasedScaledECO2: Int(Double(samples.map { $0.unBiasedECO2AndScaled}.reduce(0, +)) / Double(samples.count).rounded()),
          temperature: Int(samples.map { $0.temperature }.reduce(0.0, +) / Double(samples.count).rounded()),
          humidity: Int(samples.map { $0.humidity }.reduce(0.0, +) / Double(samples.count).rounded())
+      )
+   }
+
+   func computeLastHoursAverages() -> AvgValuesAQ {
+      // 360 (6 samples/min* 60 min/hour) points contains the last hour of samples if sampling occurs every 10 seconds for 1 hour 
+      let startIndex = max(0, aqMeasurements.count - 360)
+      let relevantPoints = aqMeasurements[startIndex..<aqMeasurements.count]
+
+      return AvgValuesAQ(
+         scaledTVOC: Int(Double(relevantPoints.map { $0.scaledTVOC}.reduce(0, +)) / Double(relevantPoints.count).rounded()),
+         unbiasedScaledECO2: Int(Double(relevantPoints.map { $0.unBiasedECO2AndScaled}.reduce(0, +)) / Double(relevantPoints.count).rounded()),
+         temperature: Int(relevantPoints.map { $0.temperature }.reduce(0.0, +) / Double(relevantPoints.count).rounded()),
+         humidity: Int(relevantPoints.map { $0.humidity }.reduce(0.0, +) / Double(relevantPoints.count).rounded())
+      )
+   }
+   
+   func computeLastHoursMaximums() -> MaxValuesAQ {
+      // 360 (6 samples/min* 60 min/hour) points contains the last hour of samples if sampling occurs every 10 seconds for 1 hour
+      let startIndex = max(0, aqMeasurements.count - 360)
+      let relevantPoints = aqMeasurements[startIndex..<aqMeasurements.count]
+
+      return MaxValuesAQ(
+         scaledTVOC: relevantPoints.map { Int($0.scaledTVOC)}.max() ?? 0,
+         unbiasedScaledECO2: relevantPoints.map { Int($0.unBiasedECO2AndScaled)}.max() ?? 0,
+         temperature: relevantPoints.map { $0.temperature }.max() ?? 0.0,
+         humidity: relevantPoints.map { $0.humidity }.max() ?? 0.0
       )
    }
 }

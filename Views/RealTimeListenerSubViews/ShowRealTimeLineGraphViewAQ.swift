@@ -37,8 +37,11 @@ struct ShowRealTimeLineGraphViewAQ: View {
    @Binding var displayHumidity: Bool
    @Binding var displayECO2: Bool
    @Binding var displayTVOC: Bool
+   
    @State private var didAppear: Bool = false  // only call on the 1rst time the view is created
-
+   @State private var showingAverages = true
+   @State var isLoading: Bool = true
+   
    var selectedDateHour: Date = Date()
    var startTime = getRoundedDateTwoHoursAgo()
    
@@ -58,7 +61,10 @@ struct ShowRealTimeLineGraphViewAQ: View {
       GroupBox {
          Text("Realtime CO₂ and TVOC for \(self.dateFormatter.string(from: self.selectedDateHour)) starting at \(self.dateFormatter2.string(from: self.startTime))")
             .font(.title2)
-
+         if(isLoading) {
+            ProgressView()
+               .scaleEffect(2)
+         }
          ZStack (alignment: .top) {
             Chart {
                ForEach (viewModel.aqMeasurements)  { measurement in
@@ -103,7 +109,7 @@ struct ShowRealTimeLineGraphViewAQ: View {
             .animation(.linear(duration: 0.6), value: displayTVOC)
             .animation(.linear(duration: 0.6), value: viewModel.aqMeasurements)
             .chartScrollableAxes(.horizontal)
-            .chartXVisibleDomain(length: 900)   // 900 = 2.5 hours worth of samples
+            .chartXVisibleDomain(length: 1080)   // 1080 = 3 hours worth of samples
             .chartLegend(position: .top, alignment: .leading, spacing: 8)
             .chartForegroundStyleScale(
                ["Temperature": Color.accentColor,
@@ -133,12 +139,27 @@ struct ShowRealTimeLineGraphViewAQ: View {
                Spacer()
                causeAndGraphPickerView2()
             }
-         }
-      }
+            VStack {        //average and maximums here, with dbl-tap to choose between the two
+               if showingAverages {
+                  AverageViewAQ(avgValuesAQ: $viewModel.avgValuesLastHour)
+               } else {
+                  MaxViewAQ(maxValuesAQ: $viewModel.maxValuesLastHour)
+               }
+            }
+            .onTapGesture(count: 2) { // Detect double-tap
+                withAnimation {       // Optional: Animate the view transition
+                   showingAverages.toggle() // Toggle the state to switch views
+                }
+            }
+            .offset(x: -65, y: 20)
+         }    // ZStack
+      }       // GroupBox
       .onAppear {
          if(!didAppear) {
             didAppear = true
+            isLoading = true
             viewModel.addListenerForAQSamples()
+            isLoading = false
          }
       }
       .onDisappear {
@@ -194,7 +215,7 @@ extension ShowRealTimeLineGraphViewAQ {
             RoundedRectangle(cornerRadius: 6)
                .stroke(.black, lineWidth: 1)
          )
-         .frame(width: 150)
+         .frame(width: 156)
          .transition(.opacity)
          .animation(.linear(duration: 0.6), value: viewModel.lastSample)
       }

@@ -17,6 +17,8 @@ class ParticleCountsViewModel: ObservableObject {
    @Published var numberOfSamplesRetrieved: Int? = 0
    @Published var maxValues = MaxValuesPM()
    @Published var avgValues = AvgValuesPM()
+   @Published var maxValuesLastHour = MaxValuesPM()
+   @Published var avgValuesLastHour = AvgValuesPM()
    
    init() {
       Task {
@@ -140,6 +142,8 @@ class ParticleCountsViewModel: ObservableObject {
                      self?.prevCountOfPMSizes = prevCount + realCount
                   }
                }
+               self?.avgValuesLastHour = self?.computeLastHoursAverages() ?? AvgValuesPM(pm03um: 0, pm10s: 0, pm25s: 0, pm100s: 0)
+               self?.maxValuesLastHour = self?.computeLastHoursMaximums() ?? MaxValuesPM(pm03um: 0, pm10s: 0, pm25s: 0, pm100s: 0)
             }
          }
       // don't forget to store in cancellables, so we can remove listener when we're done
@@ -165,6 +169,32 @@ class ParticleCountsViewModel: ObservableObject {
          pm10s: Int(Double(samples.map { $0.pm10s }.reduce(0, +)) / Double(samples.count).rounded()),
          pm25s: Int(Double(samples.map { $0.pm25s }.reduce(0, +)) / Double(samples.count).rounded()),
          pm100s: Int(Double(samples.map { $0.pm100s }.reduce(0, +)) / Double(samples.count).rounded())
+      )
+   }
+   
+   func computeLastHoursAverages() -> AvgValuesPM {
+      // 360 (6 samples/min* 60 min/hour) points contains the last hour of samples if sampling occurs every 10 seconds for 1 hour
+      let startIndex = max(0, pmMeasurements.count - 360)
+      let relevantPoints = pmMeasurements[startIndex..<pmMeasurements.count]
+      
+      return AvgValuesPM(
+         pm03um: Int(Double(relevantPoints.map { $0.pm03um}.reduce(0, +)) / Double(relevantPoints.count).rounded()),
+         pm10s:  Int(Double(relevantPoints.map { $0.pm10s}.reduce(0, +)) / Double(relevantPoints.count).rounded()),
+         pm25s:  Int(Double(relevantPoints.map { $0.pm25s }.reduce(0, +)) / Double(relevantPoints.count).rounded()),
+         pm100s: Int(Double(relevantPoints.map { $0.pm100s }.reduce(0, +)) / Double(relevantPoints.count).rounded())
+      )
+   }
+   
+   func computeLastHoursMaximums() -> MaxValuesPM {
+      // 360 (6 samples/min* 60 min/hour) points contains the last hour of samples if sampling occurs every 10 seconds for 1 hour
+      let startIndex = max(0, pmMeasurements.count - 360)
+      let relevantPoints = pmMeasurements[startIndex..<pmMeasurements.count]
+
+      return MaxValuesPM(
+         pm03um: relevantPoints.map { Int($0.pm03um)}.max() ?? 0,
+         pm10s: relevantPoints.map { Int($0.pm10s)}.max() ?? 0,
+         pm25s: relevantPoints.map { $0.pm25s }.max() ?? 0,
+         pm100s: relevantPoints.map { $0.pm100s }.max() ?? 0
       )
    }
    

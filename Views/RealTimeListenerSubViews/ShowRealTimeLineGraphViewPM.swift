@@ -10,6 +10,8 @@ struct ShowRealTimeLineGraphViewPM: View {
    @Binding var displayPM100s: Bool
    
    @State private var didAppear: Bool = false  // only call on the 1rst time the view is created
+   @State private var showingAverages = true
+   @State var isLoading: Bool = true
 
    var selectedDateHour: Date = Date()
    var startTime = getRoundedDateTwoHoursAgo()
@@ -100,7 +102,7 @@ struct ShowRealTimeLineGraphViewPM: View {
                ["0.3µm": Color.accentColor,
                 "PM1.0": Color.yellow,
                 "PM2.5": Color.blue,
-                "2PM10": Color.red
+                "PM10": Color.red
                ]
             )
             .padding(12)
@@ -108,12 +110,27 @@ struct ShowRealTimeLineGraphViewPM: View {
                Spacer()
                causeAndGraphPickerView3()
             }  // HStack
+            VStack {        //average and maximums here, with dbl-tap to choose between the two
+               if showingAverages {
+                  AverageViewPM(avgValuesPM: $viewModel.avgValuesLastHour)
+               } else {
+                  MaxViewPM(maxValuesPM: $viewModel.maxValuesLastHour)
+               }
+            }
+            .onTapGesture(count: 2) { // Detect double-tap
+                withAnimation {       // Optional: Animate the view transition
+                   showingAverages.toggle() // Toggle the state to switch views
+                }
+            }
+            .offset(x: -65, y: 20)
          }       // ZStack
       }          // GroupBox
       .onAppear {
          if(!didAppear) {
             didAppear = true
+            isLoading = true
             viewModel.addListenerForParticleCountsSizes()
+            isLoading = false
          }
       }
       .onDisappear {
@@ -169,7 +186,7 @@ extension ShowRealTimeLineGraphViewPM {
             RoundedRectangle(cornerRadius: 6)
                .stroke(.black, lineWidth: 1)
          )
-         .frame(width: 150)
+         .frame(width: 156)
          .transition(.opacity)
          .animation(.linear(duration: 0.6), value: viewModel.lastSample)
       }
