@@ -3,11 +3,9 @@ import SwiftUI
 struct GraphPickerViewPM: View {
    
    @Binding var displayPM03um: Bool
-   @Binding var displayPM05um: Bool
-   @Binding var displayPM1um:  Bool
-   @Binding var displayPM25um: Bool
-   @Binding var displayPM5um:  Bool
-   @Binding var displayPM10um: Bool
+   @Binding var displayPM10s:  Bool
+   @Binding var displayPM25s:  Bool
+   @Binding var displayPM100s: Bool
    
    var body: some View {
       VStack (alignment: .leading) {
@@ -15,24 +13,16 @@ struct GraphPickerViewPM: View {
             Text("0.3 µm")
          }
          .scaleEffect(0.8)
-         Toggle(isOn: $displayPM05um){
-            Text("0.5 µm")
+         Toggle(isOn: $displayPM10s){
+            Text("PM1.0")
          }
          .scaleEffect(0.8)
-         Toggle(isOn: $displayPM1um){
-            Text("1.0 µm")
+         Toggle(isOn: $displayPM25s){
+            Text("PM2.5")
          }
          .scaleEffect(0.8)
-         Toggle(isOn: $displayPM25um){
-            Text("2.5 µm")
-         }
-         .scaleEffect(0.8)
-         Toggle(isOn: $displayPM5um){
-            Text("5.0 µm")
-         }
-         .scaleEffect(0.8)
-         Toggle(isOn: $displayPM10um){
-            Text("10.0 µm")
+         Toggle(isOn: $displayPM100s){
+            Text("PM10")
          }
          .scaleEffect(0.8)
       }
@@ -45,10 +35,8 @@ struct GraphPickerViewPM: View {
 #Preview {
    GraphPickerViewPM(
       displayPM03um: .constant(true),
-      displayPM05um: .constant(true),
-      displayPM1um: .constant(true),
-      displayPM25um: .constant(true),
-      displayPM5um: .constant(true),
-      displayPM10um: .constant(true)
+      displayPM10s: .constant(true),
+      displayPM25s: .constant(true),
+      displayPM100s: .constant(true)
    )
 }

@@ -9,16 +9,19 @@ struct DailyViewPM: View {
    @State var selectedDate = Date()
    @State var charted = false
    @State var displayPM03um = true
-   @State var displayPM05um = true
-   @State var displayPM1um  = true
-   @State var displayPM25um = true
-   @State var displayPM5um  = true
-   @State var displayPM10um = true
+   @State var displayPM10s  = true
+   @State var displayPM25s  = true
+   @State var displayPM100s = true
    @State var left: Int? = 0
 
    var body: some View {
-      VStack (alignment: .center) {
-         DatePickerSectionView(selectedDate: $selectedDate, charted: $charted)
+      VStack (alignment: .center) {  // Data collection for Particulates begins 9/15/2025
+         DatePickerSectionView(
+            selectedDate: $selectedDate,
+            charted: $charted,
+            yearDataBegins: 2025,
+            monthDataBegins: 9,
+            dayDataBegins: 15)
       }
       .task {
          try? await viewModel.getFreebiesLeft()
@@ -48,11 +51,9 @@ extension DailyViewPM {
          ShowDailyLineGraphsViewPM(
             selectedDate: $selectedDate,
             displayPM03um: $displayPM03um,
-            displayPM05um: $displayPM05um,
-            displayPM1um: $displayPM1um,
-            displayPM25um: $displayPM25um,
-            displayPM5um: $displayPM5um,
-            displayPM10um: $displayPM10um
+            displayPM10s: $displayPM10s,
+            displayPM25s: $displayPM25s,
+            displayPM100s: $displayPM100s
          )
       }
       .ignoresSafeArea()
@@ -71,11 +72,9 @@ extension DailyViewPM {
       .overlay(
          CauseAndGraphPickerViewPM(
             displayPM03um: $displayPM03um,
-            displayPM05um: $displayPM05um,
-            displayPM1um:  $displayPM1um,
-            displayPM25um: $displayPM25um,
-            displayPM5um:  $displayPM5um,
-            displayPM10um: $displayPM10um,
+            displayPM10s:  $displayPM10s,
+            displayPM25s:  $displayPM25s,
+            displayPM100s: $displayPM100s,
             numLeft: $left
          ),
          alignment: .topTrailing)

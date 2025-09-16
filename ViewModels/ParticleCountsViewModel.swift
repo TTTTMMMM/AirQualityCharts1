@@ -34,16 +34,14 @@ class ParticleCountsViewModel: ObservableObject {
    
    // I won't be using this in the app, just here to create a test sample
    func createSample() async throws {
-      let firebaseID = "0000z98Niiq0x5tdWD40"
+      let firebaseID = "0000z98Niiq0x5tdWD41"
       let pmSizes = PMSizes(
          id: 3698,
          dt: Date(),
          pm03um: 4789,
-         pm05um: 1435,
-         pm1um: 198,
-         pm25um: 2,
-         pm5um: 2,
-         pm10um: 0
+         pm10s: 25,
+         pm25s: 38,
+         pm100s: 40
       )
       
       try? await DataManager.shared.createSamplePC(
@@ -74,7 +72,9 @@ class ParticleCountsViewModel: ObservableObject {
          date: date
       ) {
          try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
-            self.numberOfSamplesRetrieved = samples.count
+         self.numberOfSamplesRetrieved = samples.count
+         self.maxValues = computeMaxValues(samples: samples)
+         self.avgValues = computeAvgValues(samples: samples)
          await MainActor.run {
             self.pmMeasurements = samples
          }
@@ -87,14 +87,9 @@ class ParticleCountsViewModel: ObservableObject {
          numberOfHours: numberOfHours
       ) {
          try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
-            self.numberOfSamplesRetrieved = samples.count
-//         samples.forEach {
-//            print($0.dateString, $0.temperature)
-//            print($0.humidity)
-//            print($0.unBiasedECO2)
-//            print($0.tVOC)
-//            print("----")
-//         }
+         self.numberOfSamplesRetrieved = samples.count
+         self.maxValues = computeMaxValues(samples: samples)
+         self.avgValues = computeAvgValues(samples: samples)
          await MainActor.run {
             self.pmMeasurements = samples
          }
@@ -147,11 +142,30 @@ class ParticleCountsViewModel: ObservableObject {
                }
             }
          }
-         // don't forget to store in cancellables, so we can remove listener when we're done
+      // don't forget to store in cancellables, so we can remove listener when we're done
          .store(in: &cancellables)
    }
    
    func cancelCombineSubscriptions()  {
       cancellables.removeAll()
-      }
+   }
+   
+   func computeMaxValues(samples: [PMSizes]) -> MaxValuesPM {
+      return MaxValuesPM(
+         pm03um: samples.map { $0.pm03um }.max() ?? 0,
+         pm10s: samples.map { $0.pm10s }.max() ?? 0,
+         pm25s: samples.map { $0.pm25s }.max() ?? 0,
+         pm100s: samples.map { $0.pm100s }.max() ?? 0
+      )
+   }
+   
+   func computeAvgValues(samples: [PMSizes]) -> AvgValuesPM {
+      return AvgValuesPM(
+         pm03um: Int(Double(samples.map { $0.pm03um }.reduce(0, +)) / Double(samples.count).rounded()),
+         pm10s: Int(Double(samples.map { $0.pm10s }.reduce(0, +)) / Double(samples.count).rounded()),
+         pm25s: Int(Double(samples.map { $0.pm25s }.reduce(0, +)) / Double(samples.count).rounded()),
+         pm100s: Int(Double(samples.map { $0.pm100s }.reduce(0, +)) / Double(samples.count).rounded())
+      )
+   }
+   
 }

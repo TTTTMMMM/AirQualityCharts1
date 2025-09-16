@@ -3,11 +3,9 @@ import SwiftUI
 struct CauseAndGraphPickerViewPM: View {
    
    @Binding var displayPM03um: Bool
-   @Binding var displayPM05um: Bool
-   @Binding var displayPM1um: Bool
-   @Binding var displayPM25um: Bool
-   @Binding var displayPM5um: Bool
-   @Binding var displayPM10um: Bool
+   @Binding var displayPM10s:  Bool
+   @Binding var displayPM25s:  Bool
+   @Binding var displayPM100s: Bool
    @Binding var numLeft: Int?
       
    var body: some View {
@@ -20,11 +18,9 @@ struct CauseAndGraphPickerViewPM: View {
                .padding(4)
             GraphPickerViewPM(
                displayPM03um: $displayPM03um,
-               displayPM05um: $displayPM05um,
-               displayPM1um:  $displayPM1um,
-               displayPM25um: $displayPM25um,
-               displayPM5um: $displayPM5um,
-               displayPM10um: $displayPM10um
+               displayPM10s: $displayPM10s,
+               displayPM25s:  $displayPM25s,
+               displayPM100s: $displayPM100s
             )
          }
          .padding(3)
@@ -43,20 +39,16 @@ struct CauseAndGraphPickerViewPM: View {
 
 #Preview {
    @Previewable @State var displayPM03um = true
-   @Previewable @State var displayPM05um = true
-   @Previewable @State var displayPM1um  = true
-   @Previewable @State var displayPM25um = true
-   @Previewable @State var displayPM5um  = true
-   @Previewable @State var displayPM10um = true
-   @Previewable @State var left: Int? = 88
+   @Previewable @State var displayPM10s = true
+   @Previewable @State var displayPM25s  = true
+   @Previewable @State var displayPM100s = true
+   @Previewable @State var left: Int? = 8007
    
    CauseAndGraphPickerViewPM(
       displayPM03um: $displayPM03um,
-      displayPM05um: $displayPM05um,
-      displayPM1um:  $displayPM1um,
-      displayPM25um: $displayPM25um,
-      displayPM5um: $displayPM5um,
-      displayPM10um: $displayPM10um,
+      displayPM10s: $displayPM10s,
+      displayPM25s:  $displayPM25s,
+      displayPM100s: $displayPM100s,
       numLeft: $left
    )
 }

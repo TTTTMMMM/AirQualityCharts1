@@ -4,14 +4,17 @@ struct DatePickerSectionView: View {
    
    @Binding var selectedDate: Date
    @Binding var charted: Bool
-   
+   var yearDataBegins: Int
+   var monthDataBegins: Int
+   var dayDataBegins: Int
+
    private var bounds: ClosedRange<Date> {
       (Calendar.current.date(
          from: DateComponents(
             timeZone: .current,
-            year: 2025,
-            month: 7,
-            day: 28))!)...Date()}
+            year: yearDataBegins,
+            month: monthDataBegins,
+            day: dayDataBegins))!)...Date()}
    
    private var dateFormatter: DateFormatter {
       let dateFormatter = DateFormatter()
@@ -48,5 +51,10 @@ struct DatePickerSectionView: View {
 
 #Preview {
    @Previewable @State var selectedDate: Date = Date()
-   DatePickerSectionView(selectedDate: $selectedDate, charted: .constant(true))
+   DatePickerSectionView(
+      selectedDate: $selectedDate,
+      charted: .constant(true),
+      yearDataBegins: 2025,
+      monthDataBegins: 9,
+      dayDataBegins: 15)
 }

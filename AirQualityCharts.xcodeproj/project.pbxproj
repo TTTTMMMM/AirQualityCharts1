@@ -64,6 +64,7 @@
 		04F738CC2E746F620054916A /* MaxViewAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F738CB2E746F620054916A /* MaxViewAQ.swift */; };
 		04F738CE2E747EAD0054916A /* MaxViewPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F738CD2E747EAD0054916A /* MaxViewPM.swift */; };
 		04F738D02E747FCF0054916A /* AverageViewPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F738CF2E747FCF0054916A /* AverageViewPM.swift */; };
+		04F738D62E78E2700054916A /* CircularTextViewIntLarge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F738D52E78E2700054916A /* CircularTextViewIntLarge.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,6 +135,7 @@
 		04F738CB2E746F620054916A /* MaxViewAQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxViewAQ.swift; sourceTree = "<group>"; };
 		04F738CD2E747EAD0054916A /* MaxViewPM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxViewPM.swift; sourceTree = "<group>"; };
 		04F738CF2E747FCF0054916A /* AverageViewPM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AverageViewPM.swift; sourceTree = "<group>"; };
+		04F738D52E78E2700054916A /* CircularTextViewIntLarge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularTextViewIntLarge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -396,6 +398,7 @@
 			isa = PBXGroup;
 			children = (
 				04F7389F2E736C8A0054916A /* CircularTextViewInt.swift */,
+				04F738D52E78E2700054916A /* CircularTextViewIntLarge.swift */,
 				04F738C92E7378440054916A /* CircularTextViewDbl.swift */,
 				04F7389C2E7365610054916A /* AverageViewAQ.swift */,
 				04F738CF2E747FCF0054916A /* AverageViewPM.swift */,
@@ -612,6 +615,7 @@
 				04EAE64E2E6C941A00E151C0 /* PMSizes.swift in Sources */,
 				04CCA4322DDE5F8A00710E41 /* BackButtonView.swift in Sources */,
 				04F738D02E747FCF0054916A /* AverageViewPM.swift in Sources */,
+				04F738D62E78E2700054916A /* CircularTextViewIntLarge.swift in Sources */,
 				04B9FDA82DE1050A0036C731 /* ShowHourlyLineGraphsViewAQ.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -15,17 +15,13 @@ struct MaxViewPM: View {
                .font(.system(size: 26, weight: .bold, design: .default))
                .foregroundColor(.white)
             HStack (alignment: .top, spacing: 10) {
-               CircularTextViewInt(metricType: .count, topText: "0.3 μm", intValue: maxValuesPM.pm03um, circleColor: Color.green, sizeOfText: 40)
+               CircularTextViewInt(metricType: .count, topText: "0.3 μm", intValue: maxValuesPM.pm03um, circleColor: Color.green, sizeOfText: 30)
                   .padding(.top, 4)
-               CircularTextViewInt(metricType: .count, topText: "0.5 μm", intValue: maxValuesPM.pm05um, circleColor: Color.yellow, sizeOfText: 40)
+               CircularTextViewInt(metricType: .count, topText: "PM1.0", intValue: maxValuesPM.pm10s, circleColor: Color.yellow, sizeOfText: 45)
                   .padding(.top, 4)
-               CircularTextViewInt(metricType: .count, topText: "1.0 μm", intValue: maxValuesPM.pm1um, circleColor: Color.blue, sizeOfText: 40)
+               CircularTextViewInt(metricType: .count, topText: "PM2.5", intValue: maxValuesPM.pm25s, circleColor: Color.blue, sizeOfText: 45)
                   .padding(.top, 4)
-               CircularTextViewInt(metricType: .count, topText: "2.5 μm", intValue: maxValuesPM.pm25um, circleColor: Color.red, sizeOfText: 40)
-                  .padding(.top, 4)
-               CircularTextViewInt(metricType: .count, topText: "5.0 μm", intValue: maxValuesPM.pm5um, circleColor: Color.purple, sizeOfText: 40)
-                  .padding(.top, 4)
-               CircularTextViewInt(metricType: .count, topText: "10 μm", intValue: maxValuesPM.pm10um, circleColor: Color.mint, sizeOfText: 40)
+               CircularTextViewInt(metricType: .count, topText: "PM10", intValue: maxValuesPM.pm100s, circleColor: Color.red, sizeOfText: 45)
                   .padding(.top, 4)
             }
          }
@@ -35,7 +31,7 @@ struct MaxViewPM: View {
 }
 
 #Preview {
-   @Previewable @StateObject var viewModel = AirQualityViewModel()
+   @Previewable @StateObject var viewModel = ParticleCountsViewModel()
    
-   MaxViewAQ(maxValuesAQ: $viewModel.maxValues)
+   MaxViewPM(maxValuesPM: $viewModel.maxValues)
 }

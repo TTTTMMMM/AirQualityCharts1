@@ -2,20 +2,16 @@ import Foundation
 
 struct AvgValuesPM {
    var pm03um: Int = 0
-   var pm05um: Int = 0
-   var pm1um:  Int = 0
-   var pm25um: Int = 0
-   var pm5um:  Int = 0
-   var pm10um: Int = 0
+   var pm10s: Int = 0
+   var pm25s:  Int = 0
+   var pm100s: Int = 0
 }
 
 struct MaxValuesPM {
    var pm03um: Int = 0
-   var pm05um: Int = 0
-   var pm1um:  Int = 0
-   var pm25um: Int = 0
-   var pm5um:  Int = 0
-   var pm10um: Int = 0
+   var pm10s: Int = 0
+   var pm25s:  Int = 0
+   var pm100s: Int = 0
 }
 
 struct AvgValuesAQ {

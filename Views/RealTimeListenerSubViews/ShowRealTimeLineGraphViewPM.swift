@@ -5,11 +5,9 @@ struct ShowRealTimeLineGraphViewPM: View {
    
    @StateObject var viewModel = ParticleCountsViewModel()
    @Binding var displayPM03um: Bool
-   @Binding var displayPM05um: Bool
-   @Binding var displayPM1um:  Bool
-   @Binding var displayPM25um: Bool
-   @Binding var displayPM5um:  Bool
-   @Binding var displayPM10um: Bool
+   @Binding var displayPM10s: Bool
+   @Binding var displayPM25s:  Bool
+   @Binding var displayPM100s: Bool
    
    @State private var didAppear: Bool = false  // only call on the 1rst time the view is created
 
@@ -43,45 +41,29 @@ struct ShowRealTimeLineGraphViewPM: View {
                      )
                      .foregroundStyle(Color.green)
                   }
-                  if displayPM05um {
+                  if displayPM10s {
                      LineMark(
                         x: .value("timestamp", measurement.timeString),
-                        y: .value("pm05um", measurement.pm05um),
-                        series: .value("scaledPM05um", "B")
+                        y: .value("pm10s", measurement.pm10s),
+                        series: .value("pm10s", "B")
                      )
                      .foregroundStyle(Color.yellow)
                   }
-                  if displayPM1um {
+                  if displayPM25s {
                      LineMark(
                         x: .value("timestamp", measurement.timeString),
-                        y: .value("pm1um", measurement.pm1um),
-                        series: .value("scaledPM1um", "C")
+                        y: .value("pm25s", measurement.pm25s),
+                        series: .value("pm25s", "C")
                      )
                      .foregroundStyle(Color.blue)
                   }
-                  if displayPM25um {
+                  if displayPM100s {
                      LineMark(
                         x: .value("timestamp", measurement.timeString),
-                        y: .value("pm25um", measurement.pm25um),
-                        series: .value("pm25um", "D")
+                        y: .value("pm100s", measurement.pm100s),
+                        series: .value("pm100s", "D")
                      )
                      .foregroundStyle(Color.red)
-                  }
-                  if displayPM5um {
-                     LineMark(
-                        x: .value("timestamp", measurement.timeString),
-                        y: .value("pm5um", measurement.pm5um),
-                        series: .value("pm5um", "E")
-                     )
-                     .foregroundStyle(Color.purple)
-                  }
-                  if displayPM10um {
-                     LineMark(
-                        x: .value("timestamp", measurement.timeString),
-                        y: .value("pm10um", measurement.pm10um),
-                        series: .value("pm10um", "F")
-                     )
-                     .foregroundStyle(Color.mint)
                   }
                }  // ForEach
             }     // Chart
@@ -107,22 +89,18 @@ struct ShowRealTimeLineGraphViewPM: View {
             }
             .transition(.opacity)
             .animation(.linear(duration: 0.6), value: displayPM03um)
-            .animation(.linear(duration: 0.6), value: displayPM05um)
-            .animation(.linear(duration: 0.6), value: displayPM1um)
-            .animation(.linear(duration: 0.6), value: displayPM25um)
-            .animation(.linear(duration: 0.6), value: displayPM5um)
-            .animation(.linear(duration: 0.6), value: displayPM10um)
+            .animation(.linear(duration: 0.6), value: displayPM10s)
+            .animation(.linear(duration: 0.6), value: displayPM25s)
+            .animation(.linear(duration: 0.6), value: displayPM100s)
             .animation(.linear(duration: 0.6), value: viewModel.pmMeasurements)
             .chartScrollableAxes(.horizontal)
             .chartXVisibleDomain(length: 900) // 900 is 2.5 hours
             .chartLegend(position: .top, alignment: .leading, spacing: 8)
             .chartForegroundStyleScale(
                ["0.3µm": Color.accentColor,
-                "0.5µm": Color.yellow,
-                "1.0µm": Color.blue,
-                "2.5µm": Color.red,
-                "5.0µm": Color.purple,
-                "10.0µm": Color.mint
+                "PM1.0": Color.yellow,
+                "PM2.5": Color.blue,
+                "2PM10": Color.red
                ]
             )
             .padding(12)
@@ -147,19 +125,15 @@ struct ShowRealTimeLineGraphViewPM: View {
 #Preview {
 
    @Previewable @State var displayPM03um = true
-   @Previewable @State var displayPM05um = true
-   @Previewable @State var displayPM1um  = true
-   @Previewable @State var displayPM25um = true
-   @Previewable @State var displayPM5um  = true
-   @Previewable @State var displayPM10um = true
+   @Previewable @State var displayPM10s = true
+   @Previewable @State var displayPM25s  = true
+   @Previewable @State var displayPM100s = true
 
    ShowRealTimeLineGraphViewPM(
       displayPM03um: $displayPM03um,
-      displayPM05um: $displayPM05um,
-      displayPM1um:  $displayPM1um,
-      displayPM25um: $displayPM25um,
-      displayPM5um: $displayPM5um,
-      displayPM10um: $displayPM10um
+      displayPM10s: $displayPM10s,
+      displayPM25s:  $displayPM25s,
+      displayPM100s: $displayPM100s
    )
 }
 
@@ -180,11 +154,9 @@ extension ShowRealTimeLineGraphViewPM {
                   .frame(maxWidth: .infinity, alignment: .center)
                Text(verbatim: "ID: \(ls.id)")
                Text(verbatim: "# > 0.3µm: \(ls.pm03um)")
-               Text(verbatim: "# > 0.5µm: \(ls.pm05um)")
-               Text(verbatim: "# > 1.0µm: \(ls.pm1um)")
-               Text(verbatim: "# > 2.5µm: \(ls.pm25um)")
-               Text(verbatim: "# >   5µm: \(ls.pm5um)")
-               Text(verbatim: "# >  10µm: \(ls.pm10um)")
+               Text(verbatim: "PM1.0: \(ls.pm10s)")
+               Text(verbatim: "PM2.5: \(ls.pm25s)")
+               Text(verbatim: "PM10: \(ls.pm100s)")
                Text("\(dateFormatter2.string(from: ls.dt))")
             }
          }
@@ -221,11 +193,9 @@ extension ShowRealTimeLineGraphViewPM {
                }
                GraphPickerViewPM(
                   displayPM03um: $displayPM03um,
-                  displayPM05um: $displayPM05um,
-                  displayPM1um: $displayPM1um,
-                  displayPM25um: $displayPM25um,
-                  displayPM5um: $displayPM5um,
-                  displayPM10um: $displayPM10um
+                  displayPM10s: $displayPM10s,
+                  displayPM25s: $displayPM25s,
+                  displayPM100s: $displayPM100s
                )
             }
             .padding(3)

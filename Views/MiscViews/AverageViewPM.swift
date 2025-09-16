@@ -9,24 +9,20 @@ struct AverageViewPM: View {
          RoundedRectangle(cornerRadius: 20)
             .stroke(Color.white, lineWidth: 1)
             .fill(Color.gray.opacity(0.1))     // A semi-transparent gray fill
-            .frame(width: 530, height: 200)
+            .frame(width: 510, height: 200)
          VStack() {
             Text("Averages")
                .font(.system(size: 26, weight: .bold, design: .default))
                .foregroundColor(.white)
             HStack (alignment: .top, spacing: 10) {
-               CircularTextViewInt(metricType: .count, topText: "0.3 μm", intValue: avgValuesPM.pm03um, circleColor: Color.green, sizeOfText: 40)
-                  .padding(.top, 4)
-               CircularTextViewInt(metricType: .count, topText: "0.5 μm", intValue: avgValuesPM.pm05um, circleColor: Color.yellow, sizeOfText: 40)
-                  .padding(.top, 4)
-               CircularTextViewInt(metricType: .count, topText: "1.0 μm", intValue: avgValuesPM.pm1um, circleColor: Color.blue, sizeOfText: 40)
-                  .padding(.top, 4)
-               CircularTextViewInt(metricType: .count, topText: "2.5 μm", intValue: avgValuesPM.pm25um, circleColor: Color.red, sizeOfText: 40)
-                  .padding(.top, 4)
-               CircularTextViewInt(metricType: .count, topText: "5.0 μm", intValue: avgValuesPM.pm5um, circleColor: Color.purple, sizeOfText: 40)
-                  .padding(.top, 4)
-               CircularTextViewInt(metricType: .count, topText: "10 μm", intValue: avgValuesPM.pm10um, circleColor: Color.mint, sizeOfText: 40)
-                  .padding(.top, 4)
+               CircularTextViewInt(metricType: .count, topText: "0.3 μm", intValue: avgValuesPM.pm03um, circleColor: Color.green, sizeOfText: 31)
+                  .padding(.top,3)
+               CircularTextViewInt(metricType: .count, topText: "PM1.0", intValue: avgValuesPM.pm10s, circleColor: Color.yellow, sizeOfText: 46)
+                  .padding(.top, 3)
+               CircularTextViewInt(metricType: .count, topText: "PM2.5", intValue: avgValuesPM.pm25s, circleColor: Color.blue, sizeOfText: 46)
+                  .padding(.top, 3)
+               CircularTextViewInt(metricType: .count, topText: "PM10", intValue: avgValuesPM.pm100s, circleColor: Color.red, sizeOfText: 46)
+                  .padding(.top, 3)
             }
          }
       }

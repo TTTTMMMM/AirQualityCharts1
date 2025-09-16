@@ -13,11 +13,9 @@ struct HourlyViewPM: View {
    @State var numberOfHoursDuration: String = "2"
    @State var charted = false
    @State var displayPM03um = true
-   @State var displayPM05um = true
-   @State var displayPM1um  = true
-   @State var displayPM25um = true
-   @State var displayPM5um  = true
-   @State var displayPM10um = true
+   @State var displayPM10s  = true
+   @State var displayPM25s  = true
+   @State var displayPM100s = true
    @State var left: Int? = 0
 
    var body: some View {
@@ -56,11 +54,9 @@ extension HourlyViewPM {
             selectedDateHour: $selectedDateHour,
             numberOfHoursDuration: $numberOfHoursDuration,
             displayPM03um: $displayPM03um,
-            displayPM05um: $displayPM05um,
-            displayPM1um: $displayPM1um,
-            displayPM25um: $displayPM25um,
-            displayPM5um: $displayPM5um,
-            displayPM10um: $displayPM10um
+            displayPM10s: $displayPM10s,
+            displayPM25s: $displayPM25s,
+            displayPM100s: $displayPM100s
          )
       }
       .ignoresSafeArea()
@@ -79,11 +75,9 @@ extension HourlyViewPM {
       .overlay(
          CauseAndGraphPickerViewPM(
             displayPM03um: $displayPM03um,
-            displayPM05um: $displayPM05um,
-            displayPM1um:  $displayPM1um,
-            displayPM25um: $displayPM25um,
-            displayPM5um:  $displayPM5um,
-            displayPM10um: $displayPM10um,
+            displayPM10s: $displayPM10s,
+            displayPM25s: $displayPM25s,
+            displayPM100s: $displayPM100s,
             numLeft: $left
          ),
          alignment: .topTrailing)

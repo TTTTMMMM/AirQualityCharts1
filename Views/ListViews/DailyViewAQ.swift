@@ -15,8 +15,13 @@ struct DailyViewAQ: View {
    @State var left: Int? = 0
 
    var body: some View {
-      VStack (alignment: .center) {
-         DatePickerSectionView(selectedDate: $selectedDate, charted: $charted)
+      VStack (alignment: .center) {  // Data collection for CO2 and TVOC begins 7/28/2025
+         DatePickerSectionView(
+            selectedDate: $selectedDate,
+            charted: $charted,
+            yearDataBegins: 2025,
+            monthDataBegins: 7,
+            dayDataBegins: 28)
       }
       .task {
          try? await viewModel.getFreebiesLeft()

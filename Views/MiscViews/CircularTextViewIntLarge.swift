@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CircularTextViewInt: View {
+struct CircularTextViewIntLarge: View {
    var metricType: MetricType
    var topText: String
    var intValue: Int
@@ -14,15 +14,9 @@ struct CircularTextViewInt: View {
             case .count:
                Text("\(intValue.formatted(.number.grouping(.never)))")
                   .font(.system(size: sizeOfText, weight: .bold, design: .default))
-                  .font(.headline)
-            case .temperature:
-               Text("\(intValue)°")
+            default:
+               Text("\(intValue.formatted(.number.grouping(.never)))°")
                   .font(.system(size: sizeOfText, weight: .bold, design: .default))
-                  .font(.headline)
-            case .humidity:
-               Text("\(intValue)%")
-                  .font(.system(size: sizeOfText, weight: .bold, design: .default))
-                  .font(.headline)
          }
       }
       .padding(21)
@@ -41,6 +35,6 @@ struct CircularTextViewInt: View {
    var circleColor: Color = .red
    var sizeOfText : CGFloat = 60
    
-   CircularTextViewInt(metricType: .count, topText: topText, intValue: intValue, circleColor: circleColor, sizeOfText: sizeOfText)
+   CircularTextViewIntLarge(metricType: .count, topText: topText, intValue: intValue, circleColor: circleColor, sizeOfText: sizeOfText)
 
 }
