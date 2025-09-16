@@ -23,7 +23,10 @@ struct HourlyViewAQ: View {
          HourlyPickerSectionView(
             selectedDateHour: $selectedDateHour,
             numberOfHoursDuration: $numberOfHoursDuration,
-            charted: $charted)
+            charted: $charted,
+            yearDataBegins: 2025,
+            monthDataBegins: 7,
+            dayDataBegins: 28)
       }
       .task {
          try? await viewModel.getFreebiesLeft()

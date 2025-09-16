@@ -6,14 +6,17 @@ struct HourlyPickerSectionView: View {
    @Binding var selectedDateHour: Date
    @Binding var numberOfHoursDuration: String
    @Binding var charted: Bool
+   var yearDataBegins: Int
+   var monthDataBegins: Int
+   var dayDataBegins: Int
    
    private var bounds: ClosedRange<Date> {
       (Calendar.current.date(
          from: DateComponents(
             timeZone: .current,
-            year: 2025,
-            month: 7,
-            day: 28))!)...Date()}
+            year: yearDataBegins,
+            month: monthDataBegins,
+            day: dayDataBegins))!)...Date()}
    
    private var dateFormatter: DateFormatter {
       let dateFormatter = DateFormatter()
@@ -74,5 +77,8 @@ struct HourlyPickerSectionView: View {
    HourlyPickerSectionView(
       selectedDateHour: $selectedDateHour,
       numberOfHoursDuration: $numberOfHoursDuration,
-      charted: .constant(true))
+      charted: .constant(true),
+      yearDataBegins: 2025,
+      monthDataBegins: 7,
+      dayDataBegins: 28)
 }
