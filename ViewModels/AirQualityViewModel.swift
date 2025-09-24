@@ -78,7 +78,7 @@ class AirQualityViewModel: ObservableObject {
          try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
             self.numberOfSamplesRetrieved = samples.count
             self.maxValues = computeMaxValues(samples: samples)
-            self.avgValues = computeAvgValues(samples: samples)
+            self.avgValues = computeAvgValues(samples: samples, date: date, store_in_firebase: true)
          await MainActor.run {
             self.aqMeasurements = samples
          }
@@ -93,7 +93,7 @@ class AirQualityViewModel: ObservableObject {
          try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
             self.numberOfSamplesRetrieved = samples.count
             self.maxValues = computeMaxValues(samples: samples)
-            self.avgValues = computeAvgValues(samples: samples)
+         self.avgValues = computeAvgValues(samples: samples, date: date, store_in_firebase: false)
          await MainActor.run {
             self.aqMeasurements = samples
          }
@@ -165,13 +165,36 @@ class AirQualityViewModel: ObservableObject {
       )
    }
    
-   func computeAvgValues(samples: [AQSample]) -> AvgValuesAQ {
-      return AvgValuesAQ(
+   func computeAvgValues(samples: [AQSample], date: Date, store_in_firebase: Bool = false) -> AvgValuesAQ {
+      let avgValuesAQ = AvgValuesAQ(
          scaledTVOC: Int(Double(samples.map { $0.scaledTVOC}.reduce(0, +)) / Double(samples.count).rounded()),
          unbiasedScaledECO2: Int(Double(samples.map { $0.unBiasedECO2AndScaled}.reduce(0, +)) / Double(samples.count).rounded()),
          temperature: Int(samples.map { $0.temperature }.reduce(0.0, +) / Double(samples.count).rounded()),
          humidity: Int(samples.map { $0.humidity }.reduce(0.0, +) / Double(samples.count).rounded())
       )
+      if(store_in_firebase) {
+         let fiveYearsLater = Calendar.current.date(byAdding: .year, value: 5, to: date)
+         if let ttl = fiveYearsLater {
+            let count = samples.count
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let dateString = dateFormatter.string(from: date)
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.year, .month, .day], from: date)
+            let startOfDay = calendar.date(from: components)
+            let data = [
+               "count": count,
+               "TVOC": avgValuesAQ.scaledTVOC,
+               "eCO2": avgValuesAQ.unbiasedScaledECO2,
+               "temperature": avgValuesAQ.temperature,
+               "humidity": avgValuesAQ.humidity,
+               "dt": startOfDay as Any,
+               "ttl": ttl
+            ] as [String : Any]
+            Firestore.firestore().collection("daily_averagesAQ").document(dateString).setData(data)
+         }
+      }
+      return avgValuesAQ
    }
 
    func computeLastHoursAverages() -> AvgValuesAQ {

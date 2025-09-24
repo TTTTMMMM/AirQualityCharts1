@@ -76,7 +76,7 @@ class ParticleCountsViewModel: ObservableObject {
          try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
          self.numberOfSamplesRetrieved = samples.count
          self.maxValues = computeMaxValues(samples: samples)
-         self.avgValues = computeAvgValues(samples: samples)
+         self.avgValues = computeAvgValues(samples: samples, date: date, store_in_firebase: true)
          await MainActor.run {
             self.pmMeasurements = samples
          }
@@ -91,7 +91,7 @@ class ParticleCountsViewModel: ObservableObject {
          try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
          self.numberOfSamplesRetrieved = samples.count
          self.maxValues = computeMaxValues(samples: samples)
-         self.avgValues = computeAvgValues(samples: samples)
+         self.avgValues = computeAvgValues(samples: samples, date: date, store_in_firebase: false)
          await MainActor.run {
             self.pmMeasurements = samples
          }
@@ -163,13 +163,37 @@ class ParticleCountsViewModel: ObservableObject {
       )
    }
    
-   func computeAvgValues(samples: [PMSizes]) -> AvgValuesPM {
-      return AvgValuesPM(
+   func computeAvgValues(samples: [PMSizes], date: Date, store_in_firebase: Bool = false) -> AvgValuesPM {
+      let avgValuesPM = AvgValuesPM(
          pm03um: Int(Double(samples.map { $0.pm03um }.reduce(0, +)) / Double(samples.count).rounded()),
          pm10s: Int(Double(samples.map { $0.pm10s }.reduce(0, +)) / Double(samples.count).rounded()),
          pm25s: Int(Double(samples.map { $0.pm25s }.reduce(0, +)) / Double(samples.count).rounded()),
          pm100s: Int(Double(samples.map { $0.pm100s }.reduce(0, +)) / Double(samples.count).rounded())
       )
+      if(store_in_firebase) {
+         let fiveYearsLater = Calendar.current.date(byAdding: .year, value: 5, to: date)
+         if let ttl = fiveYearsLater {
+            let count = samples.count
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let dateString = dateFormatter.string(from: date)
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.year, .month, .day], from: date)
+            let startOfDay = calendar.date(from: components)
+            let data = [
+               "count": count,
+               "dt": startOfDay as Any,
+               "pm03um": avgValuesPM.pm03um,
+               "pm100s": avgValuesPM.pm100s,
+               "pm10s": avgValuesPM.pm10s,
+               "pm25s": avgValuesPM.pm25s,
+               "ttl": ttl
+            ] as [String : Any]
+            Firestore.firestore().collection("daily_averagesPM").document(dateString).setData(data)
+         }
+      }
+      
+      return avgValuesPM
    }
    
    func computeLastHoursAverages() -> AvgValuesPM {
