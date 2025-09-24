@@ -76,7 +76,7 @@ class ParticleCountsViewModel: ObservableObject {
          try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
          self.numberOfSamplesRetrieved = samples.count
          self.maxValues = computeMaxValues(samples: samples)
-         self.avgValues = computeAvgValues(samples: samples, date: date, store_in_firebase: true)
+         self.avgValues = await computeAvgValues(samples: samples, date: date, store_in_firebase: true)
          await MainActor.run {
             self.pmMeasurements = samples
          }
@@ -91,7 +91,7 @@ class ParticleCountsViewModel: ObservableObject {
          try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
          self.numberOfSamplesRetrieved = samples.count
          self.maxValues = computeMaxValues(samples: samples)
-         self.avgValues = computeAvgValues(samples: samples, date: date, store_in_firebase: false)
+         self.avgValues = await computeAvgValues(samples: samples, date: date, store_in_firebase: false)
          await MainActor.run {
             self.pmMeasurements = samples
          }
@@ -163,7 +163,7 @@ class ParticleCountsViewModel: ObservableObject {
       )
    }
    
-   func computeAvgValues(samples: [PMSizes], date: Date, store_in_firebase: Bool = false) -> AvgValuesPM {
+   func computeAvgValues(samples: [PMSizes], date: Date, store_in_firebase: Bool = false) async -> AvgValuesPM {
       let avgValuesPM = AvgValuesPM(
          pm03um: Int(Double(samples.map { $0.pm03um }.reduce(0, +)) / Double(samples.count).rounded()),
          pm10s: Int(Double(samples.map { $0.pm10s }.reduce(0, +)) / Double(samples.count).rounded()),
@@ -179,20 +179,19 @@ class ParticleCountsViewModel: ObservableObject {
             let dateString = dateFormatter.string(from: date)
             let calendar = Calendar.current
             let components = calendar.dateComponents([.year, .month, .day], from: date)
-            let startOfDay = calendar.date(from: components)
-            let data = [
-               "count": count,
-               "dt": startOfDay as Any,
-               "pm03um": avgValuesPM.pm03um,
-               "pm100s": avgValuesPM.pm100s,
-               "pm10s": avgValuesPM.pm10s,
-               "pm25s": avgValuesPM.pm25s,
-               "ttl": ttl
-            ] as [String : Any]
-            Firestore.firestore().collection("daily_averagesPM").document(dateString).setData(data)
+            guard let startOfDay = calendar.date(from: components) else { return avgValuesPM }
+            let data = AveragesPM(
+               count: count,
+               dt: startOfDay,
+               pm03um: avgValuesPM.pm03um,
+               pm100s: avgValuesPM.pm100s,
+               pm10s: avgValuesPM.pm10s,
+               pm25s: avgValuesPM.pm25s,
+               ttl: ttl
+           )
+            try? await DataManager.shared.createDailyAveragePM(firebaseID: dateString, avgData: data)
          }
       }
-      
       return avgValuesPM
    }
    

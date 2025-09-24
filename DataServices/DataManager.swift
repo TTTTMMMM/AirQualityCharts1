@@ -15,7 +15,9 @@ final class DataManager {
    private let airQualityCollection = Firestore.firestore().collection("air_quality")
    private let particleCountsCollection = Firestore.firestore().collection("particle_counts")
    private let freebiesLeftCollection = Firestore.firestore().collection("freebies_left")
-   
+   private let dailyAverageAQCollection = Firestore.firestore().collection("daily_averagesAQ")
+   private let dailyAveragePMCollection = Firestore.firestore().collection("daily_averagesPM")
+
    private var airQualitySampleListener : ListenerRegistration? = nil
    private var particleCountsListener : ListenerRegistration? = nil
 
@@ -264,6 +266,30 @@ final class DataManager {
          publisher.send(pcsArray)
       }
       return publisher.eraseToAnyPublisher()
+   }
+   
+   //-----------
+   private func dailyAverageAQDocument(firebaseID: String) -> DocumentReference {
+      return dailyAverageAQCollection.document(firebaseID)
+   }
+   
+   func createDailyAverageAQ(firebaseID: String, avgData: AveragesAQ) async throws {
+      try dailyAverageAQDocument(firebaseID: firebaseID).setData(
+         from: avgData,
+         merge: false
+      )
+   }
+   
+   //-----------
+   private func dailyAveragePMDocument(firebaseID: String) -> DocumentReference {
+      return dailyAveragePMCollection.document(firebaseID)
+   }
+   
+   func createDailyAveragePM(firebaseID: String, avgData: AveragesPM) async throws {
+      try dailyAveragePMDocument(firebaseID: firebaseID).setData(
+         from: avgData,
+         merge: false
+      )
    }
    
 }

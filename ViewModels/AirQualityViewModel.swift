@@ -78,7 +78,7 @@ class AirQualityViewModel: ObservableObject {
          try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
             self.numberOfSamplesRetrieved = samples.count
             self.maxValues = computeMaxValues(samples: samples)
-            self.avgValues = computeAvgValues(samples: samples, date: date, store_in_firebase: true)
+            self.avgValues = await computeAvgValues(samples: samples, date: date, store_in_firebase: true)
          await MainActor.run {
             self.aqMeasurements = samples
          }
@@ -93,7 +93,7 @@ class AirQualityViewModel: ObservableObject {
          try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
             self.numberOfSamplesRetrieved = samples.count
             self.maxValues = computeMaxValues(samples: samples)
-         self.avgValues = computeAvgValues(samples: samples, date: date, store_in_firebase: false)
+            self.avgValues = await computeAvgValues(samples: samples, date: date, store_in_firebase: false)
          await MainActor.run {
             self.aqMeasurements = samples
          }
@@ -165,7 +165,7 @@ class AirQualityViewModel: ObservableObject {
       )
    }
    
-   func computeAvgValues(samples: [AQSample], date: Date, store_in_firebase: Bool = false) -> AvgValuesAQ {
+   func computeAvgValues(samples: [AQSample], date: Date, store_in_firebase: Bool = false) async -> AvgValuesAQ {
       let avgValuesAQ = AvgValuesAQ(
          scaledTVOC: Int(Double(samples.map { $0.scaledTVOC}.reduce(0, +)) / Double(samples.count).rounded()),
          unbiasedScaledECO2: Int(Double(samples.map { $0.unBiasedECO2AndScaled}.reduce(0, +)) / Double(samples.count).rounded()),
@@ -181,17 +181,17 @@ class AirQualityViewModel: ObservableObject {
             let dateString = dateFormatter.string(from: date)
             let calendar = Calendar.current
             let components = calendar.dateComponents([.year, .month, .day], from: date)
-            let startOfDay = calendar.date(from: components)
-            let data = [
-               "count": count,
-               "TVOC": avgValuesAQ.scaledTVOC,
-               "eCO2": avgValuesAQ.unbiasedScaledECO2,
-               "temperature": avgValuesAQ.temperature,
-               "humidity": avgValuesAQ.humidity,
-               "dt": startOfDay as Any,
-               "ttl": ttl
-            ] as [String : Any]
-            Firestore.firestore().collection("daily_averagesAQ").document(dateString).setData(data)
+            guard let startOfDay = calendar.date(from: components) else { return avgValuesAQ }
+            let data = AveragesAQ(
+               count: count,
+               tVOC: avgValuesAQ.scaledTVOC,
+               eCO2: avgValuesAQ.unbiasedScaledECO2,
+               temperature: avgValuesAQ.temperature,
+               humidity: avgValuesAQ.humidity,
+               dt: startOfDay,
+               ttl: ttl
+           )
+            try? await DataManager.shared.createDailyAverageAQ(firebaseID: dateString, avgData: data)
          }
       }
       return avgValuesAQ
