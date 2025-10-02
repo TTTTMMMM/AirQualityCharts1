@@ -9,12 +9,21 @@ struct DatePickerSectionView: View {
    var dayDataBegins: Int
 
    private var bounds: ClosedRange<Date> {
-      (Calendar.current.date(
-         from: DateComponents(
-            timeZone: .current,
-            year: yearDataBegins,
-            month: monthDataBegins,
-            day: dayDataBegins))!)...Date()}
+      let calendar = Calendar.current
+      let components = DateComponents(
+         timeZone: .current,
+         year: yearDataBegins,
+         month: monthDataBegins,
+         day: dayDataBegins)
+      let fixedDate = calendar.date(from: components)!
+      
+      // Calculate one year before the current date
+      // because ttl field is set to one year (approx) after data was written
+      let oneYearAgo = Calendar.current.date(byAdding: .day, value: -367, to: Date())!
+      // Determine later of the two dates
+      let minimumDate = max(fixedDate, oneYearAgo)
+      return minimumDate...Date()
+   }
    
    private var dateFormatter: DateFormatter {
       let dateFormatter = DateFormatter()
