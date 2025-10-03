@@ -4,6 +4,7 @@
 import Foundation
 import FirebaseFirestore
 import Combine
+import CryptoKit
 
 @MainActor
 class AirQualityViewModel: ObservableObject {
@@ -182,14 +183,22 @@ class AirQualityViewModel: ObservableObject {
             let calendar = Calendar.current
             let components = calendar.dateComponents([.year, .month, .day], from: date)
             guard let startOfDay = calendar.date(from: components) else { return avgValuesAQ }
-            let data = AveragesAQ(
-               count: count,
+            let combinedString = "\(dateString)_\(avgValuesAQ.scaledTVOC)-\(avgValuesAQ.unbiasedScaledECO2)-\(avgValuesAQ.temperature)-\(avgValuesAQ.humidity)-\(count)"
+            let dataCombinedString = Data(combinedString.utf8)
+            let hash = SHA256.hash(data: dataCombinedString)
+            let hashString = hash.compactMap { String(format: "%02x", $0) }.joined()
+            let index = hashString.index(hashString.startIndex, offsetBy: 11)
+            let truncHash = String(hashString.prefix(upTo: index))
+            
+            let data = XBarAQ(
+               id: truncHash,
+               dt: startOfDay,
+               ttl: ttl,
                tVOC: avgValuesAQ.scaledTVOC,
                eCO2: avgValuesAQ.unbiasedScaledECO2,
-               temperature: avgValuesAQ.temperature,
                humidity: avgValuesAQ.humidity,
-               dt: startOfDay,
-               ttl: ttl
+               temperature: avgValuesAQ.temperature,
+               count: count
            )
             try? await DataManager.shared.createDailyAverageAQ(firebaseID: dateString, avgData: data)
          }

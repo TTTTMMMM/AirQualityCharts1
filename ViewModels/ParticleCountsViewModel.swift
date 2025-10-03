@@ -4,6 +4,7 @@
 import Foundation
 import FirebaseFirestore
 import Combine
+import CryptoKit
 
 @MainActor
 class ParticleCountsViewModel: ObservableObject {
@@ -180,14 +181,22 @@ class ParticleCountsViewModel: ObservableObject {
             let calendar = Calendar.current
             let components = calendar.dateComponents([.year, .month, .day], from: date)
             guard let startOfDay = calendar.date(from: components) else { return avgValuesPM }
-            let data = AveragesPM(
-               count: count,
+            let combinedString = "\(dateString)_\(avgValuesPM.pm03um)-\(avgValuesPM.pm10s)-\(avgValuesPM.pm25s)-\(avgValuesPM.pm100s)-\(count)"
+            let dataCombinedString = Data(combinedString.utf8)
+            let hash = SHA256.hash(data: dataCombinedString)
+            let hashString = hash.compactMap { String(format: "%02x", $0) }.joined()
+            let index = hashString.index(hashString.startIndex, offsetBy: 11)
+            let truncHash = String(hashString.prefix(upTo: index))
+
+            let data = XBarPM(
+               id: truncHash,
                dt: startOfDay,
+               ttl: ttl,
                pm03um: avgValuesPM.pm03um,
                pm100s: avgValuesPM.pm100s,
                pm10s: avgValuesPM.pm10s,
                pm25s: avgValuesPM.pm25s,
-               ttl: ttl
+               count: count
            )
             try? await DataManager.shared.createDailyAveragePM(firebaseID: dateString, avgData: data)
          }

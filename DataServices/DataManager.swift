@@ -15,8 +15,11 @@ final class DataManager {
    private let airQualityCollection = Firestore.firestore().collection("air_quality")
    private let particleCountsCollection = Firestore.firestore().collection("particle_counts")
    private let freebiesLeftCollection = Firestore.firestore().collection("freebies_left")
-   private let dailyAverageAQCollection = Firestore.firestore().collection("daily_averagesAQ")
-   private let dailyAveragePMCollection = Firestore.firestore().collection("daily_averagesPM")
+//   private let dailyAverageAQCollection = Firestore.firestore().collection("daily_averagesAQ")
+//   private let dailyAveragePMCollection = Firestore.firestore().collection("daily_averagesPM")
+   private let xBarAQCollection = Firestore.firestore().collection("daily_averagesAQ")
+   private let xBarPMCollection = Firestore.firestore().collection("daily_averagesPM")
+
 
    private var airQualitySampleListener : ListenerRegistration? = nil
    private var particleCountsListener : ListenerRegistration? = nil
@@ -270,10 +273,10 @@ final class DataManager {
    
    //-----------
    private func dailyAverageAQDocument(firebaseID: String) -> DocumentReference {
-      return dailyAverageAQCollection.document(firebaseID)
+      return xBarAQCollection.document(firebaseID)
    }
    
-   func createDailyAverageAQ(firebaseID: String, avgData: AveragesAQ) async throws {
+   func createDailyAverageAQ(firebaseID: String, avgData: XBarAQ) async throws {
       try dailyAverageAQDocument(firebaseID: firebaseID).setData(
          from: avgData,
          merge: false
@@ -282,14 +285,71 @@ final class DataManager {
    
    //-----------
    private func dailyAveragePMDocument(firebaseID: String) -> DocumentReference {
-      return dailyAveragePMCollection.document(firebaseID)
+      return xBarPMCollection.document(firebaseID)
    }
    
-   func createDailyAveragePM(firebaseID: String, avgData: AveragesPM) async throws {
+   func createDailyAveragePM(firebaseID: String, avgData: XBarPM) async throws {
       try dailyAveragePMDocument(firebaseID: firebaseID).setData(
          from: avgData,
          merge: false
       )
+   }
+   
+   // function that queries for all AQ dailyAverages with beginning and end dates as params,
+   // puts the documents into PMSizes object, and returns results in array
+   // 1830 = (365 days/year * 5 years), the amount of time the daily averages will exist
+   // before automatic deletion by Firebase based on the ttl field I gave each document
+   // in the collection
+   func getXBarAQ(startingFrom: Date, endingAt: Date = Date()) async throws -> [XBarAQ] {
+      var xBarAQArray: [XBarAQ] = []
+      let calendar = Calendar.current
+      let componentsStart = calendar.dateComponents([.year, .month, .day], from: startingFrom)
+      let start = calendar.date(from: componentsStart)
+      let componentsEnd = calendar.dateComponents([.year, .month, .day], from: endingAt)
+      let end = calendar.date(from: componentsEnd) ?? Date()
+      print("In getXBarAQ, start: \(String(describing: start)), end: \(String(describing: end))")
+      let snap = try await xBarAQCollection.whereField(
+         XBarAQ.CodingKeys.dt.stringValue,
+         isGreaterThan: start as Any
+      ).whereField(
+         XBarAQ.CodingKeys.dt.stringValue,
+         isLessThan: end as Any
+      ).order(
+         by: XBarAQ.CodingKeys.dt.stringValue
+      ).limit(to: 1830).getDocuments()
+      for document in snap.documents {
+         print("    \(document.data())\n")
+         xBarAQArray.append(try document.data(as: XBarAQ.self))
+      }
+      return(xBarAQArray)
+   }
+   
+   // function that queries for all PM dailyAverages with beginning and end dates as params,
+   // puts the documents into PMSizes object, and returns results in array
+   // 1830 = (365 days/year * 5 years), the amount of time the daily averages will exist
+   // before automatic deletion by Firebase based on the ttl field I gave each document
+   // in the collection
+   func getXBarPM(startingFrom: Date, endingAt: Date = Date()) async throws -> [XBarPM] {
+      var XBarPMArray: [XBarPM] = []
+      let calendar = Calendar.current
+      let componentsStart = calendar.dateComponents([.year, .month, .day], from: startingFrom)
+      let start = calendar.date(from: componentsStart)
+      let componentsEnd = calendar.dateComponents([.year, .month, .day], from: endingAt)
+      let end = calendar.date(from: componentsEnd) ?? Date()
+      
+      let snap = try await xBarAQCollection.whereField(
+         XBarPM.CodingKeys.dt.stringValue,
+            isGreaterThanOrEqualTo: start as Any
+      ).whereField(
+         XBarPM.CodingKeys.dt.stringValue,
+         isLessThanOrEqualTo: end as Any
+      ).order(
+         by: XBarPM.CodingKeys.dt.stringValue
+      ).limit(to: 1830).getDocuments()
+      for document in snap.documents {
+         XBarPMArray.append(try document.data(as: XBarPM.self))
+      }
+      return(XBarPMArray)
    }
    
 }

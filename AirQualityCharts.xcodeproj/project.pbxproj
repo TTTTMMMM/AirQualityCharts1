@@ -11,6 +11,13 @@
 		0443B6A32DE517490077675B /* ShowRealTimeLineGraphViewAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B6A22DE517490077675B /* ShowRealTimeLineGraphViewAQ.swift */; };
 		04B17F6B2E84893D0033F82C /* AveragesAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B17F6A2E8489260033F82C /* AveragesAQ.swift */; };
 		04B17F6D2E848D2E0033F82C /* AveragesPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B17F6C2E848D280033F82C /* AveragesPM.swift */; };
+		04B17F6F2E8F2AD50033F82C /* XBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B17F6E2E8F2AD50033F82C /* XBarView.swift */; };
+		04B17F712E8F2B480033F82C /* XBarAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B17F702E8F2B480033F82C /* XBarAQ.swift */; };
+		04B17F732E8F31DC0033F82C /* XBarPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B17F722E8F31DC0033F82C /* XBarPM.swift */; };
+		04B17F752E8F33250033F82C /* XBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B17F742E8F33250033F82C /* XBarViewModel.swift */; };
+		04B17F7A2E90776E0033F82C /* ShowAverageLineGraphsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B17F792E90776E0033F82C /* ShowAverageLineGraphsView.swift */; };
+		04B17F7C2E907BC00033F82C /* AveragePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B17F7B2E907BC00033F82C /* AveragePickerView.swift */; };
+		04B17F7E2E907CAA0033F82C /* GraphPickerViewAvg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B17F7D2E907CAA0033F82C /* GraphPickerViewAvg.swift */; };
 		04B9FD912DDF88040036C731 /* CauseMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B9FD902DDF88040036C731 /* CauseMenuView.swift */; };
 		04B9FD932DDFA30E0036C731 /* CauseMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B9FD922DDFA30E0036C731 /* CauseMenuViewModel.swift */; };
 		04B9FD992DDFE9680036C731 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 04B9FD982DDFE9570036C731 /* README.md */; };
@@ -94,6 +101,13 @@
 		0443B6A22DE517490077675B /* ShowRealTimeLineGraphViewAQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowRealTimeLineGraphViewAQ.swift; sourceTree = "<group>"; };
 		04B17F6A2E8489260033F82C /* AveragesAQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AveragesAQ.swift; sourceTree = "<group>"; };
 		04B17F6C2E848D280033F82C /* AveragesPM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AveragesPM.swift; sourceTree = "<group>"; };
+		04B17F6E2E8F2AD50033F82C /* XBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XBarView.swift; sourceTree = "<group>"; };
+		04B17F702E8F2B480033F82C /* XBarAQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XBarAQ.swift; sourceTree = "<group>"; };
+		04B17F722E8F31DC0033F82C /* XBarPM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XBarPM.swift; sourceTree = "<group>"; };
+		04B17F742E8F33250033F82C /* XBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XBarViewModel.swift; sourceTree = "<group>"; };
+		04B17F792E90776E0033F82C /* ShowAverageLineGraphsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAverageLineGraphsView.swift; sourceTree = "<group>"; };
+		04B17F7B2E907BC00033F82C /* AveragePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AveragePickerView.swift; sourceTree = "<group>"; };
+		04B17F7D2E907CAA0033F82C /* GraphPickerViewAvg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphPickerViewAvg.swift; sourceTree = "<group>"; };
 		04B9FD902DDF88040036C731 /* CauseMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CauseMenuView.swift; sourceTree = "<group>"; };
 		04B9FD922DDFA30E0036C731 /* CauseMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CauseMenuViewModel.swift; sourceTree = "<group>"; };
 		04B9FD982DDFE9570036C731 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -261,6 +275,16 @@
 			path = RealTimeListenerSubViews;
 			sourceTree = "<group>";
 		};
+		04B17F762E90770A0033F82C /* AverageViewSubViews */ = {
+			isa = PBXGroup;
+			children = (
+				04B17F7B2E907BC00033F82C /* AveragePickerView.swift */,
+				04B17F792E90776E0033F82C /* ShowAverageLineGraphsView.swift */,
+				04B17F7D2E907CAA0033F82C /* GraphPickerViewAvg.swift */,
+			);
+			path = AverageViewSubViews;
+			sourceTree = "<group>";
+		};
 		04B9FDA42DE100930036C731 /* HourlyViewSubViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -274,6 +298,7 @@
 		04CCA3B12DC41F5F00710E41 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				04B17F762E90770A0033F82C /* AverageViewSubViews */,
 				04F7389E2E736C630054916A /* MiscViews */,
 				04EAE6512E6CBE1A00E151C0 /* ListViews */,
 				0443B6A12DE516D80077675B /* RealTimeListenerSubViews */,
@@ -308,6 +333,7 @@
 				04CCA3B72DC67B6B00710E41 /* AirQualityViewModel.swift */,
 				04EAE64F2E6CAD1900E151C0 /* ParticleCountsViewModel.swift */,
 				04B9FD922DDFA30E0036C731 /* CauseMenuViewModel.swift */,
+				04B17F742E8F33250033F82C /* XBarViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -320,6 +346,8 @@
 				0443B69F2DE15C4C0077675B /* Freebies.swift */,
 				04CCA3AF2DC419CD00710E41 /* AQSample.swift */,
 				04EAE64D2E6C941A00E151C0 /* PMSizes.swift */,
+				04B17F702E8F2B480033F82C /* XBarAQ.swift */,
+				04B17F722E8F31DC0033F82C /* XBarPM.swift */,
 				04F7389A2E7364550054916A /* SummaryModels.swift */,
 			);
 			path = Models;
@@ -393,6 +421,7 @@
 				04CCA3A32DC27F7000710E41 /* RealTimeListenerViewAQ.swift */,
 				04EAE68A2E6F355B00E151C0 /* RealTimeListenerViewPM.swift */,
 				04CCA3A42DC27F7000710E41 /* DailyViewAQ.swift */,
+				04B17F6E2E8F2AD50033F82C /* XBarView.swift */,
 				04EAE6522E6CFC4800E151C0 /* DailyViewPM.swift */,
 				04CCA3A52DC27F7000710E41 /* HourlyViewAQ.swift */,
 				04EAE6862E6E597E00E151C0 /* HourlyViewPM.swift */,
@@ -583,14 +612,19 @@
 				04EAE6502E6CAD1900E151C0 /* ParticleCountsViewModel.swift in Sources */,
 				04F7389D2E7365610054916A /* AverageViewAQ.swift in Sources */,
 				04CCA3A72DC27F7000710E41 /* ContentView.swift in Sources */,
+				04B17F7C2E907BC00033F82C /* AveragePickerView.swift in Sources */,
 				04EAE6872E6E597E00E151C0 /* HourlyViewPM.swift in Sources */,
 				04CCA4032DD5014700710E41 /* AuthenticationView.swift in Sources */,
+				04B17F712E8F2B480033F82C /* XBarAQ.swift in Sources */,
+				04B17F752E8F33250033F82C /* XBarViewModel.swift in Sources */,
+				04B17F7E2E907CAA0033F82C /* GraphPickerViewAvg.swift in Sources */,
 				04EAE6892E6E5AB700E151C0 /* ShowHourlyLineGraphsViewPM.swift in Sources */,
 				04CCA4202DD55E6E00710E41 /* SignInGoogleHelper.swift in Sources */,
 				0443B6A32DE517490077675B /* ShowRealTimeLineGraphViewAQ.swift in Sources */,
 				04B17F6B2E84893D0033F82C /* AveragesAQ.swift in Sources */,
 				04CCA4302DDE54E800710E41 /* GraphPickerViewAQ.swift in Sources */,
 				04CCA4242DDA367F00710E41 /* SettingsViewModel.swift in Sources */,
+				04B17F6F2E8F2AD50033F82C /* XBarView.swift in Sources */,
 				04CCA3A82DC27F7000710E41 /* RealTimeListenerViewAQ.swift in Sources */,
 				04F738CC2E746F620054916A /* MaxViewAQ.swift in Sources */,
 				04CCA3A92DC27F7000710E41 /* DailyViewAQ.swift in Sources */,
@@ -606,6 +640,7 @@
 				04CCA4072DD5122200710E41 /* AuthenticationManager.swift in Sources */,
 				04CCA4392DDE7F5000710E41 /* ShowDailyLineGraphsViewAQ.swift in Sources */,
 				04CCA42A2DDA3B8A00710E41 /* ProfileView.swift in Sources */,
+				04B17F7A2E90776E0033F82C /* ShowAverageLineGraphsView.swift in Sources */,
 				04F738CE2E747EAD0054916A /* MaxViewPM.swift in Sources */,
 				04B9FD912DDF88040036C731 /* CauseMenuView.swift in Sources */,
 				04CCA3C72DC6C98200710E41 /* DataManager.swift in Sources */,
@@ -617,6 +652,7 @@
 				04F7389B2E7364550054916A /* SummaryModels.swift in Sources */,
 				04CCA4272DDA37A300710E41 /* AuthenticationViewModel.swift in Sources */,
 				04CCA3AC2DC27F7000710E41 /* ChartListViewModel.swift in Sources */,
+				04B17F732E8F31DC0033F82C /* XBarPM.swift in Sources */,
 				04CCA4092DD51EF100710E41 /* RootView.swift in Sources */,
 				04EAE6572E6D000B00E151C0 /* ShowDailyLineGraphsViewPM.swift in Sources */,
 				04F738A02E736C8A0054916A /* CircularTextViewInt.swift in Sources */,

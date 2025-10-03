@@ -9,39 +9,46 @@ struct ChartListViewModel: Identifiable {
    let chartView: AnyView
 }
 
-//Air Quality Samples
-let dailyViewAQ = ChartListViewModel(
+
+// Daily Averages
+let dailyAveragesView = ChartListViewModel(
    ind: 0,
+   imageName: "x-bar",
+   listDisplayText: "X꛱ Chart",
+   chartView: AnyView(XBarView()))
+// Air Quality Samples
+let dailyViewAQ = ChartListViewModel(
+   ind: 1,
    imageName: "Line-Graph",
    listDisplayText: "Daily",
    chartView: AnyView(DailyViewAQ()))
 let weeklyViewAQ = ChartListViewModel(
-   ind: 1,
+   ind: 2,
    imageName: "bar-chart",
    listDisplayText: "Hourly",
    chartView: AnyView(HourlyViewAQ()))
 let realtimeViewAQ = ChartListViewModel(
-   ind: 2,
+   ind: 3,
    imageName: "realTimeListener",
    listDisplayText: "Real Time Listener",
    chartView: AnyView(RealTimeListenerViewAQ()))
 
-//Particulate Matter Samples
+// Particulate Matter Samples
 let dailyViewPM = ChartListViewModel(
-   ind: 3,
+   ind: 4,
    imageName: "pm1",
    listDisplayText: "Daily",
    chartView: AnyView(DailyViewPM()))
 let weeklyViewPM = ChartListViewModel(
-   ind: 4,
+   ind: 5,
    imageName: "pm2",
    listDisplayText: "Hourly",
    chartView: AnyView(HourlyViewPM()))
 let realtimeViewPM = ChartListViewModel(
-   ind: 5,
+   ind: 6,
    imageName: "pm3",
    listDisplayText: "Real Time Listener",
    chartView: AnyView(RealTimeListenerViewPM()))
 
-let clvmArray: [ChartListViewModel] = [dailyViewAQ, weeklyViewAQ, realtimeViewAQ, dailyViewPM, weeklyViewPM, realtimeViewPM]
+let clvmArray: [ChartListViewModel] = [dailyAveragesView, dailyViewAQ, weeklyViewAQ, realtimeViewAQ, dailyViewPM, weeklyViewPM, realtimeViewPM]
 
