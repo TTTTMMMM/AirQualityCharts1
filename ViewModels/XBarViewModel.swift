@@ -5,6 +5,7 @@ final class XBarViewModel: ObservableObject {
    
    @Published var aqDailyXBar: [XBarAQ] = []
    @Published var pmDailyXBar: [XBarPM] = []
+//   @Published var combinedDailyXBar: [XBarCombined] = []
    @Published var dailyFreebiesLeft: Int? = nil
    @Published var numberOfDaysRetrieved: Int? = 0
 
@@ -20,7 +21,6 @@ final class XBarViewModel: ObservableObject {
          startingFrom: startingFrom,
          endingAt: endingAt
       ) {
-         print("Returned \(daysOfAveragesAQ.count) days of averages")
          try? await self.subtractFreebliesLeft(numSamplesToRemove: daysOfAveragesAQ.count)
             self.numberOfDaysRetrieved = daysOfAveragesAQ.count
          await MainActor.run {

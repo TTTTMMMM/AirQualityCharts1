@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		0443B6A02DE15C650077675B /* Freebies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B69F2DE15C4C0077675B /* Freebies.swift */; };
 		0443B6A32DE517490077675B /* ShowRealTimeLineGraphViewAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B6A22DE517490077675B /* ShowRealTimeLineGraphViewAQ.swift */; };
-		04B17F6B2E84893D0033F82C /* AveragesAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B17F6A2E8489260033F82C /* AveragesAQ.swift */; };
-		04B17F6D2E848D2E0033F82C /* AveragesPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B17F6C2E848D280033F82C /* AveragesPM.swift */; };
 		04B17F6F2E8F2AD50033F82C /* XBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B17F6E2E8F2AD50033F82C /* XBarView.swift */; };
 		04B17F712E8F2B480033F82C /* XBarAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B17F702E8F2B480033F82C /* XBarAQ.swift */; };
 		04B17F732E8F31DC0033F82C /* XBarPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B17F722E8F31DC0033F82C /* XBarPM.swift */; };
@@ -99,8 +97,6 @@
 		043AFD342DBADDAD005629B9 /* AirQualityChartsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AirQualityChartsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0443B69F2DE15C4C0077675B /* Freebies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Freebies.swift; sourceTree = "<group>"; };
 		0443B6A22DE517490077675B /* ShowRealTimeLineGraphViewAQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowRealTimeLineGraphViewAQ.swift; sourceTree = "<group>"; };
-		04B17F6A2E8489260033F82C /* AveragesAQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AveragesAQ.swift; sourceTree = "<group>"; };
-		04B17F6C2E848D280033F82C /* AveragesPM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AveragesPM.swift; sourceTree = "<group>"; };
 		04B17F6E2E8F2AD50033F82C /* XBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XBarView.swift; sourceTree = "<group>"; };
 		04B17F702E8F2B480033F82C /* XBarAQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XBarAQ.swift; sourceTree = "<group>"; };
 		04B17F722E8F31DC0033F82C /* XBarPM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XBarPM.swift; sourceTree = "<group>"; };
@@ -341,8 +337,6 @@
 		04CCA3B42DC41FD200710E41 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				04B17F6C2E848D280033F82C /* AveragesPM.swift */,
-				04B17F6A2E8489260033F82C /* AveragesAQ.swift */,
 				0443B69F2DE15C4C0077675B /* Freebies.swift */,
 				04CCA3AF2DC419CD00710E41 /* AQSample.swift */,
 				04EAE64D2E6C941A00E151C0 /* PMSizes.swift */,
@@ -621,7 +615,6 @@
 				04EAE6892E6E5AB700E151C0 /* ShowHourlyLineGraphsViewPM.swift in Sources */,
 				04CCA4202DD55E6E00710E41 /* SignInGoogleHelper.swift in Sources */,
 				0443B6A32DE517490077675B /* ShowRealTimeLineGraphViewAQ.swift in Sources */,
-				04B17F6B2E84893D0033F82C /* AveragesAQ.swift in Sources */,
 				04CCA4302DDE54E800710E41 /* GraphPickerViewAQ.swift in Sources */,
 				04CCA4242DDA367F00710E41 /* SettingsViewModel.swift in Sources */,
 				04B17F6F2E8F2AD50033F82C /* XBarView.swift in Sources */,
@@ -648,7 +641,6 @@
 				04CCA3B82DC67B6B00710E41 /* AirQualityViewModel.swift in Sources */,
 				04CCA4362DDE6CBD00710E41 /* CauseAndGraphPickerViewAQ.swift in Sources */,
 				04EAE68B2E6F355B00E151C0 /* RealTimeListenerViewPM.swift in Sources */,
-				04B17F6D2E848D2E0033F82C /* AveragesPM.swift in Sources */,
 				04F7389B2E7364550054916A /* SummaryModels.swift in Sources */,
 				04CCA4272DDA37A300710E41 /* AuthenticationViewModel.swift in Sources */,
 				04CCA3AC2DC27F7000710E41 /* ChartListViewModel.swift in Sources */,

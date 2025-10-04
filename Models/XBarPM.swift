@@ -4,7 +4,7 @@
 //
 import Foundation
 
-struct XBarPM: Equatable, Codable {
+struct XBarPM: Identifiable, Equatable, Codable {
    var id:     String
    var dt:     Date      // date for which averages were computed
    var ttl:    Date      // expiration date of data

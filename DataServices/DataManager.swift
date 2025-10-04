@@ -15,8 +15,6 @@ final class DataManager {
    private let airQualityCollection = Firestore.firestore().collection("air_quality")
    private let particleCountsCollection = Firestore.firestore().collection("particle_counts")
    private let freebiesLeftCollection = Firestore.firestore().collection("freebies_left")
-//   private let dailyAverageAQCollection = Firestore.firestore().collection("daily_averagesAQ")
-//   private let dailyAveragePMCollection = Firestore.firestore().collection("daily_averagesPM")
    private let xBarAQCollection = Firestore.firestore().collection("daily_averagesAQ")
    private let xBarPMCollection = Firestore.firestore().collection("daily_averagesPM")
 
@@ -276,7 +274,7 @@ final class DataManager {
       return xBarAQCollection.document(firebaseID)
    }
    
-   func createDailyAverageAQ(firebaseID: String, avgData: XBarAQ) async throws {
+   func storeDailyAverageAQ(firebaseID: String, avgData: XBarAQ) async throws {
       try dailyAverageAQDocument(firebaseID: firebaseID).setData(
          from: avgData,
          merge: false
@@ -310,8 +308,6 @@ final class DataManager {
       guard let end = calendar.date(byAdding: .day, value: -1, to: endingAt) else {
           fatalError("Could not calculate the previous day from startingFrom \(String(describing: endingAt)).")
       }
-
-      print("--> start: \(String(describing: start)), end: \(String(describing: end))")
       let snap = try await xBarAQCollection.whereField(
          XBarAQ.CodingKeys.dt.stringValue,
          isGreaterThan: start as Any
@@ -335,17 +331,20 @@ final class DataManager {
    func getXBarPM(startingFrom: Date, endingAt: Date = Date()) async throws -> [XBarPM] {
       var XBarPMArray: [XBarPM] = []
       let calendar = Calendar.current
-      let componentsStart = calendar.dateComponents([.year, .month, .day], from: startingFrom)
-      let start = calendar.date(from: componentsStart)
-      let componentsEnd = calendar.dateComponents([.year, .month, .day], from: endingAt)
-      let end = calendar.date(from: componentsEnd) ?? Date()
+      // trying to compensate for some timezone nonsense, which eludes me
+      guard let start = calendar.date(byAdding: .day, value: -1, to: startingFrom) else {
+          fatalError("Could not calculate the previous day from startingFrom \(String(describing: startingFrom)).")
+      }
+      guard let end = calendar.date(byAdding: .day, value: -1, to: endingAt) else {
+          fatalError("Could not calculate the previous day from startingFrom \(String(describing: endingAt)).")
+      }
       
-      let snap = try await xBarAQCollection.whereField(
+      let snap = try await xBarPMCollection.whereField(
          XBarPM.CodingKeys.dt.stringValue,
-            isGreaterThanOrEqualTo: start as Any
+         isGreaterThan: start as Any
       ).whereField(
          XBarPM.CodingKeys.dt.stringValue,
-         isLessThanOrEqualTo: end as Any
+         isLessThan: end as Any
       ).order(
          by: XBarPM.CodingKeys.dt.stringValue
       ).limit(to: 1830).getDocuments()

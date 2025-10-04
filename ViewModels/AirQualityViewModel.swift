@@ -200,7 +200,7 @@ class AirQualityViewModel: ObservableObject {
                temperature: avgValuesAQ.temperature,
                count: count
            )
-            try? await DataManager.shared.createDailyAverageAQ(firebaseID: dateString, avgData: data)
+            try? await DataManager.shared.storeDailyAverageAQ(firebaseID: dateString, avgData: data)
          }
       }
       return avgValuesAQ

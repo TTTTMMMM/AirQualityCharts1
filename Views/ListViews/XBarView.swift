@@ -13,6 +13,8 @@ struct XBarView: View {
    @State var displayAvgHumidity    = true
    @State var displayAvgECO2        = true
    @State var displayAvgTVOC        = true
+   @State var displayAvgPm03um      = true
+   @State var displayAvgPm100s      = true
    @State var left: Int? = 0
 
    var body: some View {
@@ -55,7 +57,9 @@ extension XBarView {
             displayAvgTemperature: $displayAvgTemperature,
             displayAvgHumidity: $displayAvgHumidity,
             displayAvgECO2: $displayAvgECO2,
-            displayAvgTVOC: $displayAvgTVOC
+            displayAvgTVOC: $displayAvgTVOC,
+            displayAvgPm03um: $displayAvgPm03um,
+            displayAvgPm100s: $displayAvgPm100s
          )
       }
       .ignoresSafeArea()
@@ -77,6 +81,8 @@ extension XBarView {
             displayAvgHumidity: $displayAvgHumidity,
             displayAvgECO2: $displayAvgECO2,
             displayAvgTVOC: $displayAvgTVOC,
+            displayAvgPm03um: $displayAvgPm03um,
+            displayAvgPm100s: $displayAvgPm100s,
             numLeft: $left
          ),
          alignment: .topTrailing)

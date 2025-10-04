@@ -11,7 +11,9 @@ struct ShowAverageLineGraphsView: View {
    @Binding var displayAvgHumidity: Bool
    @Binding var displayAvgECO2: Bool
    @Binding var displayAvgTVOC: Bool
-   
+   @Binding var displayAvgPm03um: Bool
+   @Binding var displayAvgPm100s: Bool
+
    @State private var showingAverages = true
    @State var isLoading: Bool = true
    
@@ -38,43 +40,62 @@ struct ShowAverageLineGraphsView: View {
                .scaleEffect(2)
          }
          ZStack {
+//            Chart {
+//               ForEach (viewModel.aqDailyXBar)  { computation in
+//                  if displayAvgTemperature {
+//                     LineMark(
+//                        x: .value("timestamp", computation.dateString2),
+//                        y: .value("temperature", computation.temperature),
+//                        series: .value("temperature", "A")
+//                     )
+//                     .foregroundStyle(Color.green)
+//                  }
+//                  if displayAvgHumidity {
+//                     LineMark(
+//                        x: .value("timestamp", computation.dateString2),
+//                        y: .value("humidity", computation.humidity),
+//                        series: .value("humidity", "B")
+//                     )
+//                     .foregroundStyle(Color.yellow)
+//                  }
+//                  if displayAvgECO2 {
+//                     LineMark(
+//                        x: .value("timestamp", computation.dateString2),
+//                        y: .value("ECO2", computation.eCO2),
+//                        series: .value("unBiasedECO2", "C")
+//                     )
+//                     .foregroundStyle(Color.blue)
+//                  }
+//                  if displayAvgTVOC {
+//                     LineMark(
+//                        x: .value("timestamp", computation.dateString2),
+//                        y: .value("TVOC", computation.tVOC),
+//                        series: .value("tVOC", "D")
+//                     )
+//                     .foregroundStyle(Color.red)
+//                  }
+//               }  // ForEach
+//            }     // Chart
             Chart {
-               ForEach (viewModel.aqDailyXBar)  { computation in
-                  if displayAvgTemperature {
+               ForEach (viewModel.pmDailyXBar)  { computation in
+                  if displayAvgPm03um {
                      LineMark(
                         x: .value("timestamp", computation.dateString2),
-                        y: .value("temperature", computation.temperature),
-                        series: .value("temperature", "A")
+                        y: .value("PM03um", computation.pm03um),
+                        series: .value("PM 0.3um", "A")
                      )
-                     .foregroundStyle(Color.green)
+                     .foregroundStyle(Color.mint)
                   }
-                  if displayAvgHumidity {
+                  if displayAvgPm100s {
                      LineMark(
                         x: .value("timestamp", computation.dateString2),
-                        y: .value("humidity", computation.humidity),
+                        y: .value("PM100s", computation.pm100s),
                         series: .value("humidity", "B")
                      )
-                     .foregroundStyle(Color.yellow)
-                  }
-                  if displayAvgECO2 {
-                     LineMark(
-                        x: .value("timestamp", computation.dateString2),
-                        y: .value("ECO2", computation.eCO2),
-                        series: .value("unBiasedECO2", "C")
-                     )
-                     .foregroundStyle(Color.blue)
-                  }
-                  if displayAvgTVOC {
-                     LineMark(
-                        x: .value("timestamp", computation.dateString2),
-                        y: .value("TVOC", computation.tVOC),
-                        series: .value("tVOC", "D")
-                     )
-                     .foregroundStyle(Color.red)
+                     .foregroundStyle(Color.purple)
                   }
                }  // ForEach
             }     // Chart
-            //      }        // GroupBox
             .chartYAxis {
                AxisMarks(position: .leading) { value in
                   AxisGridLine()
@@ -97,18 +118,14 @@ struct ShowAverageLineGraphsView: View {
             }
             .chartLegend(position: .top, alignment: .leading, spacing: 8)
             .chartForegroundStyleScale(
-               ["Temperature": Color.accentColor,
-                "Humidity": Color.yellow,
-                "CO₂": Color.blue,
-                "tVOC": Color.red
+               ["PM 0.3 μm": Color.mint,
+                "PM 10.0s": Color.purple
                ]
             )
             .transition(.opacity)
-            .animation(.linear(duration: 0.6), value: displayAvgTemperature)
-            .animation(.linear(duration: 0.6), value: displayAvgHumidity)
-            .animation(.linear(duration: 0.6), value: displayAvgECO2)
-            .animation(.linear(duration: 0.6), value: displayAvgTVOC)
-            .animation(.linear(duration: 0.6), value: viewModel.aqDailyXBar)
+            .animation(.linear(duration: 0.6), value: displayAvgPm03um)
+            .animation(.linear(duration: 0.6), value: displayAvgPm100s)
+            .animation(.linear(duration: 0.6), value: viewModel.pmDailyXBar)
             .chartScrollableAxes(.horizontal)
             .chartXVisibleDomain(length: min(viewModel.numberOfDaysRetrieved ?? 1825, 1825)) // 1825 = 365 days/yr * 5 yrs
             .padding(12)
@@ -133,18 +150,23 @@ struct ShowAverageLineGraphsView: View {
 }              // View
 
 #Preview {
-   
-   @Previewable @State var selectedDate = Date()
+   @Previewable @State var endDate = Date()
+   @Previewable @State var fourteenDaysAgo = Calendar.current.date(byAdding: .day, value: -14, to: Date())!
    @Previewable @State var displayTemperature = true
    @Previewable @State var displayHumidity = true
    @Previewable @State var displayECO2 = true
    @Previewable @State var displayTVOC = true
-   
-   ShowDailyLineGraphsViewAQ(
-      selectedDate: $selectedDate,
-      displayTemperature: $displayTemperature,
-      displayHumidity: $displayHumidity,
-      displayECO2: $displayECO2,
-      displayTVOC: $displayTVOC
+   @Previewable @State var displayPm03um = true
+   @Previewable @State var displayPm100s = true
+
+   ShowAverageLineGraphsView(
+      selectedDate: $fourteenDaysAgo,
+      endDate: $endDate,
+      displayAvgTemperature: $displayTemperature,
+      displayAvgHumidity: $displayHumidity,
+      displayAvgECO2: $displayECO2,
+      displayAvgTVOC: $displayTVOC,
+      displayAvgPm03um: $displayPm03um,
+      displayAvgPm100s: $displayPm100s
    )
 }

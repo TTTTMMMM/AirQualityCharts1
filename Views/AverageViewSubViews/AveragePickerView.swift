@@ -6,6 +6,8 @@ struct AveragePickerView: View {
    @Binding var displayAvgHumidity: Bool
    @Binding var displayAvgECO2: Bool
    @Binding var displayAvgTVOC: Bool
+   @Binding var displayAvgPm03um: Bool
+   @Binding var displayAvgPm100s: Bool
    @Binding var numLeft: Int?
       
    var body: some View {
@@ -18,7 +20,9 @@ struct AveragePickerView: View {
                displayAvgTemperature: $displayAvgTemperature,
                displayAvgHumidity: $displayAvgHumidity,
                displayAvgECO2: $displayAvgECO2,
-               displayAvgTVOC: $displayAvgTVOC
+               displayAvgTVOC: $displayAvgTVOC,
+               displayAvgPm03um: $displayAvgPm03um,
+               displayAvgPm100s: $displayAvgPm100s
             )
          }
          .padding(3)
@@ -40,6 +44,8 @@ struct AveragePickerView: View {
    @Previewable @State var displayAvgHumidity = true
    @Previewable @State var displayAvgECO2 = true
    @Previewable @State var displayAvgTVOC = true
+   @Previewable @State var displayAvgPm03um = true
+   @Previewable @State var displayAvgPm100s = true
    @Previewable @State var left: Int? = 495
    
    AveragePickerView(
@@ -47,6 +53,8 @@ struct AveragePickerView: View {
       displayAvgHumidity: $displayAvgHumidity,
       displayAvgECO2: $displayAvgECO2,
       displayAvgTVOC: $displayAvgTVOC,
+      displayAvgPm03um: $displayAvgPm03um,
+      displayAvgPm100s: $displayAvgPm100s,
       numLeft: $left
    )
 }
