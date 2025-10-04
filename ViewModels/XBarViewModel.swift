@@ -16,11 +16,11 @@ final class XBarViewModel: ObservableObject {
    }
    
    func getXBar(startingFrom: Date, endingAt: Date = Date()) async throws {
-      print("In getXBar, startingFrom: \(startingFrom), endingAt: \(endingAt)")
       if let daysOfAveragesAQ = try? await DataManager.shared.getXBarAQ(
          startingFrom: startingFrom,
          endingAt: endingAt
       ) {
+         print("Returned \(daysOfAveragesAQ.count) days of averages")
          try? await self.subtractFreebliesLeft(numSamplesToRemove: daysOfAveragesAQ.count)
             self.numberOfDaysRetrieved = daysOfAveragesAQ.count
          await MainActor.run {

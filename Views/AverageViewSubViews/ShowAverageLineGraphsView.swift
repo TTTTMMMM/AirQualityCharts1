@@ -6,6 +6,7 @@ struct ShowAverageLineGraphsView: View {
    @StateObject var viewModel = XBarViewModel()
    
    @Binding var selectedDate: Date
+   @Binding var endDate: Date
    @Binding var displayAvgTemperature: Bool
    @Binding var displayAvgHumidity: Bool
    @Binding var displayAvgECO2: Bool
@@ -20,9 +21,17 @@ struct ShowAverageLineGraphsView: View {
       return dateFormatter
    }
    
+   private var dayBeforeEndDate: Date {
+      if let db4 = Calendar.current.date(byAdding: .day, value: -1, to: self.endDate) {
+         return db4
+      } else {
+         return self.endDate
+      }
+   }
+   
    var body: some View {
       GroupBox {
-         Text("Daily Averages: \(self.dateFormatter.string(from: self.selectedDate))")
+         Text("Daily Averages: \(self.dateFormatter.string(from: self.selectedDate)) - \(self.dateFormatter.string(from: self.dayBeforeEndDate))")
             .font(.title2)
          if(isLoading) {
             ProgressView()
@@ -79,7 +88,7 @@ struct ShowAverageLineGraphsView: View {
                   if mark.index % 7 == 0 {
                      AxisValueLabel() {
                         if let dateString = mark.as(String.self) {
-                           Text(String(dateString.prefix(5)))
+                           Text(String(dateString.prefix(10)))
                         }
                      }
                      AxisGridLine()
@@ -107,9 +116,13 @@ struct ShowAverageLineGraphsView: View {
       }        // GroupBox
       .task {
          do {
-            print("In task to fetch XBar data...")
             isLoading = true
-            try await viewModel.getXBar(startingFrom: selectedDate, endingAt: Date())
+            let startOfDay_Start = Calendar.current.startOfDay(for: selectedDate)
+            let startOfDay_End = Calendar.current.startOfDay(for: Date())
+            try await viewModel.getXBar(
+               startingFrom: startOfDay_Start,
+               endingAt: startOfDay_End
+            )
             isLoading = false
          }
          catch {

@@ -303,11 +303,15 @@ final class DataManager {
    func getXBarAQ(startingFrom: Date, endingAt: Date = Date()) async throws -> [XBarAQ] {
       var xBarAQArray: [XBarAQ] = []
       let calendar = Calendar.current
-      let componentsStart = calendar.dateComponents([.year, .month, .day], from: startingFrom)
-      let start = calendar.date(from: componentsStart)
-      let componentsEnd = calendar.dateComponents([.year, .month, .day], from: endingAt)
-      let end = calendar.date(from: componentsEnd) ?? Date()
-      print("In getXBarAQ, start: \(String(describing: start)), end: \(String(describing: end))")
+      // trying to compensate for some timezone nonsense, which eludes me
+      guard let start = calendar.date(byAdding: .day, value: -1, to: startingFrom) else {
+          fatalError("Could not calculate the previous day from startingFrom \(String(describing: startingFrom)).")
+      }
+      guard let end = calendar.date(byAdding: .day, value: -1, to: endingAt) else {
+          fatalError("Could not calculate the previous day from startingFrom \(String(describing: endingAt)).")
+      }
+
+      print("--> start: \(String(describing: start)), end: \(String(describing: end))")
       let snap = try await xBarAQCollection.whereField(
          XBarAQ.CodingKeys.dt.stringValue,
          isGreaterThan: start as Any
@@ -318,7 +322,6 @@ final class DataManager {
          by: XBarAQ.CodingKeys.dt.stringValue
       ).limit(to: 1830).getDocuments()
       for document in snap.documents {
-         print("    \(document.data())\n")
          xBarAQArray.append(try document.data(as: XBarAQ.self))
       }
       return(xBarAQArray)

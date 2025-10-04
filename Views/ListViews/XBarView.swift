@@ -7,6 +7,7 @@ struct XBarView: View {
 
    @StateObject var viewModel = XBarViewModel()
    @State var selectedDate = Date()
+   @State var endDate = Date()
    @State var charted = false
    @State var displayAvgTemperature = true
    @State var displayAvgHumidity    = true
@@ -50,6 +51,7 @@ extension XBarView {
       VStack () {
          ShowAverageLineGraphsView(
             selectedDate: $selectedDate,
+            endDate: $endDate,
             displayAvgTemperature: $displayAvgTemperature,
             displayAvgHumidity: $displayAvgHumidity,
             displayAvgECO2: $displayAvgECO2,
