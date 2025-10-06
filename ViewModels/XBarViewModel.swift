@@ -23,7 +23,6 @@ final class XBarViewModel: ObservableObject {
          endingAt: endingAt
       ) {
          try? await self.subtractFreebliesLeft(numSamplesToRemove: daysOfAveragesAQ.count)
-            self.numberOfDaysRetrieved = daysOfAveragesAQ.count
             self.aqDailyXBar = daysOfAveragesAQ
       }
       
@@ -32,12 +31,12 @@ final class XBarViewModel: ObservableObject {
          endingAt: endingAt
       ) {
          try? await self.subtractFreebliesLeft(numSamplesToRemove: daysOfAveragesPM.count)
-            self.numberOfDaysRetrieved = daysOfAveragesPM.count
             self.pmDailyXBar = daysOfAveragesPM
       }
       
       self.comboDailies = combineDailies(aqDailyXBar: aqDailyXBar, pmDailyXBar: pmDailyXBar)
          await MainActor.run {
+            self.numberOfDaysRetrieved = comboDailies.count
             self.combinedDailyXBar = comboDailies
          }
    }

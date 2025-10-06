@@ -40,48 +40,11 @@ struct ShowAverageLineGraphsView: View {
                .scaleEffect(2)
          }
          ZStack {
-//            Chart {
-//               ForEach (viewModel.aqDailyXBar)  { computation in
-//                  if displayAvgTemperature {
-//                     LineMark(
-//                        x: .value("timestamp", computation.dateString2),
-//                        y: .value("temperature", computation.temperature),
-//                        series: .value("temperature", "A")
-//                     )
-//                     .foregroundStyle(Color.green)
-//                  }
-//                  if displayAvgHumidity {
-//                     LineMark(
-//                        x: .value("timestamp", computation.dateString2),
-//                        y: .value("humidity", computation.humidity),
-//                        series: .value("humidity", "B")
-//                     )
-//                     .foregroundStyle(Color.yellow)
-//                  }
-//                  if displayAvgECO2 {
-//                     LineMark(
-//                        x: .value("timestamp", computation.dateString2),
-//                        y: .value("ECO2", computation.eCO2),
-//                        series: .value("unBiasedECO2", "C")
-//                     )
-//                     .foregroundStyle(Color.blue)
-//                  }
-//                  if displayAvgTVOC {
-//                     LineMark(
-//                        x: .value("timestamp", computation.dateString2),
-//                        y: .value("TVOC", computation.tVOC),
-//                        series: .value("tVOC", "D")
-//                     )
-//                     .foregroundStyle(Color.red)
-//                  }
-//               }  // ForEach
-//            }     // Chart
             Chart {
                ForEach (viewModel.combinedDailyXBar)  { computation in
                   
                   if displayAvgTemperature {
                      LineMark(
-//                        x: .value("timestamp", computation.dateString2),
                         x: .value("timestamp", computation.id),
                         y: .value("temperature", computation.temperature),
                         series: .value("temperature", "A")
@@ -90,7 +53,6 @@ struct ShowAverageLineGraphsView: View {
                   }
                   if displayAvgHumidity {
                      LineMark(
-//                        x: .value("timestamp", computation.dateString2),
                         x: .value("timestamp", computation.id),
                         y: .value("humidity", computation.humidity),
                         series: .value("humidity", "B")
@@ -99,7 +61,6 @@ struct ShowAverageLineGraphsView: View {
                   }
                   if displayAvgECO2 {
                      LineMark(
-//                        x: .value("timestamp", computation.dateString2),
                         x: .value("timestamp", computation.id),
                         y: .value("ECO2", computation.eCO2),
                         series: .value("unBiasedECO2", "C")
@@ -108,7 +69,6 @@ struct ShowAverageLineGraphsView: View {
                   }
                   if displayAvgTVOC {
                      LineMark(
-//                        x: .value("timestamp", computation.dateString2),
                         x: .value("timestamp", computation.id),
                         y: .value("TVOC", computation.tVOC),
                         series: .value("tVOC", "D")
@@ -117,7 +77,6 @@ struct ShowAverageLineGraphsView: View {
                   }
                   if displayAvgPm03um {
                      LineMark(
-//                        x: .value("timestamp", computation.dateString2),
                         x: .value("timestamp", computation.id),
                         y: .value("PM03um", computation.pm03um),
                         series: .value("PM 0.3um", "E")
@@ -126,7 +85,6 @@ struct ShowAverageLineGraphsView: View {
                   }
                   if displayAvgPm100s {
                      LineMark(
-//                        x: .value("timestamp", computation.dateString2),
                         x: .value("timestamp", computation.id),
                         y: .value("PM100s", computation.pm100s),
                         series: .value("PM100s", "F")
@@ -147,9 +105,7 @@ struct ShowAverageLineGraphsView: View {
                ) { mark in
                   if mark.index % 7 == 0 {
                      AxisValueLabel() {
-//                        if let dateString = mark.as(String.self) {
-//                           Text(String(dateString.prefix(10)))
-//                        }
+
                         if let dateString = mark.as(String.self) {
                            Text(String(dateString.prefix(10)))
                         }
