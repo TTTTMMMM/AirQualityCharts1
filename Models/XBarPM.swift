@@ -3,8 +3,10 @@
 //  Specifically, Fetching Firebase Firestore data with Codable in Swift | Firebase Bootcamp #10
 //
 import Foundation
+import FirebaseFirestore
 
 struct XBarPM: Identifiable, Equatable, Codable {
+   @DocumentID var firebaseID: String? // maps the FirebaseID to the
    var id:     String
    var dt:     Date      // date for which averages were computed
    var ttl:    Date      // expiration date of data
@@ -31,6 +33,7 @@ struct XBarPM: Identifiable, Equatable, Codable {
    // e.g., the struct uses tVOC (lowercase t), but Firebase has it
    // defined as TVOC (uppercase T)
    enum CodingKeys: String, CodingKey {
+      case firebaseID   = "firebaseID"
       case id           = "id"
       case dt           = "dt"
       case ttl          = "ttl"
@@ -45,6 +48,7 @@ struct XBarPM: Identifiable, Equatable, Codable {
    // into whatever sits on the left hand side of the = sign
       mutating func decode(from decoder: Decoder) throws {
       let container = try decoder.container(keyedBy: CodingKeys.self)
+      self.firebaseID = try container.decode(String.self, forKey: .firebaseID)
       self.id = try container.decode(String.self, forKey: .id)
       self.dt = try container.decode(Date.self, forKey: .dt)
       self.ttl = try container.decode(Date.self, forKey: .ttl)
@@ -57,6 +61,7 @@ struct XBarPM: Identifiable, Equatable, Codable {
    
    func encode(to encoder: Encoder) throws {
       var container = encoder.container(keyedBy: CodingKeys.self)
+      try container.encode(firebaseID, forKey: .firebaseID)
       try container.encode(id, forKey: .id)
       try container.encode(dt, forKey: .dt)
       try container.encode(ttl, forKey: .ttl)

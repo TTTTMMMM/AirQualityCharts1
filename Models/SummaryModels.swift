@@ -34,3 +34,19 @@ enum MetricType {
     case count
 }
 
+struct combinedXBar: Identifiable, Equatable {
+   var id:           String
+   var dt:           Date         // date for which averages were computed
+   var tVOC:         Int
+   var eCO2:         Int
+   var humidity:     Int
+   var temperature:  Int
+   var pm03um:       Int
+   var pm100s:       Int
+   
+   var dateString2: String {
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateFormat = "yyyy-MM-dd"
+      return dateFormatter.string(from: dt)
+   }
+}
