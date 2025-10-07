@@ -4,9 +4,21 @@
 import SwiftUI
 
 struct XBarView: View {
+   
+   private static func july28_2025() -> Date {
+       var dateComponents = DateComponents()
+       dateComponents.year = 2025
+       dateComponents.month = 7
+       dateComponents.day = 28
+       
+       let calendar = Calendar.current
+       // Use a nil coalescing operator to provide a fallback date,
+       // though this conversion is unlikely to fail.
+       return calendar.date(from: dateComponents) ?? Date()
+   }
 
    @StateObject var viewModel = XBarViewModel()
-   @State var selectedDate = Date()
+   @State var selectedDate: Date  = july28_2025()
    @State var endDate = Date()
    @State var charted = false
    @State var displayAvgTemperature = true
