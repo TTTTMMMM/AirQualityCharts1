@@ -130,6 +130,7 @@ struct ShowAverageLineGraphsView: View {
             .animation(.linear(duration: 0.6), value: displayAvgHumidity)
             .animation(.linear(duration: 0.6), value: displayAvgECO2)
             .animation(.linear(duration: 0.6), value: displayAvgTVOC)
+            .animation(.linear(duration: 0.6), value: displayAvgPm03um)
             .animation(.linear(duration: 0.6), value: displayAvgPm100s)
             .animation(.linear(duration: 0.6), value: viewModel.combinedDailyXBar)
             .chartScrollableAxes(.horizontal)
