@@ -105,9 +105,8 @@ struct ShowAverageLineGraphsView: View {
                ) { mark in
                   if mark.index % 7 == 0 {
                      AxisValueLabel() {
-
                         if let dateString = mark.as(String.self) {
-                           Text(String(dateString.prefix(10)))
+                           Text(String(dateString.suffix(8).replacingOccurrences(of: "-", with: "")))
                         }
                      }
                      AxisGridLine()
