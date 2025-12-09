@@ -77,7 +77,7 @@ class ParticleCountsViewModel: ObservableObject {
          try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
          self.numberOfSamplesRetrieved = samples.count
          self.maxValues = computeMaxValues(samples: samples)
-         self.avgValues = await computeAvgValues(samples: samples, date: date, store_in_firebase: true)
+         self.avgValues = await computeAvgValues(samples: samples, date: date, store_in_firebase: false)
          await MainActor.run {
             self.pmMeasurements = samples
          }

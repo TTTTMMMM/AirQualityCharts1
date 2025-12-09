@@ -133,7 +133,7 @@ struct ShowAverageLineGraphsView: View {
             .animation(.linear(duration: 0.6), value: displayAvgPm100s)
             .animation(.linear(duration: 0.6), value: viewModel.combinedDailyXBar)
             .chartScrollableAxes(.horizontal)
-            .chartXVisibleDomain(length: min(viewModel.numberOfDaysRetrieved ?? 1825, 1825)) // 1825 = 365 days/yr * 5 yrs
+            .chartXVisibleDomain(length: min(viewModel.numberOfDaysRetrieved ?? 140, 140)) // 140 = 20 weeks
             .padding(12)
          }     // ZStack
       }        // GroupBox
