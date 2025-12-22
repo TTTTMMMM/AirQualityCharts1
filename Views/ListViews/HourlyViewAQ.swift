@@ -25,8 +25,8 @@ struct HourlyViewAQ: View {
             numberOfHoursDuration: $numberOfHoursDuration,
             charted: $charted,
             yearDataBegins: 2025,
-            monthDataBegins: 7,
-            dayDataBegins: 28)
+            monthDataBegins: 9,
+            dayDataBegins: 22)
       }
       .task {
          try? await viewModel.getFreebiesLeft()

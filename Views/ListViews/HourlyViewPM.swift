@@ -26,7 +26,7 @@ struct HourlyViewPM: View {
             charted: $charted,
             yearDataBegins: 2025,
             monthDataBegins: 9,
-            dayDataBegins: 15)
+            dayDataBegins: 22)
       }
       .task {
          try? await viewModel.getFreebiesLeft()

@@ -15,13 +15,13 @@ struct DailyViewPM: View {
    @State var left: Int? = 0
 
    var body: some View {
-      VStack (alignment: .center) {  // Data collection for Particulates begins 9/15/2025
+      VStack (alignment: .center) {  // Data collection for Particulates begins 9/22/2025
          DatePickerSectionView(
             selectedDate: $selectedDate,
             charted: $charted,
             yearDataBegins: 2025,
             monthDataBegins: 9,
-            dayDataBegins: 15)
+            dayDataBegins: 22)
       }
       .task {
          try? await viewModel.getFreebiesLeft()
