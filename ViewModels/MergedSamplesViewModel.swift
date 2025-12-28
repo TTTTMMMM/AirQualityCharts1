@@ -463,50 +463,85 @@ final class MergedSamplesViewModel: ObservableObject {
    }
       
    func mergeData() {
-      let sortedGas = roundSamplesToTenSecondsAQ(self.aqMeasurements)
-      let sortedPM = roundSamplesToTenSecondsPM(self.pmMeasurements)
+      let rounded10secAQ = roundSamplesToTenSecondsAQ(self.aqMeasurements)
+      let rounded10secPM = roundSamplesToTenSecondsPM(self.pmMeasurements)
       
       var merged: [CombinedReading] = []
-      var gasIdx = 0
+      var aqIdx = 0
       var pmIdx = 0
       
-      while gasIdx < sortedGas.count || pmIdx < sortedPM.count {
-         // Case A: Only Gas readings left
-         if pmIdx >= sortedPM.count {
-            let g = sortedGas[gasIdx]
-            merged.append(CombinedReading(dt: g.dt, aqId: g.id, tVOC: g.tVOC, eCO2: g.eCO2, humidity: g.humidity, temperature: g.temperature))
-            gasIdx += 1
+      while aqIdx < rounded10secAQ.count || pmIdx < rounded10secPM.count {
+         // Case A: Only AQ readings left
+         if pmIdx >= rounded10secPM.count {
+            let g = rounded10secAQ[aqIdx]
+            merged.append(
+               CombinedReading(
+                  dt: g.dt,
+                  aqId: g.id,
+                  tVOC: g.tVOC,
+                  eCO2: g.eCO2,
+                  humidity: g.humidity,
+                  temperature: g.temperature
+               ))
+            aqIdx += 1
             continue
          }
          
          // Case B: Only PM readings left
-         if gasIdx >= sortedGas.count {
-            let p = sortedPM[pmIdx]
-            merged.append(CombinedReading(dt: p.dt, pmId: p.id, pm03um: p.pm03um, pm100s: p.pm100s))
+         if aqIdx >= rounded10secAQ.count {
+            let p = rounded10secPM[pmIdx]
+            merged.append(
+               CombinedReading(
+                  dt: p.dt,
+                  pmId: p.id,
+                  pm03um: p.pm03um,
+                  pm100s: p.pm100s
+               ))
             pmIdx += 1
             continue
          }
          
-         let g = sortedGas[gasIdx]
-         let p = sortedPM[pmIdx]
+         let g = rounded10secAQ[aqIdx]
+         let p = rounded10secPM[pmIdx]
          let diff = abs(g.dt.timeIntervalSince(p.dt))
          
          if diff <= 5.0 {
             // Case C: Within 5 seconds - Combine them
-            merged.append(CombinedReading(
+            merged.append(
+               CombinedReading(
                dt: g.dt, // Use gas timestamp as anchor
-               aqId: g.id, tVOC: g.tVOC, eCO2: g.eCO2, humidity: g.humidity, temperature: g.temperature,
-               pmId: p.id, pm03um: p.pm03um, pm100s: p.pm100s
+               aqId: g.id,
+               tVOC: g.tVOC,
+               eCO2: g.eCO2,
+               humidity: g.humidity,
+               temperature: g.temperature,
+               pmId: p.id,
+               pm03um: p.pm03um,
+               pm100s: p.pm100s
             ))
-            gasIdx += 1
+            aqIdx += 1
             pmIdx += 1
          } else if g.dt < p.dt {
-            // Case D: Gas reading is earlier and not matched
-            merged.append(CombinedReading(dt: g.dt, aqId: g.id, tVOC: g.tVOC, eCO2: g.eCO2, humidity: g.humidity, temperature: g.temperature))
-            gasIdx += 1
+            // Case D: AQ reading is earlier and not matched
+            merged.append(
+               CombinedReading(
+                  dt: g.dt,
+                  aqId: g.id,
+                  tVOC: g.tVOC,
+                  eCO2: g.eCO2,
+                  humidity: g.humidity,
+                  temperature: g.temperature
+               ))
+            aqIdx += 1
          } else {
             // Case E: PM reading is earlier and not matched
-            merged.append(CombinedReading(dt: p.dt, pmId: p.id, pm03um: p.pm03um, pm100s: p.pm100s))
+            merged.append(
+               CombinedReading(
+                  dt: p.dt,
+                  pmId: p.id,
+                  pm03um: p.pm03um,
+                  pm100s: p.pm100s
+               ))
             pmIdx += 1
          }
       }
