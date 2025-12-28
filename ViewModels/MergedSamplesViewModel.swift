@@ -35,7 +35,10 @@ final class MergedSamplesViewModel: ObservableObject {
    @Published var avgValuesLastHourPM = AvgValuesPM()
    
    @Published var mergedData: [CombinedReading] = []
-   
+   @Published var maxValuesMerged = MaxValuesMerged()
+   @Published var avgValuesMerged = AvgValuesMerged()
+   @Published var maxValuesMergedLastHour = MaxValuesMerged()
+   @Published var avgValuesMergedLastHour = AvgValuesMerged()
    
    enum HoursDuration: String, CaseIterable {
       case one   = "1"
@@ -232,6 +235,14 @@ final class MergedSamplesViewModel: ObservableObject {
                }
                self?.avgValuesLastHourAQ = self?.computeLastHoursAveragesAQ() ?? AvgValuesAQ(scaledTVOC: 0, unbiasedScaledECO2: 0, temperature: 0, humidity: 0)
                self?.maxValuesLastHourAQ = self?.computeLastHoursMaximumsAQ() ?? MaxValuesAQ(scaledTVOC: 0, unbiasedScaledECO2: 0, temperature: 0.0, humidity: 0.0)
+               self?.avgValuesMerged = self?.deriveAvgValuesMerged(
+                  avgAQ: self?.avgValuesLastHourAQ ?? AvgValuesAQ(scaledTVOC: 0, unbiasedScaledECO2: 0, temperature: 0, humidity: 0),
+                  avgPM: self?.avgValuesLastHourPM ?? AvgValuesPM(pm03um: 0, pm10s: 0, pm25s: 0, pm100s: 0)
+               )
+               self?.maxValuesMerged = self?.deriveMaxValuesMerged(
+                  maxAQ: self?.maxValuesLastHourAQ ?? MaxValuesAQ(scaledTVOC: 0, unbiasedScaledECO2: 0, temperature: 0.0, humidity: 0.0),
+                  maxPM: self?.maxValuesLastHourPM ?? MaxValuesPM(pm03um: 0, pm10um: 0, pm25um: 0, pm100um: 0)
+               )
             }
             self?.mergeData()
          }
@@ -372,6 +383,30 @@ final class MergedSamplesViewModel: ObservableObject {
          }
       }
       return avgValuesPM
+   }
+   
+   func deriveAvgValuesMerged(avgAQ: AvgValuesAQ, avgPM: AvgValuesPM) -> AvgValuesMerged {
+      let avgM = AvgValuesMerged(
+         scaledTVOC: avgAQ.scaledTVOC,
+         unbiasedScaledECO2: avgAQ.unbiasedScaledECO2,
+         temperature: avgAQ.temperature,
+         humidity: avgAQ.humidity,
+         pm03um: avgPM.pm03um,
+         pm100s: avgPM.pm100s
+         )
+      return avgM
+   }
+   
+   func deriveMaxValuesMerged(maxAQ: MaxValuesAQ, maxPM: MaxValuesPM) -> MaxValuesMerged {
+      let maxM = MaxValuesMerged(
+         scaledTVOC: maxAQ.scaledTVOC,
+         unbiasedScaledECO2: maxAQ.unbiasedScaledECO2,
+         temperature: maxAQ.temperature,
+         humidity: maxAQ.humidity,
+         pm03um: maxPM.pm03um,
+         pm100s: maxPM.pm100s
+         )
+      return maxM
    }
 
    func computeLastHoursAveragesAQ() -> AvgValuesAQ {

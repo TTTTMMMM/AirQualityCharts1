@@ -163,9 +163,9 @@ struct ShowRealTimeLineGraphViewMerged: View {
             }
             VStack {        //average and maximums here, with dbl-tap to choose between the two
                if showingAverages {
-                  AverageViewAQ(avgValuesAQ: $viewModelMerged.avgValuesLastHourAQ, titleOfPanel: "Last Hour Averages")
+                  AverageViewMerged(avgValuesMerged: $viewModelMerged.avgValuesMergedLastHour, titleOfPanel: "Last Hour Averages")
                } else {
-                  MaxViewAQ(maxValuesAQ: $viewModelMerged.maxValuesLastHourAQ, titleOfPanel: "Last Hour Maximums")
+                  MaxViewMerged(maxValuesMerged: $viewModelMerged.maxValuesMergedLastHour, titleOfPanel: "Last Hour Maximums")
                }
             }
             .onTapGesture(count: 2) { // Detect double-tap

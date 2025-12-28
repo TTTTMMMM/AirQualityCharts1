@@ -16,6 +16,8 @@
 		044C57C52EFB5C8D00E582D3 /* CombinedReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044C57C42EFB5C8D00E582D3 /* CombinedReading.swift */; };
 		044C57C72EFF0C0000E582D3 /* MergedSamplesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044C57C62EFF0C0000E582D3 /* MergedSamplesViewModel.swift */; };
 		044C57C92F00BF7000E582D3 /* GraphPickerViewMerged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044C57C82F00BF7000E582D3 /* GraphPickerViewMerged.swift */; };
+		044C57CB2F01E01700E582D3 /* AverageViewMerged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044C57CA2F01E01700E582D3 /* AverageViewMerged.swift */; };
+		044C57CD2F01E11500E582D3 /* MaxViewAQMerged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044C57CC2F01E11500E582D3 /* MaxViewAQMerged.swift */; };
 		04B17F6F2E8F2AD50033F82C /* XBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B17F6E2E8F2AD50033F82C /* XBarView.swift */; };
 		04B17F712E8F2B480033F82C /* XBarAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B17F702E8F2B480033F82C /* XBarAQ.swift */; };
 		04B17F732E8F31DC0033F82C /* XBarPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B17F722E8F31DC0033F82C /* XBarPM.swift */; };
@@ -111,6 +113,8 @@
 		044C57C42EFB5C8D00E582D3 /* CombinedReading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedReading.swift; sourceTree = "<group>"; };
 		044C57C62EFF0C0000E582D3 /* MergedSamplesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergedSamplesViewModel.swift; sourceTree = "<group>"; };
 		044C57C82F00BF7000E582D3 /* GraphPickerViewMerged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphPickerViewMerged.swift; sourceTree = "<group>"; };
+		044C57CA2F01E01700E582D3 /* AverageViewMerged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AverageViewMerged.swift; sourceTree = "<group>"; };
+		044C57CC2F01E11500E582D3 /* MaxViewAQMerged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxViewAQMerged.swift; sourceTree = "<group>"; };
 		04B17F6E2E8F2AD50033F82C /* XBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XBarView.swift; sourceTree = "<group>"; };
 		04B17F702E8F2B480033F82C /* XBarAQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XBarAQ.swift; sourceTree = "<group>"; };
 		04B17F722E8F31DC0033F82C /* XBarPM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XBarPM.swift; sourceTree = "<group>"; };
@@ -451,8 +455,10 @@
 				04F738D52E78E2700054916A /* CircularTextViewIntLarge.swift */,
 				04F738C92E7378440054916A /* CircularTextViewDbl.swift */,
 				04F7389C2E7365610054916A /* AverageViewAQ.swift */,
+				044C57CA2F01E01700E582D3 /* AverageViewMerged.swift */,
 				04F738CF2E747FCF0054916A /* AverageViewPM.swift */,
 				04F738CB2E746F620054916A /* MaxViewAQ.swift */,
+				044C57CC2F01E11500E582D3 /* MaxViewAQMerged.swift */,
 				04F738CD2E747EAD0054916A /* MaxViewPM.swift */,
 			);
 			path = MiscViews;
@@ -631,8 +637,10 @@
 				04B17F7C2E907BC00033F82C /* AveragePickerView.swift in Sources */,
 				04EAE6872E6E597E00E151C0 /* HourlyViewPM.swift in Sources */,
 				04CCA4032DD5014700710E41 /* AuthenticationView.swift in Sources */,
+				044C57CD2F01E11500E582D3 /* MaxViewAQMerged.swift in Sources */,
 				04B17F712E8F2B480033F82C /* XBarAQ.swift in Sources */,
 				044C57C72EFF0C0000E582D3 /* MergedSamplesViewModel.swift in Sources */,
+				044C57CB2F01E01700E582D3 /* AverageViewMerged.swift in Sources */,
 				04B17F752E8F33250033F82C /* XBarViewModel.swift in Sources */,
 				04B17F7E2E907CAA0033F82C /* GraphPickerViewAvg.swift in Sources */,
 				04EAE6892E6E5AB700E151C0 /* ShowHourlyLineGraphsViewPM.swift in Sources */,

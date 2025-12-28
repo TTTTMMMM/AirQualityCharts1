@@ -21,11 +21,29 @@ struct AvgValuesAQ {
    var humidity: Int = 0
 }
 
+struct AvgValuesMerged {
+   var scaledTVOC: Int = 0
+   var unbiasedScaledECO2: Int = 0
+   var temperature: Int = 0
+   var humidity: Int = 0
+   var pm03um: Int = 0
+   var pm100s: Int = 0
+}
+
 struct MaxValuesAQ {
    var scaledTVOC: Int = 0
    var unbiasedScaledECO2: Int = 0
    var temperature: Double = 0.0
    var humidity: Double = 0.0
+}
+
+struct MaxValuesMerged {
+   var scaledTVOC: Int = 0
+   var unbiasedScaledECO2: Int = 0
+   var temperature: Double = 0.0
+   var humidity: Double = 0.0
+   var pm03um: Int = 0
+   var pm100s: Int = 0
 }
 
 enum MetricType {
