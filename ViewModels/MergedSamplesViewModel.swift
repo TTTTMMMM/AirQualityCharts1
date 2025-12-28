@@ -469,11 +469,14 @@ final class MergedSamplesViewModel: ObservableObject {
       var merged: [CombinedReading] = []
       var aqIdx = 0
       var pmIdx = 0
+      var g_old: AQSample = AQSample(id: 123456, tVOC: 0, dt: Date(),  eCO2: 0, humidity: 0.0, temperature: 0.0)
+      var p_old: PMSizes = PMSizes(id: 654321, dt: Date(), pm03um: 0, pm10s: 0, pm25s: 0, pm100s: 0)
       
       while aqIdx < rounded10secAQ.count || pmIdx < rounded10secPM.count {
          // Case A: Only AQ readings left
          if pmIdx >= rounded10secPM.count {
             let g = rounded10secAQ[aqIdx]
+            let p = rounded10secPM[pmIdx-1]  // previous sample carries forward
             merged.append(
                CombinedReading(
                   dt: g.dt,
@@ -481,7 +484,10 @@ final class MergedSamplesViewModel: ObservableObject {
                   tVOC: g.tVOC,
                   eCO2: g.eCO2,
                   humidity: g.humidity,
-                  temperature: g.temperature
+                  temperature: g.temperature,
+                  pmId: p.id,
+                  pm03um: p.pm03um,
+                  pm100s: p.pm100s
                ))
             aqIdx += 1
             continue
@@ -490,9 +496,15 @@ final class MergedSamplesViewModel: ObservableObject {
          // Case B: Only PM readings left
          if aqIdx >= rounded10secAQ.count {
             let p = rounded10secPM[pmIdx]
+            let g = rounded10secAQ[aqIdx-1]   // previous sample carries forward
             merged.append(
                CombinedReading(
-                  dt: p.dt,
+                  dt: g.dt,
+                  aqId: g.id,
+                  tVOC: g.tVOC,
+                  eCO2: g.eCO2,
+                  humidity: g.humidity,
+                  temperature: g.temperature,
                   pmId: p.id,
                   pm03um: p.pm03um,
                   pm100s: p.pm100s
@@ -521,6 +533,8 @@ final class MergedSamplesViewModel: ObservableObject {
             ))
             aqIdx += 1
             pmIdx += 1
+            g_old = g                 // will become previous sample
+            p_old = p                 // will become previous sample
          } else if g.dt < p.dt {
             // Case D: AQ reading is earlier and not matched
             merged.append(
@@ -530,7 +544,10 @@ final class MergedSamplesViewModel: ObservableObject {
                   tVOC: g.tVOC,
                   eCO2: g.eCO2,
                   humidity: g.humidity,
-                  temperature: g.temperature
+                  temperature: g.temperature,
+                  pmId: p_old.id,              // previous sample carries forward
+                  pm03um: p_old.pm03um,        // previous sample carries forward
+                  pm100s: p_old.pm100s         // previous sample carries forward
                ))
             aqIdx += 1
          } else {
@@ -538,6 +555,11 @@ final class MergedSamplesViewModel: ObservableObject {
             merged.append(
                CombinedReading(
                   dt: p.dt,
+                  aqId: g_old.id,                  // previous sample carries forward
+                  tVOC: g_old.tVOC,                // previous sample carries forward
+                  eCO2: g_old.eCO2,                // previous sample carries forward
+                  humidity: g_old.humidity,        // previous sample carries forward
+                  temperature: g_old.temperature,  // previous sample carries forward
                   pmId: p.id,
                   pm03um: p.pm03um,
                   pm100s: p.pm100s
