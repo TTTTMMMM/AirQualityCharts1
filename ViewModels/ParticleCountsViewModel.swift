@@ -133,6 +133,11 @@ class ParticleCountsViewModel: ObservableObject {
                      self?.lastSample = lastOne
                   }
                }
+               for (index, sample) in particleSizeCountsArray.enumerated() {
+                  if(index <= 10) {
+                     print("\(sample)")
+                  }
+               }
                // let's adjust the numFreebies left (+1 in the realCount
                // refers to the read of numFreebies from Firestore to
                // get the current count and then the read to verify after I subtract)

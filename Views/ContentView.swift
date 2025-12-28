@@ -27,8 +27,13 @@ struct ContentView: View {
                         textToDisplayOnListElement:
                            item.listDisplayText)
                   }
-                  if(item.ind == 3){
+                  if(item.ind == 3) {
                      Text("Particulate Matter")
+                        .foregroundStyle(.accent)
+                        .font(.system(size: 24))
+                  }
+                  if(item.ind == 6) {
+                     Text("Merged Data")
                         .foregroundStyle(.accent)
                         .font(.system(size: 24))
                   }

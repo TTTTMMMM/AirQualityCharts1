@@ -20,7 +20,7 @@ class AirQualityViewModel: ObservableObject {
    @Published var avgValues = AvgValuesAQ()
    @Published var maxValuesLastHour = MaxValuesAQ()
    @Published var avgValuesLastHour = AvgValuesAQ()
-
+   
    init() {
       Task {
          try? await self.getFreebiesLeft()
@@ -133,6 +133,11 @@ class AirQualityViewModel: ObservableObject {
                await MainActor.run {
                   if let lastOne = self?.aqMeasurements.last {
                      self?.lastSample = lastOne
+                  }
+               }
+               for (index, sample) in aqsArray.enumerated() {
+                  if(index <= 10) {
+                     print("\(sample)")
                   }
                }
                // let's adjust the numFreebies left (+1 in the realCount

@@ -16,13 +16,15 @@ let dailyAveragesView = ChartListViewModel(
    imageName: "x-bar",
    listDisplayText: "X꛱ Chart",
    chartView: AnyView(XBarView()))
+
 // Air Quality Samples
 let dailyViewAQ = ChartListViewModel(
    ind: 1,
    imageName: "Line-Graph",
    listDisplayText: "Daily",
    chartView: AnyView(DailyViewAQ()))
-let weeklyViewAQ = ChartListViewModel(
+   //   chartView: AnyView(DailyViewAQ1()))
+let hourlyViewAQ = ChartListViewModel(
    ind: 2,
    imageName: "bar-chart",
    listDisplayText: "Hourly",
@@ -39,7 +41,7 @@ let dailyViewPM = ChartListViewModel(
    imageName: "pm1",
    listDisplayText: "Daily",
    chartView: AnyView(DailyViewPM()))
-let weeklyViewPM = ChartListViewModel(
+let hourlyViewPM = ChartListViewModel(
    ind: 5,
    imageName: "pm2",
    listDisplayText: "Hourly",
@@ -50,5 +52,12 @@ let realtimeViewPM = ChartListViewModel(
    listDisplayText: "Real Time Listener",
    chartView: AnyView(RealTimeListenerViewPM()))
 
-let clvmArray: [ChartListViewModel] = [dailyAveragesView, dailyViewAQ, weeklyViewAQ, realtimeViewAQ, dailyViewPM, weeklyViewPM, realtimeViewPM]
+// Merged Samples
+let realtimeViewMerged = ChartListViewModel(
+   ind: 7,
+   imageName: "mergedImage",
+   listDisplayText: "Real Time Merged Listener",
+   chartView: AnyView(RealTimeListenerViewMerged()))
+
+let clvmArray: [ChartListViewModel] = [dailyAveragesView, dailyViewAQ, hourlyViewAQ, realtimeViewAQ, dailyViewPM, hourlyViewPM, realtimeViewPM, realtimeViewMerged]
 
