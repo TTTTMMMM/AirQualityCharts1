@@ -233,6 +233,7 @@ final class MergedSamplesViewModel: ObservableObject {
                self?.avgValuesLastHourAQ = self?.computeLastHoursAveragesAQ() ?? AvgValuesAQ(scaledTVOC: 0, unbiasedScaledECO2: 0, temperature: 0, humidity: 0)
                self?.maxValuesLastHourAQ = self?.computeLastHoursMaximumsAQ() ?? MaxValuesAQ(scaledTVOC: 0, unbiasedScaledECO2: 0, temperature: 0.0, humidity: 0.0)
             }
+            self?.mergeData()
          }
          // don't forget to store in cancellables, so we can remove listener when we're done
          .store(in: &cancellablesAQ)
@@ -262,7 +263,6 @@ final class MergedSamplesViewModel: ObservableObject {
                self?.avgValuesLastHourPM = self?.computeLastHoursAveragesPM() ?? AvgValuesPM(pm03um: 0, pm10s: 0, pm25s: 0, pm100s: 0)
                self?.maxValuesLastHourPM = self?.computeLastHoursMaximumsPM() ?? MaxValuesPM(pm03um: 0, pm10s: 0, pm25s: 0, pm100s: 0)
             }
-            self?.mergeData()
          }
       // don't forget to store in cancellables, so we can remove listener when we're done
          .store(in: &cancellablesPM)
@@ -471,12 +471,15 @@ final class MergedSamplesViewModel: ObservableObject {
       var pmIdx = 0
       var g_old: AQSample = AQSample(id: 123456, tVOC: 0, dt: Date(),  eCO2: 0, humidity: 0.0, temperature: 0.0)
       var p_old: PMSizes = PMSizes(id: 654321, dt: Date(), pm03um: 0, pm10s: 0, pm25s: 0, pm100s: 0)
+      var p = p_old
       
       while aqIdx < rounded10secAQ.count || pmIdx < rounded10secPM.count {
          // Case A: Only AQ readings left
          if pmIdx >= rounded10secPM.count {
             let g = rounded10secAQ[aqIdx]
-            let p = rounded10secPM[pmIdx-1]  // previous sample carries forward
+            if (rounded10secPM.count > 0) {
+               p = rounded10secPM[pmIdx-1]  // previous sample carries forward
+            }
             merged.append(
                CombinedReading(
                   dt: g.dt,
@@ -573,6 +576,11 @@ final class MergedSamplesViewModel: ObservableObject {
 //         let originalIndex = self.mergedData.count - lastTenElements.count + offset
 //         print("\(originalIndex): \(value)")
 //      }
-      self.mergedData = Array(merged.dropLast())
+//      self.mergedData = Array(merged.dropLast())
+      Task {
+         await MainActor.run {
+            self.mergedData = merged
+         }
+      }
    }
 }

@@ -12,7 +12,7 @@ struct RealTimeListenerViewMerged: View {
    @State var displayHumidity = true
    @State var displayECO2 = true
    @State var displayTVOC = true
-   @State var displayPM03um = true
+   @State var displayPM03um = false
    @State var displayPM100s = true
    @State var left: Int? = 0
    

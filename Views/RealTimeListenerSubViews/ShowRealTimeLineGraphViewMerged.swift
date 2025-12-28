@@ -221,17 +221,22 @@ extension ShowRealTimeLineGraphViewMerged {
       
       return
          VStack (alignment: .leading) {
-            if let ls = viewModelMerged.lastSampleAQ {
-               Text("Last Sample")
-                  .font(.subheadline)
-                  .foregroundStyle(.white)
-                  .frame(maxWidth: .infinity, alignment: .center)
-               Text(verbatim: "ID: \(ls.id)")
-               Text(verbatim: "Temperature: \(ls.temperature)°F")
-               Text(verbatim: "Humidity: \(ls.humidity)%")
-               Text(verbatim: "CO₂: \(ls.eCO2) -> \(ls.unBiasedECO2AndScaled)")
-               Text(verbatim: "TVOC: \(ls.tVOC) -> \(ls.scaledTVOC)")
-               Text("\(dateFormatter2.string(from: ls.dt))")
+            if let lsAQ = viewModelMerged.lastSampleAQ {
+               if let lsPM = viewModelMerged.lastSamplePM {
+                  Text("Last Sample")
+                     .font(.subheadline)
+                     .foregroundStyle(.white)
+                     .frame(maxWidth: .infinity, alignment: .center)
+                  Text(verbatim: "ID: \(lsAQ.id)")
+                  Text(verbatim: "Temperature: \(lsAQ.temperature)°F")
+                  Text(verbatim: "Humidity: \(lsAQ.humidity)%")
+                  Text(verbatim: "CO₂: \(lsAQ.eCO2) -> \(lsAQ.unBiasedECO2AndScaled)")
+                  Text(verbatim: "TVOC: \(lsAQ.tVOC) -> \(lsAQ.scaledTVOC)")
+                  Text(verbatim: "ID_PM: \(lsPM.id)")
+                  Text(verbatim: "# > 0.3µm: \(lsPM.pm03um)")
+                  Text(verbatim: "PM10: \(lsPM.pm100s)")
+                  Text("\(dateFormatter2.string(from: lsAQ.dt))")
+               }
             }
          }
          .font(.callout)
@@ -246,6 +251,7 @@ extension ShowRealTimeLineGraphViewMerged {
          .frame(width: 156)
          .transition(.opacity)
          .animation(.linear(duration: 0.6), value: viewModelMerged.lastSampleAQ)
+         .animation(.linear(duration: 0.6), value: viewModelMerged.lastSamplePM)
       }
 }
 
