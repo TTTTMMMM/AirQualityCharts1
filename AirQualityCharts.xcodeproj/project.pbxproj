@@ -15,6 +15,7 @@
 		044C57C32EF9E89D00E582D3 /* ShowRealTimeLineGraphViewMerged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044C57C22EF9E89D00E582D3 /* ShowRealTimeLineGraphViewMerged.swift */; };
 		044C57C52EFB5C8D00E582D3 /* CombinedReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044C57C42EFB5C8D00E582D3 /* CombinedReading.swift */; };
 		044C57C72EFF0C0000E582D3 /* MergedSamplesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044C57C62EFF0C0000E582D3 /* MergedSamplesViewModel.swift */; };
+		044C57C92F00BF7000E582D3 /* GraphPickerViewMerged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044C57C82F00BF7000E582D3 /* GraphPickerViewMerged.swift */; };
 		04B17F6F2E8F2AD50033F82C /* XBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B17F6E2E8F2AD50033F82C /* XBarView.swift */; };
 		04B17F712E8F2B480033F82C /* XBarAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B17F702E8F2B480033F82C /* XBarAQ.swift */; };
 		04B17F732E8F31DC0033F82C /* XBarPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B17F722E8F31DC0033F82C /* XBarPM.swift */; };
@@ -109,6 +110,7 @@
 		044C57C22EF9E89D00E582D3 /* ShowRealTimeLineGraphViewMerged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowRealTimeLineGraphViewMerged.swift; sourceTree = "<group>"; };
 		044C57C42EFB5C8D00E582D3 /* CombinedReading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedReading.swift; sourceTree = "<group>"; };
 		044C57C62EFF0C0000E582D3 /* MergedSamplesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergedSamplesViewModel.swift; sourceTree = "<group>"; };
+		044C57C82F00BF7000E582D3 /* GraphPickerViewMerged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphPickerViewMerged.swift; sourceTree = "<group>"; };
 		04B17F6E2E8F2AD50033F82C /* XBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XBarView.swift; sourceTree = "<group>"; };
 		04B17F702E8F2B480033F82C /* XBarAQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XBarAQ.swift; sourceTree = "<group>"; };
 		04B17F722E8F31DC0033F82C /* XBarPM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XBarPM.swift; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 			isa = PBXGroup;
 			children = (
 				04CCA42F2DDE54E800710E41 /* GraphPickerViewAQ.swift */,
+				044C57C82F00BF7000E582D3 /* GraphPickerViewMerged.swift */,
 				04EAE6582E6D002500E151C0 /* GraphPickerViewPM.swift */,
 				04CCA4312DDE5F8A00710E41 /* BackButtonView.swift */,
 				04CCA4332DDE622700710E41 /* DatePickerSectionView.swift */,
@@ -644,6 +647,7 @@
 				044C57C52EFB5C8D00E582D3 /* CombinedReading.swift in Sources */,
 				04B9FD932DDFA30E0036C731 /* CauseMenuViewModel.swift in Sources */,
 				04CCA3AA2DC27F7000710E41 /* HourlyViewAQ.swift in Sources */,
+				044C57C92F00BF7000E582D3 /* GraphPickerViewMerged.swift in Sources */,
 				04CCA4342DDE622700710E41 /* DatePickerSectionView.swift in Sources */,
 				04CCA40B2DD5264B00710E41 /* SettingsView.swift in Sources */,
 				0443B6A02DE15C650077675B /* Freebies.swift in Sources */,

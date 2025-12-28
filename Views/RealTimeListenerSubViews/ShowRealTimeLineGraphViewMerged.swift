@@ -265,12 +265,13 @@ extension ShowRealTimeLineGraphViewMerged {
                      .transition(.opacity)
                      .animation(.linear(duration: 0.6), value: viewModelMerged.dailyFreebiesLeft)
                }
-//               CauseMenuView()
-               GraphPickerViewAQ(
+               GraphPickerViewMerged(
                   displayTemperature: $displayTemperature,
                   displayHumidity: $displayHumidity,
                   displayECO2: $displayECO2,
-                  displayTVOC: $displayTVOC
+                  displayTVOC: $displayTVOC,
+                  displayPM03um: $displayPM03um,
+                  displayPM100s: $displayPM100s
                )
             }
             .padding(3)
