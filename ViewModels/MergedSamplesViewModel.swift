@@ -235,11 +235,11 @@ final class MergedSamplesViewModel: ObservableObject {
                }
                self?.avgValuesLastHourAQ = self?.computeLastHoursAveragesAQ() ?? AvgValuesAQ(scaledTVOC: 0, unbiasedScaledECO2: 0, temperature: 0, humidity: 0)
                self?.maxValuesLastHourAQ = self?.computeLastHoursMaximumsAQ() ?? MaxValuesAQ(scaledTVOC: 0, unbiasedScaledECO2: 0, temperature: 0.0, humidity: 0.0)
-               self?.avgValuesMerged = self?.deriveAvgValuesMerged(
+               self?.avgValuesMergedLastHour = self?.deriveAvgValuesMerged(
                   avgAQ: self?.avgValuesLastHourAQ ?? AvgValuesAQ(scaledTVOC: 0, unbiasedScaledECO2: 0, temperature: 0, humidity: 0),
                   avgPM: self?.avgValuesLastHourPM ?? AvgValuesPM(pm03um: 0, pm10s: 0, pm25s: 0, pm100s: 0)
                ) ?? AvgValuesMerged(scaledTVOC: 0, unbiasedScaledECO2: 0, temperature: 0, humidity: 0, pm03um: 0, pm100s: 0)
-               self?.maxValuesMerged = self?.deriveMaxValuesMerged(
+               self?.maxValuesMergedLastHour = self?.deriveMaxValuesMerged(
                   maxAQ: self?.maxValuesLastHourAQ ?? MaxValuesAQ(scaledTVOC: 0, unbiasedScaledECO2: 0, temperature: 0.0, humidity: 0.0),
                   maxPM: self?.maxValuesLastHourPM ?? MaxValuesPM(pm03um: 0, pm10s: 0, pm25s: 0, pm100s: 0)
                ) ?? MaxValuesMerged(scaledTVOC: 0, unbiasedScaledECO2: 0, temperature: 0.0, humidity: 0.0, pm03um: 0, pm100s: 0)

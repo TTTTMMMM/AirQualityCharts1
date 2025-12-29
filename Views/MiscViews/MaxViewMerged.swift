@@ -10,7 +10,7 @@ struct MaxViewMerged: View {
          RoundedRectangle(cornerRadius: 20)
             .stroke(Color.white, lineWidth: 1)
             .fill(Color.gray.opacity(0.1))     // A semi-transparent gray fill
-            .frame(width: 520, height: 200)
+            .frame(width: 640, height: 200)
             .shadow(color: .green.opacity(0.4), radius: 10, x: 5, y: 5)
          VStack() {
             Text(titleOfPanel)
@@ -44,7 +44,23 @@ struct MaxViewMerged: View {
                   topText: "TVOC",
                   intValue: maxValuesMerged.scaledTVOC,
                   circleColor: Color.red,
-                  sizeOfText: 40
+                  sizeOfText: 30
+               )
+               .padding(.top, 4)
+               CircularTextViewInt(
+                  metricType: .count,
+                  topText: "0.3 μm",
+                  intValue: maxValuesMerged.pm03um,
+                  circleColor: Color.mint,
+                  sizeOfText: 30
+               )
+               .padding(.top, 4)
+               CircularTextViewInt(
+                  metricType: .count,
+                  topText: "PM10",
+                  intValue: maxValuesMerged.pm100s,
+                  circleColor: Color.purple,
+                  sizeOfText: 30
                )
                .padding(.top, 4)
             }
@@ -55,8 +71,8 @@ struct MaxViewMerged: View {
 }
 
 #Preview {
-   @Previewable @StateObject var viewModel = AirQualityViewModel()
+   @Previewable @StateObject var viewModel = MergedSamplesViewModel()
    var titleOfPanel = "Maximums"
    
-   MaxViewAQ(maxValuesAQ: $viewModel.maxValues, titleOfPanel: titleOfPanel)
+   MaxViewMerged(maxValuesMerged: $viewModel.maxValuesMerged, titleOfPanel: titleOfPanel)
 }

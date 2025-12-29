@@ -36,10 +36,10 @@ struct CircularTextViewInt: View {
 
 #Preview {
 //   @Previewable @State var intValue = 176
-   var intValue = 176
-   var topText: String = "TVOC"
+   var intValue = 17667
+   var topText: String = "PM10"
    var circleColor: Color = .red
-   var sizeOfText : CGFloat = 60
+   var sizeOfText : CGFloat = 29
    
    CircularTextViewInt(metricType: .count, topText: topText, intValue: intValue, circleColor: circleColor, sizeOfText: sizeOfText)
 
