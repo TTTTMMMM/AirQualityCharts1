@@ -227,7 +227,7 @@ extension ShowRealTimeLineGraphViewMerged {
                      .font(.subheadline)
                      .foregroundStyle(.white)
                      .frame(maxWidth: .infinity, alignment: .center)
-                  Text(verbatim: "ID: \(lsAQ.id)")
+                  Text(verbatim: "ID_AQ: \(lsAQ.id)")
                   Text(verbatim: "Temperature: \(lsAQ.temperature)°F")
                   Text(verbatim: "Humidity: \(lsAQ.humidity)%")
                   Text(verbatim: "CO₂: \(lsAQ.eCO2) -> \(lsAQ.unBiasedECO2AndScaled)")
