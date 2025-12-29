@@ -13,13 +13,13 @@ struct CircularTextViewDbl: View {
          switch metricType {
             case .humidity:
                Text(String(format: "%.1f%%", dblValue))
-                  .font(.system(size: 25, weight: .bold, design: .default))
+                  .font(.system(size: 24, weight: .bold, design: .default))
             case .temperature:
                Text(String(format: "%.1f°", dblValue))
-                  .font(.system(size: 25, weight: .bold, design: .default))
+                  .font(.system(size: 24, weight: .bold, design: .default))
             case .count:
                Text(String(format: "%.1f", dblValue))
-                  .font(.system(size: 25, weight: .bold, design: .default))
+                  .font(.system(size: 24, weight: .bold, design: .default))
          }
       }
       .padding(25)

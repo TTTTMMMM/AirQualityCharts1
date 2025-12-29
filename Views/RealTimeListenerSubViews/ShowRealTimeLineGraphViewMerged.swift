@@ -173,7 +173,7 @@ struct ShowRealTimeLineGraphViewMerged: View {
                    showingAverages.toggle() // Toggle the state to switch views
                 }
             }
-            .offset(x: -65, y: 20)
+            .offset(x: -150, y: 10)
          }    // ZStack
       }       // GroupBox
       .onAppear {

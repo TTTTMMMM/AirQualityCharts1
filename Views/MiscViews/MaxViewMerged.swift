@@ -10,7 +10,7 @@ struct MaxViewMerged: View {
          RoundedRectangle(cornerRadius: 20)
             .stroke(Color.white, lineWidth: 1)
             .fill(Color.gray.opacity(0.1))     // A semi-transparent gray fill
-            .frame(width: 640, height: 200)
+            .frame(width: 690, height: 200)
             .shadow(color: .green.opacity(0.4), radius: 10, x: 5, y: 5)
          VStack() {
             Text(titleOfPanel)
@@ -36,7 +36,7 @@ struct MaxViewMerged: View {
                   topText: "CO₂",
                   intValue: maxValuesMerged.unbiasedScaledECO2,
                   circleColor: Color.blue,
-                  sizeOfText: 40
+                  sizeOfText: 29
                )
                .padding(.top, 4)
                CircularTextViewInt(
@@ -44,7 +44,7 @@ struct MaxViewMerged: View {
                   topText: "TVOC",
                   intValue: maxValuesMerged.scaledTVOC,
                   circleColor: Color.red,
-                  sizeOfText: 30
+                  sizeOfText: 29
                )
                .padding(.top, 4)
                CircularTextViewInt(
@@ -52,7 +52,7 @@ struct MaxViewMerged: View {
                   topText: "0.3 μm",
                   intValue: maxValuesMerged.pm03um,
                   circleColor: Color.mint,
-                  sizeOfText: 30
+                  sizeOfText: 29
                )
                .padding(.top, 4)
                CircularTextViewInt(
@@ -60,7 +60,7 @@ struct MaxViewMerged: View {
                   topText: "PM10",
                   intValue: maxValuesMerged.pm100s,
                   circleColor: Color.purple,
-                  sizeOfText: 30
+                  sizeOfText: 29
                )
                .padding(.top, 4)
             }

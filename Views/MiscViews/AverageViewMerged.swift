@@ -10,7 +10,7 @@ struct AverageViewMerged: View {
          RoundedRectangle(cornerRadius: 20)
             .stroke(Color.white, lineWidth: 1)
             .fill(Color.gray.opacity(0.1))     // A semi-transparent gray fill
-            .frame(width: 650, height: 200)
+            .frame(width: 710, height: 190)
             .shadow(color: .green.opacity(0.4), radius: 10, x: 5, y: 5)
          VStack() {
             Text(titleOfPanel)
@@ -22,7 +22,7 @@ struct AverageViewMerged: View {
                   topText: "Temp",
                   intValue: avgValuesMerged.temperature,
                   circleColor: Color.green,
-                  sizeOfText: 48
+                  sizeOfText: 29
                )
                .padding(.top, 4)
                CircularTextViewInt(
@@ -30,7 +30,7 @@ struct AverageViewMerged: View {
                   topText: "Humidity",
                   intValue: avgValuesMerged.humidity,
                   circleColor: Color.yellow,
-                  sizeOfText: 48
+                  sizeOfText: 29
                )
                .padding(.top, 4)
                CircularTextViewInt(
@@ -38,7 +38,7 @@ struct AverageViewMerged: View {
                   topText: "CO₂",
                   intValue: avgValuesMerged.unbiasedScaledECO2,
                   circleColor: Color.blue,
-                  sizeOfText: 50
+                  sizeOfText: 29
                )
                .padding(.top, 4)
                CircularTextViewInt(
@@ -46,7 +46,7 @@ struct AverageViewMerged: View {
                   topText: "TVOC",
                   intValue: avgValuesMerged.scaledTVOC,
                   circleColor: Color.red,
-                  sizeOfText: 50
+                  sizeOfText: 29
                )
                .padding(.top, 4)
                CircularTextViewInt(
@@ -54,7 +54,7 @@ struct AverageViewMerged: View {
                   topText: "0.3 μm",
                   intValue: avgValuesMerged.pm03um,
                   circleColor: Color.mint,
-                  sizeOfText: 50
+                  sizeOfText: 29
                )
                .padding(.top, 4)
                CircularTextViewInt(
@@ -62,7 +62,7 @@ struct AverageViewMerged: View {
                   topText: "PM10",
                   intValue: avgValuesMerged.pm100s,
                   circleColor: Color.purple,
-                  sizeOfText: 50
+                  sizeOfText: 29
                )
                .padding(.top, 4)
             }
