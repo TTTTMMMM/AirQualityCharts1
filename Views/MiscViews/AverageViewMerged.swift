@@ -75,6 +75,6 @@ struct AverageViewMerged: View {
 #Preview {
    @Previewable @StateObject var viewModel = MergedSamplesViewModel()
    var titleOfPanel = "Average"
-
+   
    AverageViewMerged(avgValuesMerged: $viewModel.avgValuesMerged, titleOfPanel: titleOfPanel)
 }

@@ -144,8 +144,8 @@ struct ShowHourlyLineGraphsViewMerged: View {
                }
                .offset(x: -65, y: 20)
             } // ZStack
-      }
-   }       // GroupBox
+         }    // else
+      }       // GroupBox
       .task {
          do {
             isLoading = true
@@ -188,4 +188,4 @@ struct ShowHourlyLineGraphsViewMerged: View {
       displayPM100s: $displayPM100s
    )
 }
-   
+

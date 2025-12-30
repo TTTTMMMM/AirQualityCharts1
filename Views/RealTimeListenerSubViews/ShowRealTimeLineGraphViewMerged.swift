@@ -2,32 +2,32 @@ import SwiftUI
 import Charts
 
 func getRoundedDateTwoHoursAgo1() -> Date {
-    let now = Date()
-    let twoHoursAgo = now.addingTimeInterval(-2 * 60 * 60) // Subtract 2 hours (in seconds)
-
-    let calendar = Calendar.current
-    let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: twoHoursAgo)
-
-    guard let hour = components.hour, let minute = components.minute else {
-        return twoHoursAgo // Fallback if components are not available
-    }
-
-    // Calculate total minutes from the beginning of the day for rounding
-    let totalMinutes = hour * 60 + minute
-
-    // Determine the nearest 15-minute interval
-    let roundedMinutes = Int(round(Double(totalMinutes) / 15.0)) * 15
-
-    // Reconstruct the date with the rounded minutes
-    var newComponents = DateComponents()
-    newComponents.year = components.year
-    newComponents.month = components.month
-    newComponents.day = components.day
-    newComponents.hour = roundedMinutes / 60
-    newComponents.minute = roundedMinutes % 60
-    newComponents.second = 0 // Set seconds to 0 for consistent rounding
-
-    return calendar.date(from: newComponents) ?? twoHoursAgo // Fallback if date cannot be created
+   let now = Date()
+   let twoHoursAgo = now.addingTimeInterval(-2 * 60 * 60) // Subtract 2 hours (in seconds)
+   
+   let calendar = Calendar.current
+   let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: twoHoursAgo)
+   
+   guard let hour = components.hour, let minute = components.minute else {
+      return twoHoursAgo // Fallback if components are not available
+   }
+   
+   // Calculate total minutes from the beginning of the day for rounding
+   let totalMinutes = hour * 60 + minute
+   
+   // Determine the nearest 15-minute interval
+   let roundedMinutes = Int(round(Double(totalMinutes) / 15.0)) * 15
+   
+   // Reconstruct the date with the rounded minutes
+   var newComponents = DateComponents()
+   newComponents.year = components.year
+   newComponents.month = components.month
+   newComponents.day = components.day
+   newComponents.hour = roundedMinutes / 60
+   newComponents.minute = roundedMinutes % 60
+   newComponents.second = 0 // Set seconds to 0 for consistent rounding
+   
+   return calendar.date(from: newComponents) ?? twoHoursAgo // Fallback if date cannot be created
 }
 
 struct ShowRealTimeLineGraphViewMerged: View {
@@ -169,9 +169,9 @@ struct ShowRealTimeLineGraphViewMerged: View {
                }
             }
             .onTapGesture(count: 2) { // Detect double-tap
-                withAnimation {       // Optional: Animate the view transition
-                   showingAverages.toggle() // Toggle the state to switch views
-                }
+               withAnimation {       // Optional: Animate the view transition
+                  showingAverages.toggle() // Toggle the state to switch views
+               }
             }
             .offset(x: -150, y: 10)
          }    // ZStack
@@ -193,7 +193,7 @@ struct ShowRealTimeLineGraphViewMerged: View {
 }
 
 #Preview {
-
+   
    @Previewable @State var displayTemperature = true
    @Previewable @State var displayHumidity = true
    @Previewable @State var displayECO2 = true
@@ -220,39 +220,39 @@ extension ShowRealTimeLineGraphViewMerged {
       }
       
       return
-         VStack (alignment: .leading) {
-            if let lsAQ = viewModelMerged.lastSampleAQ {
-               if let lsPM = viewModelMerged.lastSamplePM {
-                  Text("Last Sample")
-                     .font(.subheadline)
-                     .foregroundStyle(.white)
-                     .frame(maxWidth: .infinity, alignment: .center)
-                  Text(verbatim: "ID_AQ: \(lsAQ.id)")
-                  Text(verbatim: "Temperature: \(lsAQ.temperature)° F")
-                  Text(verbatim: "Humidity: \(lsAQ.humidity)%")
-                  Text(verbatim: "CO₂: \(lsAQ.eCO2) -> \(lsAQ.unBiasedECO2AndScaled)")
-                  Text(verbatim: "TVOC: \(lsAQ.tVOC) -> \(lsAQ.scaledTVOC)")
-                  Text(verbatim: "ID_PM: \(lsPM.id)")
-                  Text(verbatim: "# > 0.3µm: \(lsPM.pm03um)")
-                  Text(verbatim: "PM10: \(lsPM.pm100s)")
-                  Text("\(dateFormatter2.string(from: lsAQ.dt))")
-               }
+      VStack (alignment: .leading) {
+         if let lsAQ = viewModelMerged.lastSampleAQ {
+            if let lsPM = viewModelMerged.lastSamplePM {
+               Text("Last Sample")
+                  .font(.subheadline)
+                  .foregroundStyle(.white)
+                  .frame(maxWidth: .infinity, alignment: .center)
+               Text(verbatim: "ID_AQ: \(lsAQ.id)")
+               Text(verbatim: "Temperature: \(lsAQ.temperature)° F")
+               Text(verbatim: "Humidity: \(lsAQ.humidity)%")
+               Text(verbatim: "CO₂: \(lsAQ.eCO2) -> \(lsAQ.unBiasedECO2AndScaled)")
+               Text(verbatim: "TVOC: \(lsAQ.tVOC) -> \(lsAQ.scaledTVOC)")
+               Text(verbatim: "ID_PM: \(lsPM.id)")
+               Text(verbatim: "# > 0.3µm: \(lsPM.pm03um)")
+               Text(verbatim: "PM10: \(lsPM.pm100s)")
+               Text("\(dateFormatter2.string(from: lsAQ.dt))")
             }
          }
-         .font(.callout)
-         .foregroundStyle(.white)
-         .padding(6)
-         .background(Color.gray.opacity(0.1))
-         .clipShape(RoundedRectangle(cornerRadius: 10))
-         .overlay(
-            RoundedRectangle(cornerRadius: 6)
-               .stroke(.black, lineWidth: 1)
-         )
-         .frame(width: 156)
-         .transition(.opacity)
-         .animation(.linear(duration: 0.6), value: viewModelMerged.lastSampleAQ)
-         .animation(.linear(duration: 0.6), value: viewModelMerged.lastSamplePM)
       }
+      .font(.callout)
+      .foregroundStyle(.white)
+      .padding(6)
+      .background(Color.gray.opacity(0.1))
+      .clipShape(RoundedRectangle(cornerRadius: 10))
+      .overlay(
+         RoundedRectangle(cornerRadius: 6)
+            .stroke(.black, lineWidth: 1)
+      )
+      .frame(width: 156)
+      .transition(.opacity)
+      .animation(.linear(duration: 0.6), value: viewModelMerged.lastSampleAQ)
+      .animation(.linear(duration: 0.6), value: viewModelMerged.lastSamplePM)
+   }
 }
 
 extension ShowRealTimeLineGraphViewMerged {
@@ -260,35 +260,35 @@ extension ShowRealTimeLineGraphViewMerged {
    func causeAndGraphPickerView2() -> some View {
       
       return
-         HStack (alignment: .top) {
-            LastSampleView()
-               .padding(.top, 14)
-            VStack(alignment: .leading, spacing: 10) {
-               if let dfl = viewModelMerged.dailyFreebiesLeft {
-                  Text("Freebies Left: \(dfl)")
-                     .font(.caption2)
-                     .padding(4)
-                     .transition(.opacity)
-                     .animation(.linear(duration: 0.6), value: viewModelMerged.dailyFreebiesLeft)
-               }
-               GraphPickerViewMerged(
-                  displayTemperature: $displayTemperature,
-                  displayHumidity: $displayHumidity,
-                  displayECO2: $displayECO2,
-                  displayTVOC: $displayTVOC,
-                  displayPM03um: $displayPM03um,
-                  displayPM100s: $displayPM100s
-               )
-            }
-            .padding(3)
-            .background(Color.gray.opacity(0.1))
-            .clipShape(RoundedRectangle(cornerRadius: 10))
-            .overlay(
-               RoundedRectangle(cornerRadius: 6)
-                  .stroke(.black, lineWidth: 1)
-            )
+      HStack (alignment: .top) {
+         LastSampleView()
             .padding(.top, 14)
+         VStack(alignment: .leading, spacing: 10) {
+            if let dfl = viewModelMerged.dailyFreebiesLeft {
+               Text("Freebies Left: \(dfl)")
+                  .font(.caption2)
+                  .padding(4)
+                  .transition(.opacity)
+                  .animation(.linear(duration: 0.6), value: viewModelMerged.dailyFreebiesLeft)
+            }
+            GraphPickerViewMerged(
+               displayTemperature: $displayTemperature,
+               displayHumidity: $displayHumidity,
+               displayECO2: $displayECO2,
+               displayTVOC: $displayTVOC,
+               displayPM03um: $displayPM03um,
+               displayPM100s: $displayPM100s
+            )
          }
+         .padding(3)
+         .background(Color.gray.opacity(0.1))
+         .clipShape(RoundedRectangle(cornerRadius: 10))
+         .overlay(
+            RoundedRectangle(cornerRadius: 6)
+               .stroke(.black, lineWidth: 1)
+         )
+         .padding(.top, 14)
+      }
    }
 }
 

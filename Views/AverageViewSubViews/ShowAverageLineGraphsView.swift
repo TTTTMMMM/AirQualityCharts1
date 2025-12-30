@@ -13,7 +13,7 @@ struct ShowAverageLineGraphsView: View {
    @Binding var displayAvgTVOC: Bool
    @Binding var displayAvgPm03um: Bool
    @Binding var displayAvgPm100s: Bool
-
+   
    @State private var showingAverages = true
    @State var isLoading: Bool = true
    
@@ -116,12 +116,12 @@ struct ShowAverageLineGraphsView: View {
             .chartLegend(position: .top, alignment: .leading, spacing: 8)
             .chartForegroundStyleScale(
                [
-               "temperature": Color.green,
-               "humidity": Color.yellow,
-               "CO₂": Color.blue,
-               "tVOC": Color.red,
-               "PM 0.3 μm": Color.mint,
-               "PM 10.0s": Color.purple
+                  "temperature": Color.green,
+                  "humidity": Color.yellow,
+                  "CO₂": Color.blue,
+                  "tVOC": Color.red,
+                  "PM 0.3 μm": Color.mint,
+                  "PM 10.0s": Color.purple
                ]
             )
             .transition(.opacity)
@@ -164,7 +164,7 @@ struct ShowAverageLineGraphsView: View {
    @Previewable @State var displayTVOC = true
    @Previewable @State var displayPm03um = true
    @Previewable @State var displayPm100s = true
-
+   
    ShowAverageLineGraphsView(
       selectedDate: $fourteenDaysAgo,
       endDate: $endDate,

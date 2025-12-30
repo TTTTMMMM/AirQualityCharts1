@@ -8,8 +8,8 @@ struct CircularTextViewDbl: View {
    
    var body: some View {
       VStack {
-          Text(topText)
-              .font(.headline)
+         Text(topText)
+            .font(.headline)
          switch metricType {
             case .humidity:
                Text(String(format: "%.1f%%", dblValue))
@@ -24,11 +24,11 @@ struct CircularTextViewDbl: View {
       }
       .padding(25)
       .background(
-          Circle()
-              .fill(circleColor.opacity(0.8))
-              .stroke(Color.black, lineWidth: 4)
+         Circle()
+            .fill(circleColor.opacity(0.8))
+            .stroke(Color.black, lineWidth: 4)
       )
-  }
+   }
 }
 
 #Preview {
@@ -37,5 +37,5 @@ struct CircularTextViewDbl: View {
    var circleColor: Color = .green
    
    CircularTextViewDbl(metricType: .temperature, topText: topText, dblValue: dblValue, circleColor: circleColor)
-
+   
 }

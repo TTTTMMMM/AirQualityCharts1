@@ -19,7 +19,7 @@ struct HourlyViewMerged: View {
    @State var displayPM03um = false
    @State var displayPM100s = true
    @State var left: Int? = 0
-
+   
    var body: some View {
       VStack (alignment: .center) {
          HourlyPickerSectionView(

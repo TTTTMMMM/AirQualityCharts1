@@ -51,7 +51,7 @@ final class MergedSamplesViewModel: ObservableObject {
    //-------------------------//
    // Methods Below           //
    //-------------------------//
-
+   
    init() {
       Task {
          try? await self.getFreebiesLeft()
@@ -136,9 +136,9 @@ final class MergedSamplesViewModel: ObservableObject {
          date: date
       ) {
          try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
-            self.numberOfSamplesRetrievedAQ = samples.count
-            self.maxValuesAQ = computeMaxValuesAQ(samples: samples)
-            self.avgValuesAQ = await computeAvgValuesAQ(samples: samples, date: date, store_in_firebase: false)
+         self.numberOfSamplesRetrievedAQ = samples.count
+         self.maxValuesAQ = computeMaxValuesAQ(samples: samples)
+         self.avgValuesAQ = await computeAvgValuesAQ(samples: samples, date: date, store_in_firebase: false)
          await MainActor.run {
             self.aqMeasurements = samples
          }
@@ -181,7 +181,7 @@ final class MergedSamplesViewModel: ObservableObject {
                   maxPM: self.maxValuesPM
                )
             }
-
+            
          }
       }
    }
@@ -200,7 +200,7 @@ final class MergedSamplesViewModel: ObservableObject {
          }
       }
    }
-
+   
    func getFreebiesLeft() async throws {
       // Get the current number of free samples left from firestore database
       if let freebies = try? await DataManager.shared.getNumFreebies() {
@@ -223,7 +223,7 @@ final class MergedSamplesViewModel: ObservableObject {
          }
       }
    }
-
+   
    func addListenerForAQSamples()  {
       DataManager.shared.addListenerForAirQualitySamples()
          .sink { completion in
@@ -258,7 +258,7 @@ final class MergedSamplesViewModel: ObservableObject {
             }
             self?.mergeData()
          }
-         // don't forget to store in cancellables, so we can remove listener when we're done
+      // don't forget to store in cancellables, so we can remove listener when we're done
          .store(in: &cancellablesAQ)
    }
    
@@ -293,12 +293,12 @@ final class MergedSamplesViewModel: ObservableObject {
    
    func cancelCombineSubscriptionsAQ()  {
       cancellablesAQ.removeAll()
-      }
+   }
    
    func cancelCombineSubscriptionsPM()  {
       cancellablesPM.removeAll()
    }
-
+   
    func computeMaxValuesAQ(samples: [AQSample]) -> MaxValuesAQ {
       return MaxValuesAQ(
          scaledTVOC: samples.map { Int($0.scaledTVOC)}.max() ?? 0,
@@ -316,7 +316,7 @@ final class MergedSamplesViewModel: ObservableObject {
          pm100s: samples.map { $0.pm100s }.max() ?? 0
       )
    }
-
+   
    func computeAvgValuesAQ(samples: [AQSample], date: Date, store_in_firebase: Bool = false) async -> AvgValuesAQ {
       let avgValuesAQ = AvgValuesAQ(
          scaledTVOC: Int(Double(samples.map { $0.scaledTVOC}.reduce(0, +)) / Double(samples.count).rounded()),
@@ -350,13 +350,13 @@ final class MergedSamplesViewModel: ObservableObject {
                humidity: avgValuesAQ.humidity,
                temperature: avgValuesAQ.temperature,
                count: count
-           )
+            )
             try? await DataManager.shared.storeDailyAverageAQ(firebaseID: dateString, avgData: data)
          }
       }
       return avgValuesAQ
    }
-
+   
    func computeAvgValuesPM(samples: [PMSizes], date: Date, store_in_firebase: Bool = false) async -> AvgValuesPM {
       let avgValuesPM = AvgValuesPM(
          pm03um: Int(Double(samples.map { $0.pm03um }.reduce(0, +)) / Double(samples.count).rounded()),
@@ -380,7 +380,7 @@ final class MergedSamplesViewModel: ObservableObject {
             let hashString = hash.compactMap { String(format: "%02x", $0) }.joined()
             let index = hashString.index(hashString.startIndex, offsetBy: 11)
             let truncHash = String(hashString.prefix(upTo: index))
-
+            
             let data = XBarPM(
                id: truncHash,
                dt: startOfDay,
@@ -390,7 +390,7 @@ final class MergedSamplesViewModel: ObservableObject {
                pm10s: avgValuesPM.pm10s,
                pm25s: avgValuesPM.pm25s,
                count: count
-           )
+            )
             try? await DataManager.shared.createDailyAveragePM(firebaseID: dateString, avgData: data)
          }
       }
@@ -405,7 +405,7 @@ final class MergedSamplesViewModel: ObservableObject {
          humidity: avgAQ.humidity,
          pm03um: avgPM.pm03um,
          pm100s: avgPM.pm100s
-         )
+      )
       return avgM
    }
    
@@ -417,15 +417,15 @@ final class MergedSamplesViewModel: ObservableObject {
          humidity: maxAQ.humidity,
          pm03um: maxPM.pm03um,
          pm100s: maxPM.pm100s
-         )
+      )
       return maxM
    }
-
+   
    func computeLastHoursAveragesAQ() -> AvgValuesAQ {
       // 360 (6 samples/min* 60 min/hour) points contains the last hour of samples if sampling occurs every 10 seconds for 1 hour
       let startIndex = max(0, aqMeasurements.count - 360)
       let relevantPoints = aqMeasurements[startIndex..<aqMeasurements.count]
-
+      
       return AvgValuesAQ(
          scaledTVOC: Int(Double(relevantPoints.map { $0.scaledTVOC}.reduce(0, +)) / Double(relevantPoints.count).rounded()),
          unbiasedScaledECO2: Int(Double(relevantPoints.map { $0.unBiasedECO2AndScaled}.reduce(0, +)) / Double(relevantPoints.count).rounded()),
@@ -433,7 +433,7 @@ final class MergedSamplesViewModel: ObservableObject {
          humidity: Int(relevantPoints.map { $0.humidity }.reduce(0.0, +) / Double(relevantPoints.count).rounded())
       )
    }
-
+   
    func computeLastHoursAveragesPM() -> AvgValuesPM {
       // 360 (6 samples/min* 60 min/hour) points contains the last hour of samples if sampling occurs every 10 seconds for 1 hour
       let startIndex = max(0, pmMeasurements.count - 360)
@@ -446,12 +446,12 @@ final class MergedSamplesViewModel: ObservableObject {
          pm100s: Int(Double(relevantPoints.map { $0.pm100s }.reduce(0, +)) / Double(relevantPoints.count).rounded())
       )
    }
-
+   
    func computeLastHoursMaximumsAQ() -> MaxValuesAQ {
       // 360 (6 samples/min* 60 min/hour) points contains the last hour of samples if sampling occurs every 10 seconds for 1 hour
       let startIndex = max(0, aqMeasurements.count - 360)
       let relevantPoints = aqMeasurements[startIndex..<aqMeasurements.count]
-
+      
       return MaxValuesAQ(
          scaledTVOC: relevantPoints.map { Int($0.scaledTVOC)}.max() ?? 0,
          unbiasedScaledECO2: relevantPoints.map { Int($0.unBiasedECO2AndScaled)}.max() ?? 0,
@@ -459,12 +459,12 @@ final class MergedSamplesViewModel: ObservableObject {
          humidity: relevantPoints.map { $0.humidity }.max() ?? 0.0
       )
    }
-
+   
    func computeLastHoursMaximumsPM() -> MaxValuesPM {
       // 360 (6 samples/min* 60 min/hour) points contains the last hour of samples if sampling occurs every 10 seconds for 1 hour
       let startIndex = max(0, pmMeasurements.count - 360)
       let relevantPoints = pmMeasurements[startIndex..<pmMeasurements.count]
-
+      
       return MaxValuesPM(
          pm03um: relevantPoints.map { Int($0.pm03um)}.max() ?? 0,
          pm10s: relevantPoints.map { Int($0.pm10s)}.max() ?? 0,
@@ -472,43 +472,43 @@ final class MergedSamplesViewModel: ObservableObject {
          pm100s: relevantPoints.map { $0.pm100s }.max() ?? 0
       )
    }
-
+   
    private func roundSamplesToTenSecondsAQ(_ samples: [AQSample]) -> [AQSample] {
-       return samples.map { sample in
-           // 1. Get the raw seconds value
-           let timeInterval = sample.dt.timeIntervalSinceReferenceDate
-           
-           // 2. Round to the nearest 10 (divide by 10, round, then multiply back)
-           let roundedInterval = (timeInterval / 10.0).rounded(.toNearestOrAwayFromZero) * 10.0
-           
-           // 3. Create a new Date object from the rounded interval
-           let roundedDate = Date(timeIntervalSinceReferenceDate: roundedInterval)
-           
-           // 4. Return a copy of the sample with the updated 'dt' field
-           var updatedSample = sample
-           updatedSample.dt = roundedDate
-           return updatedSample
-       }
+      return samples.map { sample in
+         // 1. Get the raw seconds value
+         let timeInterval = sample.dt.timeIntervalSinceReferenceDate
+         
+         // 2. Round to the nearest 10 (divide by 10, round, then multiply back)
+         let roundedInterval = (timeInterval / 10.0).rounded(.toNearestOrAwayFromZero) * 10.0
+         
+         // 3. Create a new Date object from the rounded interval
+         let roundedDate = Date(timeIntervalSinceReferenceDate: roundedInterval)
+         
+         // 4. Return a copy of the sample with the updated 'dt' field
+         var updatedSample = sample
+         updatedSample.dt = roundedDate
+         return updatedSample
+      }
    }
    
    private func roundSamplesToTenSecondsPM(_ samples: [PMSizes]) -> [PMSizes] {
-       return samples.map { sample in
-           // 1. Get the raw seconds value
-           let timeInterval = sample.dt.timeIntervalSinceReferenceDate
-           
-           // 2. Round to the nearest 10 (divide by 10, round, then multiply back)
-           let roundedInterval = (timeInterval / 10.0).rounded(.toNearestOrAwayFromZero) * 10.0
-           
-           // 3. Create a new Date object from the rounded interval
-           let roundedDate = Date(timeIntervalSinceReferenceDate: roundedInterval)
-           
-           // 4. Return a copy of the sample with the updated 'dt' field
-           var updatedSample = sample
-           updatedSample.dt = roundedDate
-           return updatedSample
-       }
+      return samples.map { sample in
+         // 1. Get the raw seconds value
+         let timeInterval = sample.dt.timeIntervalSinceReferenceDate
+         
+         // 2. Round to the nearest 10 (divide by 10, round, then multiply back)
+         let roundedInterval = (timeInterval / 10.0).rounded(.toNearestOrAwayFromZero) * 10.0
+         
+         // 3. Create a new Date object from the rounded interval
+         let roundedDate = Date(timeIntervalSinceReferenceDate: roundedInterval)
+         
+         // 4. Return a copy of the sample with the updated 'dt' field
+         var updatedSample = sample
+         updatedSample.dt = roundedDate
+         return updatedSample
+      }
    }
-      
+   
    func mergeData() {
       let rounded10secAQ = roundSamplesToTenSecondsAQ(self.aqMeasurements)
       let rounded10secPM = roundSamplesToTenSecondsPM(self.pmMeasurements)
@@ -544,7 +544,7 @@ final class MergedSamplesViewModel: ObservableObject {
             pm100s: 0
          )
       }
-
+      
       var p = p_old
       var g = g_old
       
@@ -601,16 +601,16 @@ final class MergedSamplesViewModel: ObservableObject {
             // Case C: Within 5 seconds - Combine them
             merged.append(
                CombinedReading(
-               dt: g.dt, // Use gas timestamp as anchor
-               aqId: g.id,
-               tVOC: g.tVOC,
-               eCO2: g.eCO2,
-               humidity: g.humidity,
-               temperature: g.temperature,
-               pmId: p.id,
-               pm03um: p.pm03um,
-               pm100s: p.pm100s
-            ))
+                  dt: g.dt, // Use gas timestamp as anchor
+                  aqId: g.id,
+                  tVOC: g.tVOC,
+                  eCO2: g.eCO2,
+                  humidity: g.humidity,
+                  temperature: g.temperature,
+                  pmId: p.id,
+                  pm03um: p.pm03um,
+                  pm100s: p.pm100s
+               ))
             aqIdx += 1
             pmIdx += 1
             g_old = g                 // will become previous sample
@@ -647,18 +647,18 @@ final class MergedSamplesViewModel: ObservableObject {
             pmIdx += 1
          }
       }
-//      print("\n******* Merged Data (first 5 of \(merged.count)) ********")
-//      let firstFiveElements = merged.prefix(5)
-//      for (offset, value) in firstFiveElements.enumerated() {
-//         let originalIndex = merged.count - firstFiveElements.count + offset
-//         print("\(originalIndex): \(value)")
-//      }
-//      print("\n-\n******* Merged Data (last 5 of \(merged.count)) ********")
-//      let lastTenElements = merged.suffix(5)
-//      for (offset, value) in lastTenElements.enumerated() {
-//         let originalIndex = merged.count - lastTenElements.count + offset
-//         print("\(originalIndex): \(value)")
-//      }
+      //      print("\n******* Merged Data (first 5 of \(merged.count)) ********")
+      //      let firstFiveElements = merged.prefix(5)
+      //      for (offset, value) in firstFiveElements.enumerated() {
+      //         let originalIndex = merged.count - firstFiveElements.count + offset
+      //         print("\(originalIndex): \(value)")
+      //      }
+      //      print("\n-\n******* Merged Data (last 5 of \(merged.count)) ********")
+      //      let lastTenElements = merged.suffix(5)
+      //      for (offset, value) in lastTenElements.enumerated() {
+      //         let originalIndex = merged.count - lastTenElements.count + offset
+      //         print("\(originalIndex): \(value)")
+      //      }
       Task {
          await MainActor.run {
             self.mergedData = merged

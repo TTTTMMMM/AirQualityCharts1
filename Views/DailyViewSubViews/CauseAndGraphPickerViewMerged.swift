@@ -9,7 +9,7 @@ struct CauseAndGraphPickerViewMerged: View {
    @Binding var displayPM03um: Bool
    @Binding var displayPM100s: Bool
    @Binding var numLeft: Int?
-      
+   
    var body: some View {
       HStack (alignment: .top) {
          VStack(alignment: .leading, spacing: 10) {
@@ -29,13 +29,13 @@ struct CauseAndGraphPickerViewMerged: View {
          .background(Color.gray.opacity(0.1))
          .clipShape(RoundedRectangle(cornerRadius: 10))
          .overlay(
-             RoundedRectangle(cornerRadius: 6)
-                 .stroke(.black, lineWidth: 1)
+            RoundedRectangle(cornerRadius: 6)
+               .stroke(.black, lineWidth: 1)
          )
          .padding(.top, 44)
          .padding(.trailing, 45)
       }
-
+      
    }
 }
 
