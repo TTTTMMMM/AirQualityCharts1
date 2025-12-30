@@ -16,7 +16,7 @@ final class MergedSamplesViewModel: ObservableObject {
    private  var cancellablesAQ = Set<AnyCancellable>()
    private var prevCountOfAQSamples: Int = 0
    @Published var lastSampleAQ: AQSample? = nil
-   @Published var numberOfSamplesRetrieved: Int? = 0
+   @Published var numberOfSamplesRetrievedAQ: Int? = 0
    @Published var maxValuesAQ = MaxValuesAQ()
    @Published var avgValuesAQ = AvgValuesAQ()
    @Published var maxValuesLastHourAQ = MaxValuesAQ()
@@ -136,7 +136,7 @@ final class MergedSamplesViewModel: ObservableObject {
          date: date
       ) {
          try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
-            self.numberOfSamplesRetrieved = samples.count
+            self.numberOfSamplesRetrievedAQ = samples.count
             self.maxValuesAQ = computeMaxValuesAQ(samples: samples)
             self.avgValuesAQ = await computeAvgValuesAQ(samples: samples, date: date, store_in_firebase: false)
          await MainActor.run {
@@ -150,7 +150,7 @@ final class MergedSamplesViewModel: ObservableObject {
          date: date
       ) {
          try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
-         self.numberOfSamplesRetrieved = samples.count
+         self.numberOfSamplesRetrievedAQ = samples.count
          self.maxValuesPM = computeMaxValuesPM(samples: samples)
          self.avgValuesPM = await computeAvgValuesPM(samples: samples, date: date, store_in_firebase: false)
          await MainActor.run {
@@ -164,12 +164,26 @@ final class MergedSamplesViewModel: ObservableObject {
          date: date,
          numberOfHours: numberOfHours
       ) {
-         try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
-            self.numberOfSamplesRetrieved = samples.count
+         self.aqMeasurements = samples
+         if(samples.count > 0) {
+            print("Got AQ samples")
+            self.mergeData()
+            print("Finished mergeData()")
+            try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
+            self.numberOfSamplesRetrievedAQ = samples.count
             self.maxValuesAQ = computeMaxValuesAQ(samples: samples)
             self.avgValuesAQ = await computeAvgValuesAQ(samples: samples, date: date, store_in_firebase: false)
-         await MainActor.run {
-            self.aqMeasurements = samples
+            await MainActor.run {
+               self.avgValuesMerged = self.deriveAvgValuesMerged(
+                  avgAQ: self.avgValuesAQ,
+                  avgPM: self.avgValuesPM
+               )
+               self.maxValuesMerged = self.deriveMaxValuesMerged(
+                  maxAQ: self.maxValuesAQ,
+                  maxPM: self.maxValuesPM
+               )
+            }
+
          }
       }
    }
@@ -179,12 +193,13 @@ final class MergedSamplesViewModel: ObservableObject {
          date: date,
          numberOfHours: numberOfHours
       ) {
-         try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
-         self.numberOfSamplesRetrieved = samples.count
-         self.maxValuesPM = computeMaxValuesPM(samples: samples)
-         self.avgValuesPM = await computeAvgValuesPM(samples: samples, date: date, store_in_firebase: false)
-         await MainActor.run {
-            self.pmMeasurements = samples
+         self.pmMeasurements = samples
+         if(samples.count > 0) {
+            print("Got PM samples")
+            try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
+            self.numberOfSamplesRetrievedPM = samples.count
+            self.maxValuesPM = computeMaxValuesPM(samples: samples)
+            self.avgValuesPM = await computeAvgValuesPM(samples: samples, date: date, store_in_firebase: false)
          }
       }
    }
@@ -504,9 +519,26 @@ final class MergedSamplesViewModel: ObservableObject {
       var merged: [CombinedReading] = []
       var aqIdx = 0
       var pmIdx = 0
-      var g_old: AQSample = AQSample(id: 123456, tVOC: 0, dt: Date(),  eCO2: 0, humidity: 0.0, temperature: 0.0)
-      var p_old: PMSizes = PMSizes(id: 654321, dt: Date(), pm03um: 0, pm10s: 0, pm25s: 0, pm100s: 0)
+//      var g_old: AQSample = AQSample(id: 123456, tVOC: 0, dt: Date(),  eCO2: 0, humidity: 0.0, temperature: 0.0)
+      var g_old: AQSample = AQSample(
+         id: rounded10secAQ[0].id,
+         tVOC: rounded10secAQ[0].tVOC,
+         dt: rounded10secAQ[0].dt,
+         eCO2: rounded10secAQ[0].eCO2,
+         humidity: rounded10secAQ[0].humidity,
+         temperature: rounded10secAQ[0].temperature
+      )
+//      var p_old: PMSizes = PMSizes(id: 654321, dt: Date(), pm03um: 0, pm10s: 0, pm25s: 0, pm100s: 0)
+      var p_old: PMSizes = PMSizes(
+         id: rounded10secPM[0].id,
+         dt: rounded10secPM[0].dt,
+         pm03um: rounded10secPM[0].pm03um,
+         pm10s: rounded10secPM[0].pm10s,
+         pm25s: rounded10secPM[0].pm25s,
+         pm100s: rounded10secPM[0].pm100s
+      )
       var p = p_old
+      var g = g_old
       
       while aqIdx < rounded10secAQ.count || pmIdx < rounded10secPM.count {
          // Case A: Only AQ readings left
@@ -534,10 +566,12 @@ final class MergedSamplesViewModel: ObservableObject {
          // Case B: Only PM readings left
          if aqIdx >= rounded10secAQ.count {
             let p = rounded10secPM[pmIdx]
-            let g = rounded10secAQ[aqIdx-1]   // previous sample carries forward
+            if (rounded10secAQ.count > 0) {
+               g = rounded10secAQ[aqIdx-1]   // previous sample carries forward
+            }
             merged.append(
                CombinedReading(
-                  dt: g.dt,
+                  dt: p.dt,
                   aqId: g.id,
                   tVOC: g.tVOC,
                   eCO2: g.eCO2,
@@ -605,16 +639,21 @@ final class MergedSamplesViewModel: ObservableObject {
             pmIdx += 1
          }
       }
-//      print("\n******* Merged Data (last 10) ********")
-//      let lastTenElements = self.mergedData.suffix(10)
-//      for (offset, value) in lastTenElements.enumerated() {
-//         let originalIndex = self.mergedData.count - lastTenElements.count + offset
-//         print("\(originalIndex): \(value)")
-//      }
-//      self.mergedData = Array(merged.dropLast())
+      print("\n******* Merged Data (first 5 of \(merged.count)) ********")
+      let firstFiveElements = merged.prefix(5)
+      for (offset, value) in firstFiveElements.enumerated() {
+         let originalIndex = merged.count - firstFiveElements.count + offset
+         print("\(originalIndex): \(value)")
+      }
+      print("\n-\n******* Merged Data (last 5 of \(merged.count)) ********")
+      let lastTenElements = merged.suffix(5)
+      for (offset, value) in lastTenElements.enumerated() {
+         let originalIndex = merged.count - lastTenElements.count + offset
+         print("\(originalIndex): \(value)")
+      }
       Task {
          await MainActor.run {
-            self.mergedData = merged
+            self.mergedData = Array(merged.dropFirst())
          }
       }
    }
