@@ -12,12 +12,12 @@ struct HourlyViewMerged: View {
       to: Date())!  // defaults to starting one hour back from current time
    @State var numberOfHoursDuration: String = "1"
    @State var charted = false
-   @State var displayTemperature = false
-   @State var displayHumidity = false
-   @State var displayECO2 = false
-   @State var displayTVOC = false
+   @State var displayTemperature = true
+   @State var displayHumidity = true
+   @State var displayECO2 = true
+   @State var displayTVOC = true
    @State var displayPM03um = false
-   @State var displayPM100s = false
+   @State var displayPM100s = true
    @State var left: Int? = 0
 
    var body: some View {
@@ -72,12 +72,6 @@ extension HourlyViewMerged {
          BackButtonView(charted: $charted),
          alignment: .topLeading)
       .onDisappear {
-         displayTemperature = false
-         displayHumidity = false
-         displayECO2 = false
-         displayTVOC = false
-         displayPM03um = false
-         displayPM100s = false
          Task {
             try await viewModelMerged.getFreebiesLeft()
             await MainActor.run {

@@ -47,13 +47,20 @@ struct MaxViewMerged: View {
                   sizeOfText: 29
                )
                .padding(.top, 4)
-               CircularTextViewInt(
+               CircularTextViewIntLarge(
                   metricType: .count,
                   topText: "0.3 μm",
                   intValue: maxValuesMerged.pm03um,
                   circleColor: Color.mint,
                   sizeOfText: 29
                )
+//               CircularTextViewInt(
+//                  metricType: .count,
+//                  topText: "0.3 μm",
+//                  intValue: maxValuesMerged.pm03um,
+//                  circleColor: Color.mint,
+//                  sizeOfText: 29
+//               )
                .padding(.top, 4)
                CircularTextViewInt(
                   metricType: .count,

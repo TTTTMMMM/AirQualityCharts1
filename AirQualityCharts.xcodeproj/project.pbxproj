@@ -19,7 +19,6 @@
 		044C57CB2F01E01700E582D3 /* AverageViewMerged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044C57CA2F01E01700E582D3 /* AverageViewMerged.swift */; };
 		044C57CD2F01E11500E582D3 /* MaxViewMerged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044C57CC2F01E11500E582D3 /* MaxViewMerged.swift */; };
 		044C57D22F02F17300E582D3 /* HourlyViewMerged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044C57D12F02F17300E582D3 /* HourlyViewMerged.swift */; };
-		044C57D42F02F25800E582D3 /* ShowHourlyLineGraphsViewMerged_1.txt in Sources */ = {isa = PBXBuildFile; fileRef = 044C57D32F02F25800E582D3 /* ShowHourlyLineGraphsViewMerged_1.txt */; };
 		044C57D62F03174200E582D3 /* CauseAndGraphPickerViewMerged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044C57D52F03174200E582D3 /* CauseAndGraphPickerViewMerged.swift */; };
 		044C57D82F0379E600E582D3 /* ShowHourlyLineGraphsViewMerged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044C57D72F0379E600E582D3 /* ShowHourlyLineGraphsViewMerged.swift */; };
 		04B17F6F2E8F2AD50033F82C /* XBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B17F6E2E8F2AD50033F82C /* XBarView.swift */; };
@@ -120,7 +119,6 @@
 		044C57CA2F01E01700E582D3 /* AverageViewMerged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AverageViewMerged.swift; sourceTree = "<group>"; };
 		044C57CC2F01E11500E582D3 /* MaxViewMerged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxViewMerged.swift; sourceTree = "<group>"; };
 		044C57D12F02F17300E582D3 /* HourlyViewMerged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyViewMerged.swift; sourceTree = "<group>"; };
-		044C57D32F02F25800E582D3 /* ShowHourlyLineGraphsViewMerged_1.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = ShowHourlyLineGraphsViewMerged_1.txt; sourceTree = "<group>"; };
 		044C57D52F03174200E582D3 /* CauseAndGraphPickerViewMerged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CauseAndGraphPickerViewMerged.swift; sourceTree = "<group>"; };
 		044C57D72F0379E600E582D3 /* ShowHourlyLineGraphsViewMerged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowHourlyLineGraphsViewMerged.swift; sourceTree = "<group>"; };
 		04B17F6E2E8F2AD50033F82C /* XBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XBarView.swift; sourceTree = "<group>"; };
@@ -314,7 +312,6 @@
 				04B9FDA52DE1014A0036C731 /* HourlyPickerSectionView.swift */,
 				04B9FDA72DE1050A0036C731 /* ShowHourlyLineGraphsViewAQ.swift */,
 				044C57D72F0379E600E582D3 /* ShowHourlyLineGraphsViewMerged.swift */,
-				044C57D32F02F25800E582D3 /* ShowHourlyLineGraphsViewMerged_1.txt */,
 				04EAE6882E6E5AB700E151C0 /* ShowHourlyLineGraphsViewPM.swift */,
 			);
 			path = HourlyViewSubViews;
@@ -688,7 +685,6 @@
 				04CCA3B82DC67B6B00710E41 /* AirQualityViewModel.swift in Sources */,
 				04CCA4362DDE6CBD00710E41 /* CauseAndGraphPickerViewAQ.swift in Sources */,
 				044C57C32EF9E89D00E582D3 /* ShowRealTimeLineGraphViewMerged.swift in Sources */,
-				044C57D42F02F25800E582D3 /* ShowHourlyLineGraphsViewMerged_1.txt in Sources */,
 				044C57D22F02F17300E582D3 /* HourlyViewMerged.swift in Sources */,
 				04EAE68B2E6F355B00E151C0 /* RealTimeListenerViewPM.swift in Sources */,
 				04F7389B2E7364550054916A /* SummaryModels.swift in Sources */,
