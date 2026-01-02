@@ -58,10 +58,26 @@ let realtimeViewMerged = ChartListViewModel(
    imageName: "mergedImage",
    listDisplayText: "Real Time Merged Listener",
    chartView: AnyView(RealTimeListenerViewMerged()))
-let hourlyViewMerged = ChartListViewModel(
+let dailyViewMerged = ChartListViewModel(
    ind: 8,
+   imageName: "pm1",
+   listDisplayText: "Daily",
+   chartView: AnyView(DailyViewMerged()))
+let hourlyViewMerged = ChartListViewModel(
+   ind: 9,
    imageName: "pm2",
    listDisplayText: "Hourly",
    chartView: AnyView(HourlyViewMerged()))
-let clvmArray: [ChartListViewModel] = [dailyAveragesView, dailyViewAQ, hourlyViewAQ, realtimeViewAQ, dailyViewPM, hourlyViewPM, realtimeViewPM, realtimeViewMerged, hourlyViewMerged]
+let clvmArray: [ChartListViewModel] = [
+   dailyAveragesView,
+   dailyViewAQ,
+   hourlyViewAQ,
+   realtimeViewAQ,
+   dailyViewPM,
+   hourlyViewPM,
+   realtimeViewPM,
+   realtimeViewMerged,
+   dailyViewMerged,
+   hourlyViewMerged
+]
 

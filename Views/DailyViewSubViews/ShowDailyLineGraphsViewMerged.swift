@@ -3,7 +3,7 @@ import Charts
 
 struct ShowDailyLineGraphsViewMerged: View {
    
-   @StateObject var viewModel = AirQualityViewModel()
+   @StateObject var viewModelMerged = MergedSamplesViewModel()
    
    @Binding var selectedDate: Date
    @Binding var displayTemperature: Bool
@@ -32,8 +32,8 @@ struct ShowDailyLineGraphsViewMerged: View {
          }
          ZStack {
             Chart {
-               ForEach (viewModel.aqMeasurements)  { measurement in
-                  if displayTemperature {
+               ForEach (viewModelMerged.mergedData)  { measurement in
+                  if (!isLoading && displayTemperature) {
                      LineMark(
                         x: .value("timestamp", measurement.timeString),
                         y: .value("temperature", measurement.temperature),
@@ -41,7 +41,7 @@ struct ShowDailyLineGraphsViewMerged: View {
                      )
                      .foregroundStyle(Color.green)
                   }
-                  if displayHumidity {
+                  if (!isLoading && displayHumidity) {
                      LineMark(
                         x: .value("timestamp", measurement.timeString),
                         y: .value("humidity", measurement.humidity),
@@ -49,7 +49,7 @@ struct ShowDailyLineGraphsViewMerged: View {
                      )
                      .foregroundStyle(Color.yellow)
                   }
-                  if displayECO2 {
+                  if (!isLoading && displayECO2) {
                      LineMark(
                         x: .value("timestamp", measurement.timeString),
                         y: .value("ECO2", measurement.unBiasedECO2AndScaled),
@@ -57,7 +57,7 @@ struct ShowDailyLineGraphsViewMerged: View {
                      )
                      .foregroundStyle(Color.blue)
                   }
-                  if displayTVOC {
+                  if (!isLoading && displayTVOC) {
                      LineMark(
                         x: .value("timestamp", measurement.timeString),
                         y: .value("TVOC", measurement.scaledTVOC),
@@ -65,9 +65,24 @@ struct ShowDailyLineGraphsViewMerged: View {
                      )
                      .foregroundStyle(Color.red)
                   }
+                  if (!isLoading && displayPM03um) {
+                     LineMark(
+                        x: .value("timestamp", measurement.timeString),
+                        y: .value("pm03um", measurement.pm03um),
+                        series: .value("scaledPM03um", "E")
+                     )
+                     .foregroundStyle(Color.mint)
+                  }
+                  if (!isLoading && displayPM100s) {
+                     LineMark(
+                        x: .value("timestamp", measurement.timeString),
+                        y: .value("pm100s", measurement.pm100s),
+                        series: .value("pm100s", "F")
+                     )
+                     .foregroundStyle(Color.purple)
+                  }
                }  // ForEach
             }     // Chart
-            //      }        // GroupBox
             .chartYAxis {
                AxisMarks(position: .leading) { value in
                   AxisGridLine()
@@ -93,7 +108,9 @@ struct ShowDailyLineGraphsViewMerged: View {
                ["Temperature": Color.accentColor,
                 "Humidity": Color.yellow,
                 "CO₂": Color.blue,
-                "tVOC": Color.red
+                "tVOC": Color.red,
+                "PM 0.3 μm": Color.mint,
+                "PM 10.0s": Color.purple
                ]
             )
             .transition(.opacity)
@@ -101,15 +118,17 @@ struct ShowDailyLineGraphsViewMerged: View {
             .animation(.linear(duration: 0.6), value: displayHumidity)
             .animation(.linear(duration: 0.6), value: displayECO2)
             .animation(.linear(duration: 0.6), value: displayTVOC)
-            .animation(.linear(duration: 0.6), value: viewModel.aqMeasurements)
+            .animation(.linear(duration: 0.6), value: displayPM03um)
+            .animation(.linear(duration: 0.6), value: displayPM100s)
+            .animation(.linear(duration: 0.6), value: viewModelMerged.aqMeasurements)
             .chartScrollableAxes(.horizontal)
-            .chartXVisibleDomain(length: min(viewModel.numberOfSamplesRetrieved ?? 1800, 1800))  // 1800 = 5 hours
+            .chartXVisibleDomain(length: min(viewModelMerged.numberOfSamplesRetrievedAQ ?? 2160, 2160))  // 2160 = 6 hours
             .padding(12)
             VStack {        //average and maximums here, with dbl-tap to choose between the two
                if showingAverages {
-                  AverageViewAQ(avgValuesAQ: $viewModel.avgValues, titleOfPanel: "Daily Averages")
+                  AverageViewMerged(avgValuesMerged: $viewModelMerged.avgValuesMerged, titleOfPanel: "Averages")
                } else {
-                  MaxViewAQ(maxValuesAQ: $viewModel.maxValues, titleOfPanel: "Daily Maximums")
+                  MaxViewMerged(maxValuesMerged: $viewModelMerged.maxValuesMerged, titleOfPanel: "Maximums")
                }
             }
             .onTapGesture(count: 2) { // Detect double-tap
@@ -123,7 +142,12 @@ struct ShowDailyLineGraphsViewMerged: View {
       .task {
          do {
             isLoading = true
-            try await viewModel.getOneDayOfSamples(date: selectedDate)
+            try await viewModelMerged.getOneDayOfSamplesPM(
+               date: selectedDate
+            )
+            try await viewModelMerged.getOneDayOfSamplesAQ(
+               date: selectedDate
+            )
             isLoading = false
          }
          catch {
@@ -140,12 +164,16 @@ struct ShowDailyLineGraphsViewMerged: View {
    @Previewable @State var displayHumidity = true
    @Previewable @State var displayECO2 = true
    @Previewable @State var displayTVOC = true
+   @Previewable @State var displayPM03um = true
+   @Previewable @State var displayPM100s = true
    
-   ShowDailyLineGraphsViewAQ(
+   ShowDailyLineGraphsViewMerged(
       selectedDate: $selectedDate,
       displayTemperature: $displayTemperature,
       displayHumidity: $displayHumidity,
       displayECO2: $displayECO2,
-      displayTVOC: $displayTVOC
+      displayTVOC: $displayTVOC,
+      displayPM03um: $displayPM03um,
+      displayPM100s: $displayPM100s
    )
 }

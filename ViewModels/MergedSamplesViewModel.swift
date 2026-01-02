@@ -135,12 +135,23 @@ final class MergedSamplesViewModel: ObservableObject {
       if let samples = try? await DataManager.shared.getSamplesByDate(
          date: date
       ) {
-         try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
-         self.numberOfSamplesRetrievedAQ = samples.count
-         self.maxValuesAQ = computeMaxValuesAQ(samples: samples)
-         self.avgValuesAQ = await computeAvgValuesAQ(samples: samples, date: date, store_in_firebase: false)
-         await MainActor.run {
-            self.aqMeasurements = samples
+         self.aqMeasurements = samples
+         if(samples.count > 0) {
+            self.mergeData()
+            try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
+            self.numberOfSamplesRetrievedAQ = samples.count
+            self.maxValuesAQ = computeMaxValuesAQ(samples: samples)
+            self.avgValuesAQ = await computeAvgValuesAQ(samples: samples, date: date, store_in_firebase: false)
+            await MainActor.run {
+               self.avgValuesMerged = self.deriveAvgValuesMerged(
+                  avgAQ: self.avgValuesAQ,
+                  avgPM: self.avgValuesPM
+               )
+               self.maxValuesMerged = self.deriveMaxValuesMerged(
+                  maxAQ: self.maxValuesAQ,
+                  maxPM: self.maxValuesPM
+               )
+            }
          }
       }
    }
@@ -150,7 +161,7 @@ final class MergedSamplesViewModel: ObservableObject {
          date: date
       ) {
          try? await self.subtractFreebliesLeft(numSamplesToRemove: samples.count)
-         self.numberOfSamplesRetrievedAQ = samples.count
+         self.numberOfSamplesRetrievedPM = samples.count
          self.maxValuesPM = computeMaxValuesPM(samples: samples)
          self.avgValuesPM = await computeAvgValuesPM(samples: samples, date: date, store_in_firebase: false)
          await MainActor.run {
@@ -181,7 +192,6 @@ final class MergedSamplesViewModel: ObservableObject {
                   maxPM: self.maxValuesPM
                )
             }
-            
          }
       }
    }

@@ -12,7 +12,7 @@ struct DailyViewMerged: View {
    @State var displayHumidity    = true
    @State var displayECO2        = true
    @State var displayTVOC        = true
-   @State var displayPM03um      = true
+   @State var displayPM03um      = false
    @State var displayPM100s      = true
    @State var left: Int? = 0
 
@@ -74,13 +74,21 @@ extension DailyViewMerged {
          }
       }
       .overlay(
-         CauseAndGraphPickerViewAQ(
-            displayTemperature: $displayTemperature,
-            displayHumidity: $displayHumidity,
-            displayECO2: $displayECO2,
-            displayTVOC: $displayTVOC,
-            numLeft: $left
-         ),
-         alignment: .topTrailing)
+         HStack {
+            Spacer()
+            VStack(alignment: .leading, spacing: 10) {
+               CauseAndGraphPickerViewMerged(
+                  displayTemperature: $displayTemperature,
+                  displayHumidity: $displayHumidity,
+                  displayECO2: $displayECO2,
+                  displayTVOC: $displayTVOC,
+                  displayPM03um: $displayPM03um,
+                  displayPM100s: $displayPM100s,
+                  numLeft: $left
+               )
+               Spacer()
+            }
+         }
+      )
    }
 }
