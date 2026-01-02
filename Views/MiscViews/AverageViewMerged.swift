@@ -10,7 +10,7 @@ struct AverageViewMerged: View {
          RoundedRectangle(cornerRadius: 20)
             .stroke(Color.white, lineWidth: 1)
             .fill(Color.gray.opacity(0.1))     // A semi-transparent gray fill
-            .frame(width: 690, height: 190)
+            .frame(width: 690, height: 182)
             .shadow(color: .green.opacity(0.4), radius: 10, x: 5, y: 5)
          VStack() {
             Text(titleOfPanel)

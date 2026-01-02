@@ -10,7 +10,7 @@ struct MaxViewMerged: View {
          RoundedRectangle(cornerRadius: 20)
             .stroke(Color.white, lineWidth: 1)
             .fill(Color.gray.opacity(0.1))     // A semi-transparent gray fill
-            .frame(width: 700, height: 180)
+            .frame(width: 707, height: 180)
             .shadow(color: .green.opacity(0.4), radius: 10, x: 5, y: 5)
          VStack() {
             Text(titleOfPanel)

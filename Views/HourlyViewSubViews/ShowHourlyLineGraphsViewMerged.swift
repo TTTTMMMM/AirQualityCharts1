@@ -35,11 +35,12 @@ struct ShowHourlyLineGraphsViewMerged: View {
          if(isLoading) {
             ProgressView()
                .scaleEffect(2)
-         } else {
+         }
+//         else {
             ZStack(alignment: .top) {
                Chart {
                   ForEach (viewModelMerged.mergedData)  { measurement in
-                     if displayTemperature {
+                     if (!isLoading && displayTemperature) {
                         LineMark(
                            x: .value("timestamp", measurement.timeString),
                            y: .value("temperature", measurement.temperature),
@@ -47,7 +48,7 @@ struct ShowHourlyLineGraphsViewMerged: View {
                         )
                         .foregroundStyle(Color.green)
                      }
-                     if displayHumidity {
+                     if (!isLoading && displayHumidity) {
                         LineMark(
                            x: .value("timestamp", measurement.timeString),
                            y: .value("humidity", measurement.humidity),
@@ -55,7 +56,7 @@ struct ShowHourlyLineGraphsViewMerged: View {
                         )
                         .foregroundStyle(Color.yellow)
                      }
-                     if displayECO2 {
+                     if (!isLoading && displayECO2) {
                         LineMark(
                            x: .value("timestamp", measurement.timeString),
                            y: .value("ECO2", measurement.unBiasedECO2AndScaled),
@@ -63,7 +64,7 @@ struct ShowHourlyLineGraphsViewMerged: View {
                         )
                         .foregroundStyle(Color.blue)
                      }
-                     if displayTVOC {
+                     if (!isLoading && displayTVOC) {
                         LineMark(
                            x: .value("timestamp", measurement.timeString),
                            y: .value("TVOC", measurement.scaledTVOC),
@@ -71,7 +72,7 @@ struct ShowHourlyLineGraphsViewMerged: View {
                         )
                         .foregroundStyle(Color.red)
                      }
-                     if displayPM03um {
+                     if (!isLoading && displayPM03um) {
                         LineMark(
                            x: .value("timestamp", measurement.timeString),
                            y: .value("pm03um", measurement.pm03um),
@@ -79,7 +80,7 @@ struct ShowHourlyLineGraphsViewMerged: View {
                         )
                         .foregroundStyle(Color.mint)
                      }
-                     if displayPM100s {
+                     if (!isLoading && displayPM100s) {
                         LineMark(
                            x: .value("timestamp", measurement.timeString),
                            y: .value("pm100s", measurement.pm100s),
@@ -144,7 +145,7 @@ struct ShowHourlyLineGraphsViewMerged: View {
                }
                .offset(x: -65, y: 20)
             } // ZStack
-         }    // else
+//         }    // else
       }       // GroupBox
       .task {
          do {
