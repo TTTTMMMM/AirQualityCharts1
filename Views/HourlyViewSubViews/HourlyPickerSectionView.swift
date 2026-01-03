@@ -2,7 +2,7 @@ import SwiftUI
 
 struct HourlyPickerSectionView: View {
    
-   @ObservedObject private var viewModel = AirQualityViewModel()
+   @ObservedObject private var viewModelMerged = MergedSamplesViewModel()
    @Binding var selectedDateHour: Date
    @Binding var numberOfHoursDuration: String
    @Binding var charted: Bool
@@ -35,7 +35,7 @@ struct HourlyPickerSectionView: View {
          )
          VStack {
             Menu("Number of hours: \(numberOfHoursDuration)") {
-               ForEach(AirQualityViewModel.HoursDuration.allCases, id: \.self) { hoursDuration in
+               ForEach(MergedSamplesViewModel.HoursDuration.allCases, id: \.self) { hoursDuration in
                   Button {
                      numberOfHoursDuration = hoursDuration.rawValue
                   } label: {

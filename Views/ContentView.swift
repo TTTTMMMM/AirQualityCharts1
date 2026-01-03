@@ -17,7 +17,7 @@ struct ContentView: View {
                   .font(.system(size: 24))
                ForEach (clvmArray) {item in
                   if(item.ind == 1) {
-                     Text("CO₂ and TVOC")
+                     Text("Merged Air Quality Data")
                         .foregroundStyle(.accent)
                         .font(.system(size: 24))
                   }
@@ -26,16 +26,6 @@ struct ContentView: View {
                         nameOfImage: item.imageName,
                         textToDisplayOnListElement:
                            item.listDisplayText)
-                  }
-                  if(item.ind == 3) {
-                     Text("Particulate Matter")
-                        .foregroundStyle(.accent)
-                        .font(.system(size: 24))
-                  }
-                  if(item.ind == 6) {
-                     Text("Merged Data")
-                        .foregroundStyle(.accent)
-                        .font(.system(size: 24))
                   }
                }
                .styleListElement()

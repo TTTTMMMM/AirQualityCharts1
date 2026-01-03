@@ -3,7 +3,6 @@ import SwiftUI
 struct BackButtonView: View {
    
    @Binding var charted: Bool
-   @StateObject var viewModel = AirQualityViewModel()
 
    var body: some View {
       Button(action: {

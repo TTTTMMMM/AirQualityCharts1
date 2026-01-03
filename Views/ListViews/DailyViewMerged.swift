@@ -5,7 +5,7 @@ import SwiftUI
 
 struct DailyViewMerged: View {
 
-   @StateObject var viewModel = AirQualityViewModel()
+   @StateObject var viewModelMerged = MergedSamplesViewModel()
    @State var selectedDate = Date()
    @State var charted = false
    @State var displayTemperature = true
@@ -17,7 +17,7 @@ struct DailyViewMerged: View {
    @State var left: Int? = 0
 
    var body: some View {
-      VStack (alignment: .center) {  // Data collection for CO2 and TVOC begins 9/22/2025
+      VStack (alignment: .center) {  // Data collection for CO2, TVOC, and PM begins 9/22/2025
          DatePickerSectionView(
             selectedDate: $selectedDate,
             charted: $charted,
@@ -26,9 +26,9 @@ struct DailyViewMerged: View {
             dayDataBegins: 22)
       }
       .task {
-         try? await viewModel.getFreebiesLeft()
+         try? await viewModelMerged.getFreebiesLeft()
          await MainActor.run {
-            self.left = viewModel.dailyFreebiesLeft
+            self.left = viewModelMerged.dailyFreebiesLeft
          }
       }
       Spacer()
@@ -67,9 +67,9 @@ extension DailyViewMerged {
          alignment: .topLeading)
       .onDisappear {
          Task {
-            try await viewModel.getFreebiesLeft()
+            try await viewModelMerged.getFreebiesLeft()
             await MainActor.run {
-               self.left = viewModel.dailyFreebiesLeft
+               self.left = viewModelMerged.dailyFreebiesLeft
             }
          }
       }
