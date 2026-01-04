@@ -30,6 +30,9 @@ struct ShowAverageLineGraphsView: View {
          return self.selectedEndDate
       }
    }
+    private var daysDifference: Int {
+      Calendar.current.dateComponents([.day], from: selectedBeginDate, to: dayBeforeSelectedEndDate).day ?? 0
+   }
    
    var body: some View {
       GroupBox {
@@ -40,100 +43,104 @@ struct ShowAverageLineGraphsView: View {
                .scaleEffect(2)
          }
          ZStack {
-            Chart {
-               ForEach (viewModel.combinedDailyXBar)  { computation in
-                  if displayAvgTemperature {
-                     LineMark(
-                        x: .value("timestamp", computation.id),
-                        y: .value("temperature", computation.temperature),
-                        series: .value("temperature", "A")
-                     )
-                     .foregroundStyle(Color.green)
-                  }
-                  if displayAvgHumidity {
-                     LineMark(
-                        x: .value("timestamp", computation.id),
-                        y: .value("humidity", computation.humidity),
-                        series: .value("humidity", "B")
-                     )
-                     .foregroundStyle(Color.yellow)
-                  }
-                  if displayAvgECO2 {
-                     LineMark(
-                        x: .value("timestamp", computation.id),
-                        y: .value("ECO2", computation.eCO2),
-                        series: .value("unBiasedECO2", "C")
-                     )
-                     .foregroundStyle(Color.blue)
-                  }
-                  if displayAvgTVOC {
-                     LineMark(
-                        x: .value("timestamp", computation.id),
-                        y: .value("TVOC", computation.tVOC),
-                        series: .value("tVOC", "D")
-                     )
-                     .foregroundStyle(Color.red)
-                  }
-                  if displayAvgPm03um {
-                     LineMark(
-                        x: .value("timestamp", computation.id),
-                        y: .value("PM03um", computation.pm03um),
-                        series: .value("PM 0.3um", "E")
-                     )
-                     .foregroundStyle(Color.mint)
-                  }
-                  if displayAvgPm100s {
-                     LineMark(
-                        x: .value("timestamp", computation.id),
-                        y: .value("PM100s", computation.pm100s),
-                        series: .value("PM100s", "F")
-                     )
-                     .foregroundStyle(Color.purple)
-                  }
-               }  // ForEach
-            }     // Chart
-            .chartYAxis {
-               AxisMarks(position: .leading) { value in
-                  AxisGridLine()
-                  AxisValueLabel()
-               }
-            }
-            .chartXAxis {
-               AxisMarks(  // label every 1 week
-                  values: .automatic(desiredCount: 7)
-               ) { mark in
-                  if mark.index % 7 == 0 {
-                     AxisValueLabel() {
-                        if let dateString = mark.as(String.self) {
-                           Text(String(dateString.suffix(8).replacingOccurrences(of: "-", with: "")))
-                        }
+            if daysDifference > 10 {
+               Chart {
+                  ForEach (viewModel.combinedDailyXBar)  { computation in
+                     if displayAvgTemperature {
+                        LineMark(
+                           x: .value("timestamp", computation.id),
+                           y: .value("temperature", computation.temperature),
+                           series: .value("temperature", "A")
+                        )
+                        .foregroundStyle(Color.green)
                      }
+                     if displayAvgHumidity {
+                        LineMark(
+                           x: .value("timestamp", computation.id),
+                           y: .value("humidity", computation.humidity),
+                           series: .value("humidity", "B")
+                        )
+                        .foregroundStyle(Color.yellow)
+                     }
+                     if displayAvgECO2 {
+                        LineMark(
+                           x: .value("timestamp", computation.id),
+                           y: .value("ECO2", computation.eCO2),
+                           series: .value("unBiasedECO2", "C")
+                        )
+                        .foregroundStyle(Color.blue)
+                     }
+                     if displayAvgTVOC {
+                        LineMark(
+                           x: .value("timestamp", computation.id),
+                           y: .value("TVOC", computation.tVOC),
+                           series: .value("tVOC", "D")
+                        )
+                        .foregroundStyle(Color.red)
+                     }
+                     if displayAvgPm03um {
+                        LineMark(
+                           x: .value("timestamp", computation.id),
+                           y: .value("PM03um", computation.pm03um),
+                           series: .value("PM 0.3um", "E")
+                        )
+                        .foregroundStyle(Color.mint)
+                     }
+                     if displayAvgPm100s {
+                        LineMark(
+                           x: .value("timestamp", computation.id),
+                           y: .value("PM100s", computation.pm100s),
+                           series: .value("PM100s", "F")
+                        )
+                        .foregroundStyle(Color.purple)
+                     }
+                  }  // ForEach
+               }     // Chart
+               .chartYAxis {
+                  AxisMarks(position: .leading) { value in
                      AxisGridLine()
+                     AxisValueLabel()
                   }
                }
+               .chartXAxis {
+                  AxisMarks(  // label every 1 week
+                     values: .automatic(desiredCount: 7)
+                  ) { mark in
+                     if mark.index % 7 == 0 {
+                        AxisValueLabel() {
+                           if let dateString = mark.as(String.self) {
+                              Text(String(dateString.suffix(8).replacingOccurrences(of: "-", with: "")))
+                           }
+                        }
+                        AxisGridLine()
+                     }
+                  }
+               }
+               .chartLegend(position: .top, alignment: .leading, spacing: 8)
+               .chartForegroundStyleScale(
+                  [
+                     "temperature": Color.green,
+                     "humidity": Color.yellow,
+                     "CO₂": Color.blue,
+                     "tVOC": Color.red,
+                     "PM 0.3 μm": Color.mint,
+                     "PM 10.0s": Color.purple
+                  ]
+               )
+               .transition(.opacity)
+               .animation(.linear(duration: 0.6), value: displayAvgTemperature)
+               .animation(.linear(duration: 0.6), value: displayAvgHumidity)
+               .animation(.linear(duration: 0.6), value: displayAvgECO2)
+               .animation(.linear(duration: 0.6), value: displayAvgTVOC)
+               .animation(.linear(duration: 0.6), value: displayAvgPm03um)
+               .animation(.linear(duration: 0.6), value: displayAvgPm100s)
+               .animation(.linear(duration: 0.6), value: viewModel.combinedDailyXBar)
+               .chartScrollableAxes(.horizontal)
+               .chartXVisibleDomain(length: min(viewModel.numberOfDaysRetrieved ?? 140, 140)) // 140 = 20 weeks
+               .padding(12)
+            } else {
+               Text("Days Difference is \(self.daysDifference)")
             }
-            .chartLegend(position: .top, alignment: .leading, spacing: 8)
-            .chartForegroundStyleScale(
-               [
-                  "temperature": Color.green,
-                  "humidity": Color.yellow,
-                  "CO₂": Color.blue,
-                  "tVOC": Color.red,
-                  "PM 0.3 μm": Color.mint,
-                  "PM 10.0s": Color.purple
-               ]
-            )
-            .transition(.opacity)
-            .animation(.linear(duration: 0.6), value: displayAvgTemperature)
-            .animation(.linear(duration: 0.6), value: displayAvgHumidity)
-            .animation(.linear(duration: 0.6), value: displayAvgECO2)
-            .animation(.linear(duration: 0.6), value: displayAvgTVOC)
-            .animation(.linear(duration: 0.6), value: displayAvgPm03um)
-            .animation(.linear(duration: 0.6), value: displayAvgPm100s)
-            .animation(.linear(duration: 0.6), value: viewModel.combinedDailyXBar)
-            .chartScrollableAxes(.horizontal)
-            .chartXVisibleDomain(length: min(viewModel.numberOfDaysRetrieved ?? 140, 140)) // 140 = 20 weeks
-            .padding(12)
          }     // ZStack
       }        // GroupBox
       .task {
