@@ -4,6 +4,7 @@ struct DatePickerSectionView: View {
    
    @Binding var selectedDate: Date
    @Binding var charted: Bool
+   var title: String
    var yearDataBegins: Int
    var monthDataBegins: Int
    var dayDataBegins: Int
@@ -25,36 +26,20 @@ struct DatePickerSectionView: View {
       return minimumDate...Date()
    }
    
-   private var dateFormatter: DateFormatter {
-      let dateFormatter = DateFormatter()
-      dateFormatter.dateFormat = "MMM dd, yyyy"
-      return dateFormatter
-   }
-   
    var body: some View {
-      HStack(alignment: .center, spacing: 20) {
-         DatePicker("",
-                    selection: $selectedDate,
-                    in: bounds,
-                    displayedComponents: [.date])
-         .datePickerStyle(
-            GraphicalDatePickerStyle()
-         )
-         Button(action: {
-            charted.toggle()
-         },
-                label: {
-            Text("Graph Data for\n \(self.dateFormatter.string(from: self.selectedDate))")
-               .font(.headline)
-               .foregroundStyle(.white)
-         })
-         .padding(10)
-         .font(.title)
-         .background(Color.accentColor)
-         .clipShape(RoundedRectangle(cornerRadius: 10))
-         .shadow(color: Color.black.opacity(0.9), radius: 10, x: 0, y: 5)
+      VStack {
+         Text(title)
+            .font(.headline)
+         HStack(alignment: .center, spacing: 1) {
+            DatePicker("",
+                       selection: $selectedDate,
+                       in: bounds,
+                       displayedComponents: [.date])
+            .datePickerStyle(
+               GraphicalDatePickerStyle()
+            )
+         }
       }
-      .padding(40)
    }
 }
 
@@ -63,6 +48,7 @@ struct DatePickerSectionView: View {
    DatePickerSectionView(
       selectedDate: $selectedDate,
       charted: .constant(true),
+      title: "Pick a Start Date",
       yearDataBegins: 2025,
       monthDataBegins: 9,
       dayDataBegins: 15)

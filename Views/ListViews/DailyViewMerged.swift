@@ -15,16 +15,39 @@ struct DailyViewMerged: View {
    @State var displayPM03um      = false
    @State var displayPM100s      = true
    @State var left: Int? = 0
+   
+   private var dateFormatter: DateFormatter {
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateFormat = "MMM dd, yyyy"
+      return dateFormatter
+   }
 
    var body: some View {
-      VStack (alignment: .center) {  // Data collection for CO2, TVOC, and PM begins 9/22/2025
-         DatePickerSectionView(
-            selectedDate: $selectedDate,
-            charted: $charted,
-            yearDataBegins: 2025,
-            monthDataBegins: 9,
-            dayDataBegins: 22)
+      HStack {
+         VStack (alignment: .center) {  // Data collection for CO2, TVOC, and PM begins 9/22/2025
+            DatePickerSectionView(
+               selectedDate: $selectedDate,
+               charted: $charted,
+               title: "",
+               yearDataBegins: 2025,
+               monthDataBegins: 9,
+               dayDataBegins: 22)
+         }
+         Button(action: {
+            charted.toggle()
+         },
+                label: {
+            Text("Graph Data for\n \(self.dateFormatter.string(from: self.selectedDate))")
+               .font(.headline)
+               .foregroundStyle(.white)
+         })
+         .padding(10)
+         .font(.title)
+         .background(Color.accentColor)
+         .clipShape(RoundedRectangle(cornerRadius: 10))
+         .shadow(color: Color.black.opacity(0.9), radius: 10, x: 0, y: 5)
       }
+      .padding(.trailing, 50)
       .task {
          try? await viewModelMerged.getFreebiesLeft()
          await MainActor.run {

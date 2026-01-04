@@ -5,8 +5,8 @@ struct ShowAverageLineGraphsView: View {
    
    @StateObject var viewModel = XBarViewModel()
    
-   @Binding var selectedDate: Date
-   @Binding var endDate: Date
+   @Binding var selectedBeginDate: Date
+   @Binding var selectedEndDate: Date
    @Binding var displayAvgTemperature: Bool
    @Binding var displayAvgHumidity: Bool
    @Binding var displayAvgECO2: Bool
@@ -23,17 +23,17 @@ struct ShowAverageLineGraphsView: View {
       return dateFormatter
    }
    
-   private var dayBeforeEndDate: Date {
-      if let db4 = Calendar.current.date(byAdding: .day, value: -1, to: self.endDate) {
+   private var dayBeforeSelectedEndDate: Date {
+      if let db4 = Calendar.current.date(byAdding: .day, value: -0, to: self.selectedEndDate) {
          return db4
       } else {
-         return self.endDate
+         return self.selectedEndDate
       }
    }
    
    var body: some View {
       GroupBox {
-         Text("Daily Averages: \(self.dateFormatter.string(from: self.selectedDate)) - \(self.dateFormatter.string(from: self.dayBeforeEndDate))")
+         Text("Daily Averages: \(self.dateFormatter.string(from: self.selectedBeginDate)) - \(self.dateFormatter.string(from: self.dayBeforeSelectedEndDate))")
             .font(.title2)
          if(isLoading) {
             ProgressView()
@@ -42,7 +42,6 @@ struct ShowAverageLineGraphsView: View {
          ZStack {
             Chart {
                ForEach (viewModel.combinedDailyXBar)  { computation in
-                  
                   if displayAvgTemperature {
                      LineMark(
                         x: .value("timestamp", computation.id),
@@ -140,7 +139,7 @@ struct ShowAverageLineGraphsView: View {
       .task {
          do {
             isLoading = true
-            let startOfDay_Start = Calendar.current.startOfDay(for: selectedDate)
+            let startOfDay_Start = Calendar.current.startOfDay(for: selectedBeginDate)
             let startOfDay_End = Calendar.current.startOfDay(for: Date())
             try await viewModel.getXBar(
                startingFrom: startOfDay_Start,
@@ -166,8 +165,8 @@ struct ShowAverageLineGraphsView: View {
    @Previewable @State var displayPm100s = true
    
    ShowAverageLineGraphsView(
-      selectedDate: $fourteenDaysAgo,
-      endDate: $endDate,
+      selectedBeginDate: $fourteenDaysAgo,
+      selectedEndDate: $endDate,
       displayAvgTemperature: $displayTemperature,
       displayAvgHumidity: $displayHumidity,
       displayAvgECO2: $displayECO2,
