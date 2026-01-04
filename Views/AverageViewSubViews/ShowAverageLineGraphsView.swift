@@ -140,7 +140,7 @@ struct ShowAverageLineGraphsView: View {
          do {
             isLoading = true
             let startOfDay_Start = Calendar.current.startOfDay(for: selectedBeginDate)
-            let startOfDay_End = Calendar.current.startOfDay(for: Date())
+            let startOfDay_End = Calendar.current.startOfDay(for: selectedEndDate)
             try await viewModel.getXBar(
                startingFrom: startOfDay_Start,
                endingAt: startOfDay_End
