@@ -30,7 +30,7 @@ struct ShowAverageLineGraphsView: View {
          return self.selectedEndDate
       }
    }
-    private var daysDifference: Int {
+   private var daysDifference: Int {
       Calendar.current.dateComponents([.day], from: selectedBeginDate, to: dayBeforeSelectedEndDate).day ?? 0
    }
    
@@ -43,7 +43,7 @@ struct ShowAverageLineGraphsView: View {
                .scaleEffect(2)
          }
          ZStack {
-            if daysDifference > 10 {
+            if daysDifference > 14 {
                Chart {
                   ForEach (viewModel.combinedDailyXBar)  { computation in
                      if displayAvgTemperature {
@@ -139,10 +139,78 @@ struct ShowAverageLineGraphsView: View {
                .chartXVisibleDomain(length: min(viewModel.numberOfDaysRetrieved ?? 140, 140)) // 140 = 20 weeks
                .padding(12)
             } else {
-               Text("Days Difference is \(self.daysDifference)")
-            }
-         }     // ZStack
-      }        // GroupBox
+               Chart {
+                  ForEach (viewModel.combinedDailyXBar)  { computation in
+                     if displayAvgTemperature {
+                        BarMark(
+                           x: .value("timestamp", computation.id),
+                           y: .value("temperature", computation.temperature)
+                        )
+                        .foregroundStyle(Color.green)
+                        .position(by: .value("Position", computation.positionTemperature))
+                     }
+                     if displayAvgHumidity {
+                        BarMark(
+                           x: .value("timestamp", computation.id),
+                           y: .value("humidity", computation.humidity)
+                        )
+                        .foregroundStyle(Color.yellow)
+                        .position(by: .value("Position", computation.positionHumidity))
+                     }
+                     if displayAvgECO2 {
+                        BarMark(
+                           x: .value("timestamp", computation.id),
+                           y: .value("ECO2", computation.eCO2)
+                        )
+                        .foregroundStyle(Color.blue)
+                        .position(by: .value("Position", computation.positionECO2))
+                     }
+                     if displayAvgTVOC {
+                        BarMark(
+                           x: .value("timestamp", computation.id),
+                           y: .value("TVOC", computation.tVOC)
+                        )
+                        .foregroundStyle(Color.red)
+                        .position(by: .value("Position", computation.positionTVOC))
+                     }
+                     if displayAvgPm03um {
+                        BarMark(
+                           x: .value("timestamp", computation.id),
+                           y: .value("PM03um", computation.pm03um)
+                        )
+                        .foregroundStyle(Color.mint)
+                        .position(by: .value("Position", computation.positionPM03))
+                     }
+                     if displayAvgPm100s {
+                        BarMark(
+                           x: .value("timestamp", computation.id),
+                           y: .value("PM100s", computation.pm100s)
+                        )
+                        .foregroundStyle(Color.purple)
+                        .position(by: .value("Position", computation.positionPM10s))
+                     }
+                  } // ForEach
+               }    //Chart
+               .chartLegend(position: .top, alignment: .leading, spacing: 8)
+               .chartForegroundStyleScale([
+                  "temperature": Color.green,
+                  "humidity": Color.yellow,
+                  "CO₂": Color.blue,
+                  "tVOC": Color.red,
+                  "PM 0.3 μm": Color.mint,
+                  "PM 10.0s": Color.purple
+               ])
+               .transition(.opacity)
+               .animation(.linear(duration: 0.6), value: displayAvgTemperature)
+               .animation(.linear(duration: 0.6), value: displayAvgHumidity)
+               .animation(.linear(duration: 0.6), value: displayAvgECO2)
+               .animation(.linear(duration: 0.6), value: displayAvgTVOC)
+               .animation(.linear(duration: 0.6), value: displayAvgPm03um)
+               .animation(.linear(duration: 0.6), value: displayAvgPm100s)
+               .animation(.linear(duration: 0.6), value: viewModel.combinedDailyXBar)
+            }       // else
+         }          // ZStack
+      }             // GroupBox
       .task {
          do {
             isLoading = true

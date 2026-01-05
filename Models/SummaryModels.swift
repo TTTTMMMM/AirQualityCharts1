@@ -61,6 +61,13 @@ struct combinedXBar: Identifiable, Equatable {
    var temperature:  Int
    var pm03um:       Int
    var pm100s:       Int
+   var positionTemperature: Int = 0
+   var positionHumidity:    Int = 1
+   var positionECO2:        Int = 2
+   var positionTVOC:        Int = 3
+   var positionPM03:        Int = 4
+   var positionPM10s:       Int = 5
+
    
    var dateString2: String {
       let dateFormatter = DateFormatter()
