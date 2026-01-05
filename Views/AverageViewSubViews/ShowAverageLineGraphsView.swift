@@ -148,6 +148,11 @@ struct ShowAverageLineGraphsView: View {
                         )
                         .foregroundStyle(Color.green)
                         .position(by: .value("Position", computation.positionTemperature))
+                        .annotation(position: .top) { // Add annotation at the top
+                                        Text(String(format: "%d", computation.temperature))
+                                            .font(.caption)
+                                            .foregroundColor(.green)
+                                    }
                      }
                      if displayAvgHumidity {
                         BarMark(
@@ -156,6 +161,11 @@ struct ShowAverageLineGraphsView: View {
                         )
                         .foregroundStyle(Color.yellow)
                         .position(by: .value("Position", computation.positionHumidity))
+                        .annotation(position: .top) { // Add annotation at the top
+                                        Text(String(format: "%d", computation.humidity))
+                                            .font(.caption)
+                                            .foregroundColor(.yellow)
+                                    }
                      }
                      if displayAvgECO2 {
                         BarMark(
@@ -164,6 +174,11 @@ struct ShowAverageLineGraphsView: View {
                         )
                         .foregroundStyle(Color.blue)
                         .position(by: .value("Position", computation.positionECO2))
+                        .annotation(position: .top) { // Add annotation at the top
+                                        Text(String(format: "%d", computation.eCO2))
+                                            .font(.caption)
+                                            .foregroundColor(.blue)
+                                    }
                      }
                      if displayAvgTVOC {
                         BarMark(
@@ -172,6 +187,11 @@ struct ShowAverageLineGraphsView: View {
                         )
                         .foregroundStyle(Color.red)
                         .position(by: .value("Position", computation.positionTVOC))
+                        .annotation(position: .top) { // Add annotation at the top
+                                        Text(String(format: "%d", computation.tVOC))
+                                            .font(.caption)
+                                            .foregroundColor(.red)
+                                    }
                      }
                      if displayAvgPm03um {
                         BarMark(
@@ -180,6 +200,11 @@ struct ShowAverageLineGraphsView: View {
                         )
                         .foregroundStyle(Color.mint)
                         .position(by: .value("Position", computation.positionPM03))
+                        .annotation(position: .top) { // Add annotation at the top
+                                        Text(String(format: "%d", computation.pm03um))
+                                            .font(.caption)
+                                            .foregroundColor(.mint)
+                                    }
                      }
                      if displayAvgPm100s {
                         BarMark(
@@ -188,6 +213,11 @@ struct ShowAverageLineGraphsView: View {
                         )
                         .foregroundStyle(Color.purple)
                         .position(by: .value("Position", computation.positionPM10s))
+                        .annotation(position: .top) { // Add annotation at the top
+                                        Text(String(format: "%d", computation.pm100s))
+                                            .font(.caption)
+                                            .foregroundColor(.purple)
+                                    }
                      }
                   } // ForEach
                }    //Chart
